@@ -27,7 +27,7 @@ Alice::Application.configure do
   # Mailer
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.smtp_settings = {
     address: ENV["SMTP_SERVER"],
     openssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
@@ -38,4 +38,17 @@ Alice::Application.configure do
     user_name: ENV["SMTP_USER"],
     password: ENV["SMTP_PWD"]
   }
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = false
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    #Bullet.growl = false
+    Bullet.rails_logger = true
+    #Bullet.bugsnag = true
+    #Bullet.airbrake = true
+    Bullet.add_footer = true
+    Bullet.stacktrace_includes = [ 'your_gem', 'your_middleware' ]
+  end
 end
