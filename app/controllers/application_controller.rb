@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :reject_locked!, if: :devise_controller?
-  
+  before_filter :load_studios
 
   # Devise permitted params
   def configure_permitted_parameters
@@ -51,4 +51,7 @@ class ApplicationController < ActionController::Base
   end
   helper_method :require_admin!
   
+  def load_studios
+    @studios = [:walid, :hendrik]
+  end  
 end
