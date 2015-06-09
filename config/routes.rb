@@ -1,4 +1,6 @@
 Alice::Application.routes.draw do
+  resources :ateliers
+
   resources :posts
 
   root "pages#home"    

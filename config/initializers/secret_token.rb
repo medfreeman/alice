@@ -22,4 +22,4 @@ def secure_token
   end
 end
 
-Alice::Application.config.secret_key_base = secure_token
+Alice::Application.config.secret_key_base = ENV['SECRET']

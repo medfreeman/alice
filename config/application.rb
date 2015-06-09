@@ -19,6 +19,7 @@ module Alice
       end if File.exists?(env_file)
     end
     
+
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'Bern'
@@ -28,7 +29,13 @@ module Alice
     # config.i18n.default_locale = :de
     
     # Test framework
-    config.generators.test_framework :rspec
+    config.generators do |g|
+      g.test_framework :rspec, fixture: true
+      g.fixture_replacement :fabrication
+      g.view_specs false
+      g.helper_specs false
+    end
+    
     config.assets.paths << Rails.root.join('bower_components')
     config.assets.precompile += []
 
