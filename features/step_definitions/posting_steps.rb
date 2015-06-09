@@ -3,6 +3,10 @@ Given(/^I am logged in$/) do
   visit new_user_session_path
   fill_in "Email", with: @current_user.email
   fill_in "Password", with: @current_user.password
+  within ".new_user" do 
+    click_on "Sign in"
+  end
+  expect(page).not_to have_content(/sign in/i)
 end
 
 Given(/^I belong to atelier (\w+)$/) do |atelier|

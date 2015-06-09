@@ -57,7 +57,7 @@ end
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
 Capybara.register_driver :selenium do |app|
-  browser = (ENV['BROWSER'] == 'firefox') ? :firefox : :chrome
+  (ENV['BROWSER'] == 'firefox') ? :firefox : :chrome
   Capybara::Selenium::Driver.new(app, browser: browser)
 end
 
@@ -68,4 +68,4 @@ Capybara.register_driver :poltergeist do |app|
 end
 
 Capybara.javascript_driver = ENV['BROWSER'] ? :selenium : :poltergeist
-Capybara.current_driver = :poltergeist
+Capybara.current_driver = ENV['BROWSER'] ? :selenium : :poltergeist
