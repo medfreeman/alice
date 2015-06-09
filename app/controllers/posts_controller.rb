@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_filter :authenticate_user!, except: [:show, :index]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   # GET /posts
@@ -67,6 +68,6 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params[:post].permit(:body)
+      params[:post].permit(:body, :authors).merge(authors: [current_user])
     end
 end

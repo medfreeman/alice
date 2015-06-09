@@ -3,7 +3,7 @@
 
 # Temporary admin account
 u = User.new(
-    email: "admin@example.com",
+    email: "admin@epfl.ch",
     password: "topsecret",
     password_confirmation: "topsecret",
     admin: true
@@ -11,3 +11,4 @@ u = User.new(
 u.skip_confirmation!
 u.save!
 
+Fabricate(:post, author: u)

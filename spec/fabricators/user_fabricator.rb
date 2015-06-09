@@ -1,5 +1,5 @@
 Fabricator(:user) do
-	email "tester@123.com"
+	email "tester@epfl.ch"
 	password "topsecret"
 	password_confirmation "topsecret"
 end
