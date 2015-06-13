@@ -11,14 +11,14 @@ Then(/^I should see the post$/) do
 end
 
 
-Given(/^there is an atelier named (\w+)$/) do |atelier|
-  @atelier = Fabricate(:atelier)
+Given(/^there is an studio named (\w+)$/) do |studio|
+  @studio = Fabricate(:studio)
 end
 
-Given(/^there is a post that belongs to (\w+)$/) do |atelier|
-  Fabricate(:post, atelier: @atelier)
+Given(/^there is a post that belongs to (\w+)$/) do |studio|
+  Fabricate(:post, studio: @studio)
 end
 
-When(/^I visit the atelier (\w+)$/) do |atelier|
-  visit atelier_path(@atelier)
+When(/^I visit the studio (\w+)$/) do |studio|
+  visit studio_path(@studio)
 end

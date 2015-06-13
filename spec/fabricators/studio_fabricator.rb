@@ -1,0 +1,3 @@
+Fabricator(:studio) do 
+	
+end
