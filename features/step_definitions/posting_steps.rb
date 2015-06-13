@@ -19,6 +19,7 @@ When(/^I add a post$/) do
   visit new_post_path
   fill_in :post_body, with: "Some content"
   click_on "Save"
+  @post = Post.last
 end
 
 Then(/^there should be a post$/) do
@@ -26,9 +27,10 @@ Then(/^there should be a post$/) do
   expect(@post).not_to be_nil
 end
 
-Then(/^studio (\w+) should have a post$/) do |studio|
-	@studio ||= Studio.find_by_name(studio)
-  expect(@studio.posts).to include(@post)
+Then(/^studio (\w+) should have a post$/) do |studio_name|
+  binding.pry
+	studio ||= Studio.find_by_name(studio_name.downcase)
+  expect(studio.posts).to include(@post)
 end
 
 Then(/^I should be an author of the post$/) do

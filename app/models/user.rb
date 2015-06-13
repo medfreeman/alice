@@ -1,11 +1,10 @@
 class User < ActiveRecord::Base
-  
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  belongs_to :studio
+  has_many   :participations, foreign_key: :author_id
+  has_many   :posts, through: :participations
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-         
-  # Pagination
   paginates_per 100
   
   # Validations

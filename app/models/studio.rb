@@ -1,5 +1,5 @@
 class Studio < ActiveRecord::Base
-	has_many :users
-	has_many :posts, through: :user
-	
+	belongs_to :director, class_name: 'User'
+	has_many :students, class_name: 'User', foreign_key: :studio_id
+	has_many :posts, through: :students
 end
