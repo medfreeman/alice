@@ -1,2 +1,0 @@
-class AteliersController < ApplicationController
-end

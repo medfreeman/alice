@@ -1,5 +1,5 @@
 Alice::Application.routes.draw do
-  resources :ateliers
+  resources :studios
 
   resources :posts
 

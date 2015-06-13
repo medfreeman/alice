@@ -9,9 +9,9 @@ Given(/^I am logged in$/) do
   expect(page).not_to have_content(/sign in/i)
 end
 
-Given(/^I belong to atelier (\w+)$/) do |atelier|
-	@atelier ||= Atelier.find_by_name(atelier) || Fabricate(:atelier)
-  @current_user.atelier = Atelier.find_by_name(atelier)
+Given(/^I belong to studio (\w+)$/) do |studio|
+	@studio ||= Studio.find_by_name(studio) || Fabricate(:studio)
+  @current_user.studio = Studio.find_by_name(studio)
   @current_user.save!
 end
 
@@ -26,9 +26,9 @@ Then(/^there should be a post$/) do
   expect(@post).not_to be_nil
 end
 
-Then(/^atelier (\w+) should have a post$/) do |atelier|
-	@atelier ||= Atelier.find_by_name(atelier)
-  expect(@atelier.posts).to include(@post)
+Then(/^studio (\w+) should have a post$/) do |studio|
+	@studio ||= Studio.find_by_name(studio)
+  expect(@studio.posts).to include(@post)
 end
 
 Then(/^I should be an author of the post$/) do

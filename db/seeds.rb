@@ -1,6 +1,8 @@
 # Generated with RailsBricks
 # Initial seed file to use with Devise User Model
-
+User.delete_all
+Post.delete_all
+Studio.delete_all
 # Temporary admin account
 u = User.new(
     email: "admin@epfl.ch",
@@ -8,7 +10,6 @@ u = User.new(
     password_confirmation: "topsecret",
     admin: true
 )
-u.skip_confirmation!
 u.save!
 
-Fabricate(:post, author: u)
+Fabricate(:post, authors: [u])
