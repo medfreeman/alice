@@ -10,8 +10,8 @@ Given(/^I am logged in$/) do
 end
 
 Given(/^I belong to studio (\w+)$/) do |studio|
-	@studio ||= Studio.find_by_name(studio) || Fabricate(:studio)
-  @current_user.studio = Studio.find_by_name(studio)
+	@studio ||= Studio.find_by_name(studio.downcase) || Fabricate(:studio, name: studio)
+  @current_user.studio = @studio
   @current_user.save!
 end
 
@@ -28,8 +28,7 @@ Then(/^there should be a post$/) do
 end
 
 Then(/^studio (\w+) should have a post$/) do |studio_name|
-  binding.pry
-	studio ||= Studio.find_by_name(studio_name.downcase)
+	studio = Studio.find(studio_name.downcase)
   expect(studio.posts).to include(@post)
 end
 

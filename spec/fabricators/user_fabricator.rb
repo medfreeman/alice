@@ -1,5 +1,5 @@
 Fabricator(:user) do
-	email "tester@epfl.ch"
+	email {sequence(:email) {|i| "tester_#{i}@epfl.ch"}}
 	password "topsecret"
 	password_confirmation "topsecret"
 end

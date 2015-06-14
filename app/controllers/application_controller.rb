@@ -52,6 +52,6 @@ class ApplicationController < ActionController::Base
   helper_method :require_admin!
   
   def load_studios
-    @studios = [:walid, :hendrik]
+    @studios = Studio.all
   end  
 end
