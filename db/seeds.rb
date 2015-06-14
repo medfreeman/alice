@@ -12,4 +12,9 @@ u = User.new(
 )
 u.save!
 
-Fabricate(:post, authors: [u])
+pellacani = Fabricate(:studio, name: "pellacani")
+2.times do 
+	pellacani.students << Fabricate(:user)
+end
+
+Fabricate(:post, authors: [pellacani.students.first])

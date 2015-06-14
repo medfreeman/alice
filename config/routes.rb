@@ -1,7 +1,8 @@
 Alice::Application.routes.draw do
-  resources :studios
-
-  resources :posts
+  resources :studios do 
+    resources :posts, only: [:show, :index]
+  end
+  resources :posts, except: [:show, :index]
 
   root "pages#home"    
   get "home", to: "pages#home", as: "home"
@@ -13,6 +14,7 @@ Alice::Application.routes.draw do
   namespace :admin do
     root "base#index"
     resources :users
+
   end
   
 end
