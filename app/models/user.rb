@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  enum role: [:student, :director, :admin]
+
   paginates_per 100
   
   # Validations
