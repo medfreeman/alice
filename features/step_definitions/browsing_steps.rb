@@ -1,5 +1,4 @@
 Given(/^there is a post$/) do
-  puts "users: #{User.all.map(&:email).inspect}"
   @studio ||= Fabricate(:studio)
   @studio_students ||= [Fabricate(:user, studio: @studio)]
   @post = Fabricate(:post, authors: @studio_students)

@@ -14,7 +14,7 @@ development:
 # Do not set this db to the same as development or production.
 test: &test
   adapter: postgresql
-  #database: db/test.sqlite3
+  #database: test
   pool: 5
   timeout: 5000
 

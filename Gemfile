@@ -55,6 +55,7 @@ group :development, :test do
 end
 
 group :test do
+  #gem 'selenium-webdriver'
 	gem 'rspec-html-matchers'
   gem 'capybara', '2.4.1'
   gem 'cucumber-rails', :require=>false

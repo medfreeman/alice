@@ -2,10 +2,12 @@ class User < ActiveRecord::Base
   belongs_to :studio
   has_many   :participations, foreign_key: :author_id
   has_many   :posts, through: :participations
+  
+  scope :unassigned, ->{ where(studio_id: nil)}
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  enum role: [:student, :director, :admin]
+  enum role: [:student, :director]
 
   paginates_per 100
   

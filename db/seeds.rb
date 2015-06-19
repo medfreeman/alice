@@ -12,9 +12,11 @@ u = User.new(
 )
 u.save!
 
-pellacani = Fabricate(:studio, name: "pellacani")
-2.times do 
-	pellacani.students << Fabricate(:user)
-end
+d = Fabricate(:user, role: :director, email: "director@epfl.ch")
+pellacani = Fabricate(:studio, name: "pellacani", director: d)
+pellacani.students << Fabricate(:user, email: "walid@epfl.ch")
 
+5.times do |i|
+	Fabricate(:user, email: "real_email_#{i}@epfl.ch")
+end
 Fabricate(:post, authors: [pellacani.students.first])

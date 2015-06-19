@@ -1,0 +1,12 @@
+= form_for(@studio) do |f|
+  - if @studio.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@studio.errors.count, "error")} prohibited this studio from being saved:"
+      %ul
+        - @studio.errors.full_messages.each do |msg|
+          %li= msg
+  = f.label :name
+  = f.text_field :name
+
+  .actions
+    = f.submit 'Save'
