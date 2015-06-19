@@ -13,7 +13,7 @@
       .container
         .left-col
           - @studios.each do |s|
-            = link_to s.name, studio_posts_path(s)
+            = link_to s.name, studio_path(s)
         .row
           .col-sm-6.col-sm-offset-3.text-center
             = render 'layouts/messages'

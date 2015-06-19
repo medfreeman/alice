@@ -1,0 +1,10 @@
+%div= post.body
+%div
+  - post.authors.each do |author|
+    = author.email
+%div= link_to 'Show', post
+- if can_edit_post? post
+  %div= link_to 'Edit', edit_post_path(post)
+  %div= link_to 'Destroy', post, :method => :delete, :data => { :confirm => 'Are you sure?' }
+- if can_feature_post? post
+  %div= link_to post.featured? ? 'Unfeature' : 'Feature', post_feature_path(post, featured: !post.featured?), method: :post

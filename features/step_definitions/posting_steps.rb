@@ -35,3 +35,36 @@ end
 Then(/^I should be an author of the post$/) do
   expect(@post.authors).to include(@current_user)
 end
+
+Given(/^I have a studio with (\d+) student(?:s)$/) do |students|
+  @studio = Fabricate(:studio)
+  students.to_i.times do 
+    @studio.students << Fabricate(:user)
+  end
+  @students = @studio.students
+  @user.studio = @studio
+  @user.save!
+end
+
+Given(/^there are posts in my studio$/) do
+  @students.first.posts << Fabricate(:post)
+end
+
+Then(/^there should be no post on the front page$/) do
+  visit root_path
+  expect(all('.post')).to be_empty
+end
+
+When(/^I feature a post$/) do
+  @post ||= Post.first
+  expect(@post).not_to be_featured
+  visit studio_post_path(@studio, @post)
+  expect(page).to have_content('Feature')
+  click_on 'Feature'
+  expect(@post.reload).to be_featured
+end
+
+Then(/^it should be in the front page$/) do
+  visit root_path
+  expect(page).to have_content(@post.body)
+end

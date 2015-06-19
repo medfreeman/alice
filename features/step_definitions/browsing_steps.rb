@@ -5,7 +5,7 @@ Given(/^there is a post$/) do
 end
 
 When(/^I visit the post$/) do
-  visit studio_post_path(@studio, @post)
+  visit studio_path(studio_id: @studio, id: @post)
 end
 
 Then(/^I should see the post$/) do
@@ -31,5 +31,5 @@ end
 
 When(/^I visit the posts from (\w+)$/) do |studio|
   studio = Studio.find_by_name(studio.downcase)
-  visit studio_posts_path(@studio)
+  visit studio_path(@studio)
 end

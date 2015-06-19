@@ -1,10 +1,14 @@
 class PostsController < ApplicationController
   before_filter :authenticate_user!, except: [:show, :index]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :feature]
   before_filter :set_studio, only: [:show, :index]
 
   def index
-    @posts = @studio.posts
+    if @studio.nil?
+      @posts = Post.featured
+    else
+      @posts = @studio.posts
+    end
   end
 
   def show
@@ -16,6 +20,16 @@ class PostsController < ApplicationController
 
   def edit
   end
+
+  def feature
+    if current_user.can_feature_post? @post
+      @post.featured = params[:featured]
+      @post.save!
+      redirect_to request.referrer, notice: "The post has been featured"
+    else
+      redirect_to request.referrer, alert: "You do not have permission to feature this post"
+    end
+  end 
 
   # POST /posts
   # POST /posts.json
@@ -63,7 +77,9 @@ class PostsController < ApplicationController
     end
 
     def set_studio
-      @studio = Studio.find_by_name(params[:studio_id])
+      if params[:studio_id].present? 
+        @studio = Studio.find(params[:studio_id])
+      end
     end
 
     def post_params

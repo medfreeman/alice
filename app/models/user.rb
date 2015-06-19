@@ -41,4 +41,16 @@ class User < ActiveRecord::Base
   def self.users_count
     where("admin = ? AND locked = ?",false,false).count
   end
+
+  ################ Permissions #################
+  
+  def can_feature_post? post
+    post.studio.director == self || self.admin?
+  end
+
+  def can_edit_post? post
+    post.authors.include?(self)
+  end
+
+  ##############################################
 end
