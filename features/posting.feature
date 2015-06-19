@@ -8,6 +8,8 @@ Feature:
 		And the studio has a student named walid
 		When I add a post
 		Then there should be a post
+		When I visit the posts from Pellacani
+		Then I should see the post
 		And I should be an author of the post
 
 	Scenario: Director features a post

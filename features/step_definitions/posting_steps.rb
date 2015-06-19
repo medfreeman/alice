@@ -22,7 +22,8 @@ end
 
 When(/^I add a post$/) do
   visit new_post_path
-  fill_in :post_body, with: "Some content"
+  @post = Post.new(body: "Some content")
+  fill_in :post_body, with: @post.body
   check 'walid'
   click_on "Save"
   @post = Post.last
@@ -53,7 +54,7 @@ Given(/^I have a studio with (\d+) student(?:s)$/) do |students|
 end
 
 Given(/^there are posts in my studio$/) do
-  @students.first.posts << Fabricate(:post)
+  @studio.posts << Fabricate(:post, authors: @studio.students)
 end
 
 Then(/^there should be no post on the front page$/) do

@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   end
 
   def can_edit_post? post
-    post.authors.include?(self)
+    post.nil? || post.authors.include?(self)
   end
 
   ##############################################

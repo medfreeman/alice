@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
   before_filter :authenticate_user!, except: [:show, :index]
-  before_filter :check_studio, only: [:new, :edit, :create]
-  before_filter :prepare_form, only: [:new, :edit]
   before_action :set_post, only: [:show, :edit, :update, :destroy, :feature]
   before_filter :set_studio, only: [:show, :index]
+  before_filter :check_permission, only: [:new, :edit, :create]
+  before_filter :prepare_form, only: [:new, :edit]
 
   def index
     if @studio.nil?
@@ -81,8 +81,10 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
 
-    def check_studio
-      redirect_to root_path, alert: "You must be assigned to a studio to write a new post" if current_user.studio.nil?
+    def check_permission
+      if current_user.studio.nil? || !current_user.can_edit_post?(@post)
+        redirect_to root_path, alert: "You must be assigned to a studio to write a new post" 
+      end
     end
 
     def set_studio
@@ -98,7 +100,7 @@ class PostsController < ApplicationController
         _params[:authors][i] = User.find(author.to_i)
       end
       _params[:authors] << current_user
-      _params
+      _params.merge(studio: current_user.studio)
     end
 
     def prepare_form
