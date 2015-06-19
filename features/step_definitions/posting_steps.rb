@@ -15,9 +15,15 @@ Given(/^I belong to studio (\w+)$/) do |studio|
   @current_user.save!
 end
 
+Given(/^the studio has a student named (\w+)$/) do |student|
+  @studio.students << Fabricate(:user, name: student)
+
+end
+
 When(/^I add a post$/) do
   visit new_post_path
   fill_in :post_body, with: "Some content"
+  check 'walid'
   click_on "Save"
   @post = Post.last
 end

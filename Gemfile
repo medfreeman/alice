@@ -14,9 +14,12 @@ gem 'rest-client'
 gem 'devise', '3.3.0'
 gem 'friendly_id', '5.0.4'
 
+gem 'best_in_place'
+
 gem 'font-awesome-sass', '4.2.0'
 gem 'bootstrap-sass', '3.2.0.2'
 gem "autoprefixer-rails"
+
 
 gem 'pg'
 gem "paperclip"
@@ -55,7 +58,7 @@ group :development, :test do
 end
 
 group :test do
-  #gem 'selenium-webdriver'
+  gem 'selenium-webdriver'
 	gem 'rspec-html-matchers'
   gem 'capybara', '2.4.1'
   gem 'cucumber-rails', :require=>false

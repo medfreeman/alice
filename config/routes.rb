@@ -1,5 +1,9 @@
 Alice::Application.routes.draw do
-  resources :studios, only: [:new, :edit, :create]
+  resources :studios, only: [:new, :edit, :create] do 
+    resources :students do 
+      resources :posts, only: [:index]
+    end
+  end
   resources :posts, except: [:show, :index]
 
   post 'posts/:id/feature' => 'posts#feature', as: :post_feature

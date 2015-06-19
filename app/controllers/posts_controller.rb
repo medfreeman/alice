@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   before_filter :authenticate_user!, except: [:show, :index]
+  before_filter :check_studio, only: [:new, :edit, :create]
+  before_filter :prepare_form, only: [:new, :edit]
   before_action :set_post, only: [:show, :edit, :update, :destroy, :feature]
   before_filter :set_studio, only: [:show, :index]
 
@@ -40,7 +42,10 @@ class PostsController < ApplicationController
         format.html { redirect_to studio_post_path(@post.studio, @post), notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
-        format.html { render :new }
+        format.html { 
+          prepare_form
+          render :new 
+        }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
@@ -51,7 +56,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+        format.html { redirect_to studio_post_path(@post.studio, @post), notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }
@@ -76,6 +81,10 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
 
+    def check_studio
+      redirect_to root_path, alert: "You must be assigned to a studio to write a new post" if current_user.studio.nil?
+    end
+
     def set_studio
       if params[:studio_id].present? 
         @studio = Studio.find(params[:studio_id])
@@ -83,6 +92,16 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params[:post].permit(:body, :authors).merge(authors: [current_user])
+      _params = params.require(:post).permit(:body, authors: [])
+      _params[:authors].delete("")
+      _params[:authors].each_with_index do |author, i|
+        _params[:authors][i] = User.find(author.to_i)
+      end
+      _params[:authors] << current_user
+      _params
+    end
+
+    def prepare_form
+      @students = current_user.studio.students.select{|u| u != current_user}
     end
 end

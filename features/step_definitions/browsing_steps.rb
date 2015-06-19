@@ -10,7 +10,7 @@ end
 
 Then(/^I should see the post$/) do
   expect(page).to have_content(@post.body)
-  expect(page).to have_content(@post.authors.first.email)
+  expect(page).to have_content(@post.authors.first.name)
 end
 
 

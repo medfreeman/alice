@@ -5,7 +5,12 @@
       %ul
         - @post.errors.full_messages.each do |msg|
           %li= msg
-  = f.label :body
-  = f.text_field :body
+  .form-group
+    = f.label :body
+    = f.text_field :body
+  .form-group
+    = f.label :authors
+    = f.collection_check_boxes :authors, @students, :id, :name, {checked: @post.authors.map(&:id)}
+
   .actions
     = f.submit 'Save'

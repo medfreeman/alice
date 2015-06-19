@@ -1,7 +1,8 @@
 %div= post.body
-%div
+
+%ul
   - post.authors.each do |author|
-    = author.email
+    %li= author.name
 %div= link_to 'Show', post
 - if can_edit_post? post
   %div= link_to 'Edit', edit_post_path(post)

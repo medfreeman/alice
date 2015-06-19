@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
 	has_many :authors, through: :participations, class_name: "User"	
 
 	scope :featured, ->{where(featured: true)}
-	
+	accepts_nested_attributes_for(:participations)	
 	validates_presence_of :body
 
 	def studio

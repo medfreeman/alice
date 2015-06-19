@@ -5,11 +5,11 @@ Feature:
 	Scenario: I add a post
 		Given I am logged in
 		And I belong to studio Pellacani
+		And the studio has a student named walid
 		When I add a post
 		Then there should be a post
 		And I should be an author of the post
 
-	@wip
 	Scenario: Director features a post
 		Given I am logged in as a director
 		And I have a studio with 2 students
