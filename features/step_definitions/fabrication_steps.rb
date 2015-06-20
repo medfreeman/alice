@@ -16,11 +16,11 @@ Given /^(\d+) ([^"]*)$/ do |count, model_name|
   end
 end
 
-Given /^the following ([^"]*):$/ do |model_name, table|
-  with_ivars Fabrication::Cucumber::StepFabricator.new(model_name) do |fab|
-    fab.from_table(table)
-  end
-end
+# Given /^the following ([^"]*):$/ do |model_name, table|
+#   with_ivars Fabrication::Cucumber::StepFabricator.new(model_name) do |fab|
+#     fab.from_table(table)
+#   end
+# end
 
 Given /^that ([^"]*) has the following ([^"]*):$/ do |parent, child, table|
   with_ivars Fabrication::Cucumber::StepFabricator.new(child, :parent => parent) do |fab|

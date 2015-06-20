@@ -75,3 +75,33 @@ Then(/^it should be in the front page$/) do
   visit root_path
   expect(page).to have_content(@post.body)
 end
+
+Given(/^the following students:$/) do |table|
+  table.hashes.each do |row|
+    studio = Studio.find_by_name(row['studio']) || Fabricate(:studio, name: row['studio'])
+    studio.students << Fabricate(:user, name: row['name'])
+  end
+end
+
+Given(/^the following posts:$/) do |table|
+  table.hashes.each do |row|
+    user = User.find(row['authors'])
+    user.posts << Fabricate(:post, body: row['post_body'], studio: user.studio)
+  end
+end
+
+When(/^I visit student (\w+)$/) do |student|
+  user = User.find(student)
+  visit studio_student_path(user.studio, user)
+end
+
+Then(/^I should see the following posts$/) do |table|
+  table.hashes.each do |row|
+    if row['visible'] == 'true'
+      expect(page).to have_content(row['post_body'])
+    else
+      expect(page).not_to have_content(row['post_body'])
+    end
+  end
+
+end

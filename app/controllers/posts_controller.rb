@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
-  before_filter :authenticate_user!, except: [:show, :index]
+  before_filter :authenticate_user!, only: [:create, :edit, :new]
   before_action :set_post, only: [:show, :edit, :update, :destroy, :feature]
-  before_filter :set_studio, only: [:show, :index]
+  before_filter :set_studio, only: [:show, :index, :student_posts]
   before_filter :check_permission, only: [:new, :edit, :create]
   before_filter :prepare_form, only: [:new, :edit]
 
@@ -21,6 +21,11 @@ class PostsController < ApplicationController
   end
 
   def edit
+  end
+
+  def student_posts
+    @student = User.includes(:posts).find(params[:id])
+    @posts   = @student.posts
   end
 
   def feature

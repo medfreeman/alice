@@ -5,5 +5,5 @@ class Post < ActiveRecord::Base
 
 	scope :featured, ->{where(featured: true)}
 	accepts_nested_attributes_for(:participations)	
-	validates_presence_of :body
+	validates_presence_of :body, :studio
 end

@@ -19,3 +19,21 @@ Feature:
 		Then there should be no post on the front page
 		When I feature a post
 		Then it should be in the front page
+
+	@wip
+	Scenario: User has posts
+		Given the following students:
+			| name    | studio    |
+			| walid   | pellacani |
+			| ahmed   | pellacani |
+		And the following posts:
+			| authors | post_body |
+			| walid   | walid 1   |
+			| walid   | walid 2   |
+			| ahmed   | ahmed 3   |
+		When I visit student walid
+		Then I should see the following posts
+			| visible | post_body |
+			| true    | walid 1   |
+			| true    | walid 2   |
+			| false   | ahmed 3   |
