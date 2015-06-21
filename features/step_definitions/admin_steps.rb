@@ -48,5 +48,27 @@ Then(/^there should be all users from the csv$/) do
     user = User.find_by_email(row['email'])
     expect(user.studio.name).to eq(row['studio']) unless user.studio.nil?
     expect(user.role).to eq(role)
+Given(/^the following users:$/) do |table|
+  table.hashes.each do |row|
+    name = row['name']
+      Fabricate(:user, name: name, email: "#{name}@epfl.ch")
+  end
+end
+
+When(/^I assign the users as:$/) do |table|
+  visit assign_users_path
+  table.hashes.each do |row|
+    name = row[:name]
+    within(".#{name}") do 
+      select(row['role'], from: '.roles')
+    end
+  end
+end
+
+Then(/^the users should be the following:$/) do |table|
+  table.hashes.each do |row|
+    user = User.find(row['name'])
+    expect(user.studio.name).to eq(row['studio'])
+    expect(user.role).to eq(row['role'].to_sym)
   end
 end

@@ -6,7 +6,7 @@ Alice::Application.routes.draw do
     end
   end
   resources :posts, except: [:show, :index]
-
+  resources :users, only: [:index, :update]
   post 'posts/:id/feature' => 'posts#feature', as: :post_feature
 
   get "studios/(:studio_id)" => "posts#index", as: :studio
