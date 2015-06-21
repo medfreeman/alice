@@ -54,7 +54,7 @@ Given(/^I have a studio with (\d+) student(?:s)$/) do |students|
 end
 
 Given(/^there are posts in my studio$/) do
-  @studio.posts << Fabricate(:post, authors: @studio.students)
+  Fabricate(:post, authors: @studio.students, studio: @studio)
 end
 
 Then(/^there should be no post on the front page$/) do

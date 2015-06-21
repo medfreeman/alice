@@ -1,7 +1,7 @@
 Given(/^there is a post$/) do
   @studio ||= Fabricate(:studio)
   @studio_students ||= [Fabricate(:user, studio: @studio)]
-  @post = Fabricate(:post, authors: @studio_students)
+  @post = Fabricate(:post, authors: @studio_students, studio: @studio)
   @studio.posts << @post
 end
 
@@ -27,8 +27,7 @@ Given(/^the studio has (\d+) student$/) do |student_count|
 end
 
 Given(/^there is a post that belongs to (\w+)$/) do |studio|
-  @post = Fabricate(:post, authors: @studio_students)
-  @studio.posts << @post
+  @post = Fabricate(:post, authors: @studio_students, studio: @studio)
 end
 
 When(/^I visit the posts from (\w+)$/) do |studio|

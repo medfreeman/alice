@@ -4,4 +4,5 @@ Fabricator(:user) do
 	password "topsecret"
 	password_confirmation "topsecret"
 	role :student
+	confirmed_at 2.days.ago
 end

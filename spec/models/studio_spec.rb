@@ -22,7 +22,7 @@ RSpec.describe Studio, :type => :model do
   	it "has posts" do 
 	  	posts = []
 	  	2.times do 
-	  		posts << Fabricate(:post, authors: [student])
+	  		posts << Fabricate(:post, authors: [student], studio: studio)
 	  	end
 	  	expect(studio.posts).to eq(posts)
 	  end
