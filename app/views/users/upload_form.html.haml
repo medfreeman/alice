@@ -1,0 +1,15 @@
+%p
+	CSV should contain the following columns, named exactly as follows(order is not important):
+	%ul
+		%li SCIPER
+		%li name
+		%li email
+		%li role
+		%li studio(may be left empty)
+%p 
+	If the studio does not exist, it will be automatically created. If the user already exists, 
+	%em it will be updated to the values in the csv!
+
+= form_tag users_upload_post_path(), multipart: true do
+	= file_field_tag :users_csv
+	= submit_tag "Submit"

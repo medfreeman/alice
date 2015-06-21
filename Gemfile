@@ -20,6 +20,7 @@ gem 'font-awesome-sass', '4.2.0'
 gem 'bootstrap-sass', '3.2.0.2'
 gem "autoprefixer-rails"
 
+#gem 'csv'
 
 gem 'pg'
 gem "paperclip"

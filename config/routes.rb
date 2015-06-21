@@ -1,4 +1,5 @@
 Alice::Application.routes.draw do
+
   resources :studios, only: [:new, :edit, :create] do 
     resources :students, only: [:index] do 
       resources :posts, only: [:index]
@@ -19,6 +20,8 @@ Alice::Application.routes.draw do
   
 
   devise_for :users
+  get "users/upload" => 'users#upload_form', as: :users_upload
+  post "users/upload" => 'users#upload_post', as: :users_upload_post
   
   namespace :admin do
     root "base#index"
