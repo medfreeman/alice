@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
     authenticate_user!
     
     if current_user && !current_user.admin?
-      redirect_to root_path
+      redirect_to root_path, alert: "You must be admin to access this page"
     end
   end
   helper_method :require_admin!
