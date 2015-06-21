@@ -19,7 +19,12 @@ Alice::Application.routes.draw do
   get "inside", to: "pages#inside", as: "inside"
   
 
-  devise_for :users
+  devise_for :users, :controllers => {:confirmations => 'confirmations'}
+
+  devise_scope :user do
+    put "/confirm" => "confirmations#confirm"
+  end
+  
   get "users/upload" => 'users#upload_form', as: :users_upload
   post "users/upload" => 'users#upload_post', as: :users_upload_post
   
