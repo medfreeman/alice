@@ -19,13 +19,14 @@ gem 'best_in_place'
 gem 'font-awesome-sass', '4.2.0'
 gem 'bootstrap-sass', '3.2.0.2'
 gem "autoprefixer-rails"
+gem 'react-rails', '~> 1.0'
 
-#gem 'csv'
 
 gem 'pg'
 gem "paperclip"
 gem 'kaminari', '0.16.1'
 gem 'colorbox-rails'
+
 
 group :development do 
   gem 'better_errors'

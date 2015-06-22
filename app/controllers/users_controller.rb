@@ -1,5 +1,19 @@
 class UsersController < ApplicationController
-	before_filter :require_admin!
+	#before_filter :require_admin!, except: :index
+  
+  def index
+  	@users = User.all
+  end
+
+  def create
+  	@user = User.new(permitted_params)
+  	if @user.save
+  		render json: @user
+  	else
+  		render json: @user.errors, status: :unprocessable_entity
+  	end
+  end
+
   def upload_form
   end
 
@@ -20,5 +34,10 @@ class UsersController < ApplicationController
 			end
   	end
   	redirect_to root_path
+  end
+
+  private
+  def permitted_params
+  	params.require(:user).permit(:name, :email, :sciper, :studio, :role)
   end
 end

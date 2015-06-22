@@ -20,13 +20,13 @@ Alice::Application.routes.draw do
   
 
   devise_for :users, :controllers => {:confirmations => 'confirmations'}
-
   devise_scope :user do
     put "/confirm" => "confirmations#confirm"
   end
   
   get "users/upload" => 'users#upload_form', as: :users_upload
   post "users/upload" => 'users#upload_post', as: :users_upload_post
+  post "users/create" => 'users#create', as: :users_create
   
   namespace :admin do
     root "base#index"
