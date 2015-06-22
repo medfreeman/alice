@@ -45,6 +45,16 @@ class User < ActiveRecord::Base
     where("admin = ? AND locked = ?",false,false).count
   end
 
+  def serialize
+    {
+      id:     self.id,
+      name:   self.name,
+      email:  self.email,
+      sciper: self.sciper,
+      role:   self.role,
+      studio: self.studio.nil? ? nil : self.studio.name
+    }
+  end
   ################ Permissions #################
   
   def can_feature_post? post

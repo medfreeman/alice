@@ -2,13 +2,14 @@ class UsersController < ApplicationController
 	#before_filter :require_admin!, except: :index
   
   def index
-  	@users = User.all
+  	@users = User.includes(:studio).all
+    @users_data = @users.map(&:serialize)
   end
 
   def create
   	@user = User.new(permitted_params)
   	if @user.save
-  		render json: @user
+  		render json: @user.serialize
   	else
   		render json: @user.errors, status: :unprocessable_entity
   	end

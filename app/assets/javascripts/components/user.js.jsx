@@ -9,13 +9,14 @@ var User = React.createClass({
 
   render: function() {
     return (
-      <tr>
-        <td>{this.props.user.sciper}</td>
-        <td>{this.props.user.name}</td>
-        <td>{this.props.user.email}</td>
-        <td>{this.props.user.role}</td>
-        <td>{this.props.user.studio}</td>
-      </tr>
+      <Reactable.Tr className="test" data={this.props.user}>
+        {this.props.user}
+        <Reactable.Td column="Actions">
+          <button className="btn btn-primary" onClick={handleDelete}>
+            Delete
+          </button>
+        </Reactable.Td>
+      </Reactable.Tr>
     );
   }
 });
