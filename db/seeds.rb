@@ -11,6 +11,7 @@ u = User.new(
     password_confirmation: "topsecret",
     admin: true
 )
+u.skip_confirmation!
 u.save!
 
 d = Fabricate(:user, role: :director, name: 'director', email: "director@epfl.ch")
