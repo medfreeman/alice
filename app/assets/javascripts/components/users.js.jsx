@@ -52,7 +52,7 @@ Users = React.createClass({
 					<Selectar name='role' value={user.role} options={that.state.roles} handleChange={that.handleChange}/>
 				</Reactable.Td>
 				<Reactable.Td column="studio_">
-					<Selectar name='studio' value={user.role} options={that.state.studios.map(function(s){return [s.id, s.name];})} handleChange={that.handleChange}/>
+					<Selectar name='studio_id' value={user.studio ? user.studio.id : null} allowEmpty options={that.state.studios.map(function(s){return [s.id, s.name];})} handleChange={that.handleChange}/>
 				</Reactable.Td>
 				<Reactable.Td column="Actions">
 					<button className="btn btn-xs btn-danger" handleClick={this.handleDelete}>

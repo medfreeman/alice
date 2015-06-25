@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
       email:  self.email,
       sciper: self.sciper,
       role:   self.role,
-      studio: self.studio.nil? ? nil : self.studio.name
+      studio: self.studio.nil? ? nil : self.studio
     }
   end
   ################ Permissions #################
