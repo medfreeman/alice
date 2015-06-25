@@ -38,6 +38,7 @@ module Alice
     end
     
     config.assets.paths << Rails.root.join('bower_components')
+    config.assets.paths << Rails.root.join('node_modules')
     config.assets.precompile += []
 
     config.paperclip_defaults = {

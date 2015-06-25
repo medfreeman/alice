@@ -13,29 +13,7 @@ Users = React.createClass({
 			users: []
 		};
 	},
-	handleChange: function(e, property, value){
-		var that = this;
-		var userId = $(e.target).parents('.user').data('user-id');
-		var user = _.find(this.state.users, function(user){
-			return user.id == userId;
-		});
-		var data = {
-			user: {}
-		};
-		data.user[property] = value;
-		var success = function(res){
-      var index = that.state.users.indexOf(user);
-
-      var users_ = React.addons.update(that.state.users, { $splice: [[index, 1, res.user]] });
-      that.setState({users: users_});
-		};
-		$.ajax({
-			url: '/users/'+user.id,
-			method: 'PATCH',
-			data: data, 
-			success: success
-		});
-	},
+	
 	addUser: function(user){
 		var users = this.state.users.slice();
 		users.push(user);
@@ -46,10 +24,36 @@ Users = React.createClass({
 
 	userTr: function(user){
 		var that = this;
+		var updateUser = function(property){
+			var userId = user.id;
+			return function(value){
+				var user = _.find(that.state.users, function(user_){
+					return user_.id == userId;
+				});
+				var data = {
+					user: {}
+				};
+				data.user[property] = value;
+				var success = function(res){
+		      var index = that.state.users.indexOf(user);
+
+		      var users_ = React.addons.update(that.state.users, { $splice: [[index, 1, res.user]] });
+		      that.setState({users: users_});
+				};
+				$.ajax({
+					url: '/users/'+userId,
+					method: 'PATCH',
+					data: data, 
+					success: success
+				});
+			}
+		};
 		return (
 			<Reactable.Tr className={"user " + user.role} key={user.id} data={user} data-user-id={user.id} column={['name', 'email']}>
 				<Reactable.Td column="role_">
-					<Selectar name='role' value={user.role} options={that.state.roles} handleChange={that.handleChange}/>
+					<Select name='role' value={user.role} options={that.state.roles.map(function(role){
+						return {value: role, label: role};
+					})} onChange={updateUser('role')}/>
 				</Reactable.Td>
 				<Reactable.Td column="studio_">
 					<Selectar name='studio_id' value={user.studio ? user.studio.id : null} allowEmpty options={that.state.studios.map(function(s){return [s.id, s.name];})} handleChange={that.handleChange}/>

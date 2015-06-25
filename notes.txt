@@ -1,0 +1,2 @@
+ - should directors be allowed to edit all users? easier if yes.
+ - what is the purpose of 'pinned' again?
