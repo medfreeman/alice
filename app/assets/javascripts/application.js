@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require react
 //= require react_ujs
+//= require underscore/underscore-min
 //= require components
 //= require bootstrap
 //= require_tree .

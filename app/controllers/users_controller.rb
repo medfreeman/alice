@@ -4,6 +4,13 @@ class UsersController < ApplicationController
   def index
   	@users = User.includes(:studio).all
     @users_data = @users.map(&:serialize)
+    @roles = User.roles.keys
+  end
+
+  def update
+    @user = User.find(params[:id])
+    @user.update(permitted_params)
+    render json: {user:@user.serialize}
   end
 
   def create

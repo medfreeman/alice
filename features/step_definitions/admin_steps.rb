@@ -48,10 +48,13 @@ Then(/^there should be all users from the csv$/) do
     user = User.find_by_email(row['email'])
     expect(user.studio.name).to eq(row['studio']) unless user.studio.nil?
     expect(user.role).to eq(role)
+  end
+end
+
 Given(/^the following users:$/) do |table|
   table.hashes.each do |row|
     name = row['name']
-      Fabricate(:user, name: name, email: "#{name}@epfl.ch")
+    Fabricate(:user, name: name, email: "#{name}@epfl.ch")
   end
 end
 

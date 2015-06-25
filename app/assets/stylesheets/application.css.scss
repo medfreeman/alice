@@ -4,3 +4,23 @@
  *= require_self
  */
 @import "framework_and_overrides";
+
+tr.director{
+	background-color: transparentize(blue, 0.9);
+}
+
+.users-table{
+	select{
+	  -webkit-appearance: none;
+  	border: 0;
+  	padding: 0 24px 0 8px;
+  	box-shadow: none;
+  	width: 100%;
+  	max-width: 100%;
+  	background: transparent;
+  	&:hover{
+  		padding: 0 0 0 0 ;
+  		-webkit-appearance: menulist;
+  	}
+	}
+}
