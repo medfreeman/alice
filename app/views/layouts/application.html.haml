@@ -11,13 +11,18 @@
     #wrap
       %header= render 'layouts/navigation'
       .container
-        .left-col
-          - @studios.each do |s|
-            = link_to s.name, studio_path(s)
         .row
           .col-sm-6.col-sm-offset-3.text-center
             = render 'layouts/messages'
         .row
-          .col-sm-12
+          %ul.col-xs-12.col-sm-3
+            - @studios.each do |studio|
+              %li{class: studio == @studio ? 'active' : nil}
+                = link_to studio.name, studio_path(studio)
+                - if studio == @studio && !@students.nil? && !@students.empty?
+                  %ul
+                    - @students.each do |student|
+                      %li{class: student == @student ? 'active' : nil}= link_to(student.name, student_posts_path(studio, student))
+          .col-xs-12.col-sm-9
             = yield
     = render 'layouts/footer'

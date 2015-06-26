@@ -10,7 +10,7 @@ Alice::Application.routes.draw do
 
   get "studios/:studio_id" => "posts#index", as: :studio
   get "studios/:studio_id/posts/:id" => "posts#show", as: :studio_post
-  get "studios/:studio_id/:id" => "posts#student_posts", as: :studio_student
+  get "studios/:studio_id/:id" => "posts#student_posts", as: :student_posts
 
   root "posts#index"
 

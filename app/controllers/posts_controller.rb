@@ -10,6 +10,7 @@ class PostsController < ApplicationController
       @posts = Post.featured
     else
       @posts = @studio.posts
+      @students = @studio.students
     end
   end
 
@@ -25,9 +26,11 @@ class PostsController < ApplicationController
 
   def student_posts
     @student = User.includes(:posts).find(params[:id])
+    @students = @studio.students
     @posts   = @student.posts
   end
 
+  # POST feature
   def feature
     if current_user.can_feature_post? @post
       @post.featured = params[:featured]
