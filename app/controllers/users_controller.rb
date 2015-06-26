@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 	before_filter :require_director!
   before_filter :set_user, only: [:destroy, :update]
   def index
-  	@users = User.includes(:studio).all
+  	@users = User.includes(:studio).where.not(id: current_user.id)
     @users_data = @users.map(&:serialize)
     @roles = User.roles.keys
   end

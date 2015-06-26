@@ -1,8 +1,8 @@
 var Table = Reactable.Table;
-
-Users = React.createClass({
+var Users = React.createClass({
 	getInitialState: function(){
 			return {
+				currentUser: this.props.current_user,
 				users: this.props.users,
 				roles: this.props.roles,
 				studios: this.props.studios,
@@ -53,6 +53,20 @@ Users = React.createClass({
 		var deleteUser = function(){
 			that.deleteUser(user);
 		};
+		var ajaxUpdateUser = function(userId, data){
+			var success = function(res){
+	      var index = that.state.users.indexOf(user);
+
+	      var users_ = React.addons.update(that.state.users, { $splice: [[index, 1, res.user]] });
+	      that.setState({users: users_});
+			};
+			$.ajax({
+				url: '/admin/users/'+userId,
+				method: 'PATCH',
+				data: data, 
+				success: success
+			});
+		};
 		var updateUser = function(property){
 			var userId = user.id;
 			return function(value){
@@ -63,22 +77,65 @@ Users = React.createClass({
 					user: {}
 				};
 				data.user[property] = value;
-				var success = function(res){
-		      var index = that.state.users.indexOf(user);
-
-		      var users_ = React.addons.update(that.state.users, { $splice: [[index, 1, res.user]] });
-		      that.setState({users: users_});
-				};
-				$.ajax({
-					url: '/admin/users/'+userId,
-					method: 'PATCH',
-					data: data, 
-					success: success
-				});
+				ajaxUpdateUser(userId, data);
 			}
 		};
+		var saveUser = function(e){
+			var userRow = $(e.target).parents('tr');
+			var data = {
+				user: {
+					name: $('input[name="user[name]"]', userRow).val(),
+					email: $('input[name="user[email]"]', userRow).val(),
+				}
+			};
+			ajaxUpdateUser(user.id, data);
+			editUserToggle();
+		}
+		var editUserToggle = function(){
+			user.editable = !user.editable;
+			var index = that.state.users.indexOf(user);
+      var users_ = React.addons.update(that.state.users, { $splice: [[index, 1, user]] });
+      that.setState({users: users_});
+		};
+
+		var userEmail, userName, editButton;
+		if(user.editable)
+		{
+			userName = <input type="text" defaultValue={user.name} name="user[name]"/>;
+			userEmail = <input type="text" defaultValue={user.email} name="user[email]"/>;
+			editButton = (
+				<button className="btn btn-xs btn-primary" onClick={saveUser}>
+					Save
+				</button>
+			);
+		}
+		else
+		{
+			editButton = (
+				<button className="btn btn-xs btn-primary" onClick={editUserToggle}>
+					Edit
+				</button>
+			);
+			userName = user.name;
+			userEmail = user.email;
+		}
+		//console.log("userEmail, userName:", userEmail, userName);
+		var actions = (
+			<div>
+				{editButton}
+				<button className="btn btn-xs btn-danger" onClick={deleteUser}>
+					Delete
+				</button>
+			</div>
+		);
 		return (
-			<Reactable.Tr className={"user " + user.role} key={user.id} data={user} data-user-id={user.id} column={['name', 'email']}>
+			<Reactable.Tr className={"user " + user.role} key={user.id} data={user} data-user-id={user.id}>
+				<Reactable.Td column="name_">
+					{userName}
+				</Reactable.Td>
+				<Reactable.Td column="email_">
+					{userEmail}
+				</Reactable.Td>
 				<Reactable.Td column="role_">
 					<Select name='role' value={user.role} options={that.state.roles.map(function(role){
 						return {value: role, label: role};
@@ -98,9 +155,7 @@ Users = React.createClass({
 					/>
 				</Reactable.Td>
 				<Reactable.Td column="actions">
-					<button className="btn btn-xs btn-danger" onClick={deleteUser}>
-						Delete
-					</button>
+					{actions}
 				</Reactable.Td>
 			</Reactable.Tr>
 		);
@@ -117,11 +172,11 @@ Users = React.createClass({
 						label: 'SCIPER'
 					},
 					{
-						key: 'name',
+						key: 'name_',
 						label: 'Name'
 					},
 					{
-						key: 'email',
+						key: 'email_',
 						label: 'Email'
 					},
 					{
