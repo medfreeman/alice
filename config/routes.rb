@@ -6,7 +6,6 @@ Alice::Application.routes.draw do
     end
   end
   resources :posts, except: [:show, :index]
-  resources :users, only: [:index, :update]
   post 'posts/:id/feature' => 'posts#feature', as: :post_feature
 
   get "studios/:studio_id" => "posts#index", as: :studio
@@ -19,18 +18,17 @@ Alice::Application.routes.draw do
   get "inside", to: "pages#inside", as: "inside"
   
 
-  devise_for :users, :controllers => {:confirmations => 'confirmations'}
+  devise_for :users, :controllers => {:confirmations => 'confirmations'}, :path_names => {:sign_in => 'login', :sign_out => 'logout'}
   devise_scope :user do
     put "/confirm" => "confirmations#confirm"
   end
+
   
-  get "users/upload" => 'users#upload_form', as: :users_upload
-  post "users/upload" => 'users#upload_post', as: :users_upload_post
-  post "users/create" => 'users#create', as: :users_create
-  
-  namespace :admin do
-    root "base#index"
-    resources :users
+  scope :admin do
+    get "users/upload" => 'users#upload_form', as: :users_upload
+    post "users/upload" => 'users#upload_post', as: :users_upload_post
+    post "users/create" => 'users#create', as: :users_create
+    resources :users, controller: 'users'
   end
   
 end

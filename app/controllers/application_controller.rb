@@ -51,6 +51,13 @@ class ApplicationController < ActionController::Base
   end
   helper_method :require_admin!
   
+  def require_director!
+    authenticate_user!
+    if current_user && !current_user.role == :student
+      redirect_to root_path, alert: "You must be a studio director to access this page"
+    end
+  end
+
   def load_studios
     @studios = Studio.all
   end  

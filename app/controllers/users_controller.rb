@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-	#before_filter :require_admin!, except: :index
-  
+	before_filter :require_director!
+  before_filter :set_user, only: [:destroy, :update]
   def index
   	@users = User.includes(:studio).all
     @users_data = @users.map(&:serialize)
@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
     params_ = permitted_params.to_h
     if !params_["studio"].blank?
       params_["studio"] = Studio.find_or_create_by(name: params_["studio"])
@@ -26,6 +25,15 @@ class UsersController < ApplicationController
   	else
   		render json: @user.errors, status: :unprocessable_entity
   	end
+  end
+
+  def destroy
+    @user.destroy
+    respond_to do |format|
+      #format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { head :no_content }
+      format.json { head :no_content }
+    end
   end
 
   def upload_form
@@ -51,6 +59,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   def permitted_params
   	params.require(:user).permit(:name, :email, :sciper, :studio, :role)
   end

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   NULL_ATTRS = %w( studio_id )
   before_save :nil_if_blank
-
+  before_save :set_role_if_nil
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
   
@@ -82,6 +82,12 @@ class User < ActiveRecord::Base
   end
 
   protected
+
+  def set_role_if_nil
+    if self.role.nil?
+      self.role = :student
+    end
+  end
 
   def nil_if_blank
     NULL_ATTRS.each { |attr| self[attr] = nil if self[attr].blank? }

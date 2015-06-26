@@ -15,10 +15,22 @@ Users = React.createClass({
 	},
 	
 	addUser: function(user){
-		var users = this.state.users.slice();
-		users.push(user);
+		var users_ = React.addons.update(this.state.users, { $unshift: [user] })
 		this.setState({
-			users: users
+			users: users_
+		});
+	},
+	deleteUser: function(user){
+		var that = this;
+		console.log("userId:", user);
+		$.ajax({
+			url: "/admin/users/"+user.id,
+			method: 'delete',
+			success: function(res){
+		    var index = that.state.users.indexOf(user);
+				var users_ = React.addons.update(that.state.users, { $splice: [[index, 1]] })
+				that.setState({users: users_});
+			},
 		});
 	},
 	createStudio: function(studioName){
@@ -38,6 +50,9 @@ Users = React.createClass({
 	},
 	userTr: function(user){
 		var that = this;
+		var deleteUser = function(){
+			that.deleteUser(user);
+		};
 		var updateUser = function(property){
 			var userId = user.id;
 			return function(value){
@@ -55,7 +70,7 @@ Users = React.createClass({
 		      that.setState({users: users_});
 				};
 				$.ajax({
-					url: '/users/'+userId,
+					url: '/admin/users/'+userId,
 					method: 'PATCH',
 					data: data, 
 					success: success
@@ -82,8 +97,8 @@ Users = React.createClass({
 					placeholder="Select studio..."
 					/>
 				</Reactable.Td>
-				<Reactable.Td column="Actions">
-					<button className="btn btn-xs btn-danger" handleClick={this.handleDelete}>
+				<Reactable.Td column="actions">
+					<button className="btn btn-xs btn-danger" onClick={deleteUser}>
 						Delete
 					</button>
 				</Reactable.Td>
