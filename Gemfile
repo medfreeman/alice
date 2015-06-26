@@ -29,6 +29,7 @@ gem 'colorbox-rails'
 
 
 group :development do 
+  gem 'fog'
   gem 'better_errors'
   gem 'awesome_print'
   #gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]

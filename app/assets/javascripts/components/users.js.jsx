@@ -119,13 +119,19 @@ var Users = React.createClass({
 			userName = user.name;
 			userEmail = user.email;
 		}
-		//console.log("userEmail, userName:", userEmail, userName);
-		var actions = (
-			<div>
-				{editButton}
+		var deleteButton;
+		if(user.id != that.state.currentUser.id)
+		{
+			deleteButton = (
 				<button className="btn btn-xs btn-danger" onClick={deleteUser}>
 					Delete
 				</button>
+			);
+		}
+		var actions = (
+			<div className="actions">
+				{editButton}
+				{deleteButton}
 			</div>
 		);
 		return (

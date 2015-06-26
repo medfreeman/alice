@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150621112621) do
+ActiveRecord::Schema.define(version: 20150626221058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assets", force: true do |t|
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "participations", force: true do |t|
     t.integer  "author_id"

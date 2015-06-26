@@ -1,6 +1,6 @@
-%div= post.body
+%div= post.body.html_safe
 
-%ul
+%ul.atuhors
   - post.authors.each do |author|
     %li= author.name
 %div= link_to 'Show', post

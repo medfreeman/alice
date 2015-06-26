@@ -45,7 +45,7 @@ module Alice
         :storage => :fog,
         :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public"},
         :fog_directory => "",
-        :fog_host => "localhost"
+        :fog_host => ""
     }
 
 end

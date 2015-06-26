@@ -7,7 +7,7 @@
           %li= msg
   .form-group
     = f.label :body
-    = f.text_field :body
+    = f.text_area :body, class: "froala"
   .form-group
     = f.label :authors
     = f.collection_check_boxes :authors, @students, :id, :name, {checked: @post.authors.map(&:id)}
