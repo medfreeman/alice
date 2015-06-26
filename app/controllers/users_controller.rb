@@ -9,7 +9,13 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update(permitted_params)
+    params_ = permitted_params.to_h
+    if !params_["studio"].blank?
+      params_["studio"] = Studio.find_or_create_by(name: params_["studio"])
+    else
+      params_["studio"] = nil
+    end
+    @user.update(params_)
     render json: {user:@user.serialize}
   end
 
@@ -46,6 +52,6 @@ class UsersController < ApplicationController
 
   private
   def permitted_params
-  	params.require(:user).permit(:name, :email, :sciper, :studio_id, :role)
+  	params.require(:user).permit(:name, :email, :sciper, :studio, :role)
   end
 end

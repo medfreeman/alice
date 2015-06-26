@@ -21,7 +21,21 @@ Users = React.createClass({
 			users: users
 		});
 	},
-
+	createStudio: function(studioName){
+		var that = this;
+		$.ajax({
+			href: 'studios',
+			data: {
+				name: studioName
+			},
+			success: function(res){
+				var studios = that.state.studios.splice();
+				studios.push(res);
+				that.setState(studios);
+			},
+		});
+		var studios = this.state.studios.splice();
+	},
 	userTr: function(user){
 		var that = this;
 		var updateUser = function(property){
@@ -53,10 +67,20 @@ Users = React.createClass({
 				<Reactable.Td column="role_">
 					<Select name='role' value={user.role} options={that.state.roles.map(function(role){
 						return {value: role, label: role};
-					})} onChange={updateUser('role')}/>
+					})} onChange={updateUser('role')}
+					searchable={false} clearable={false}
+					/>
 				</Reactable.Td>
 				<Reactable.Td column="studio_">
-					<Selectar name='studio_id' value={user.studio ? user.studio.id : null} allowEmpty options={that.state.studios.map(function(s){return [s.id, s.name];})} handleChange={that.handleChange}/>
+					<Select 
+						allowCreate={true}
+						onCreateValue={this.createStudio}
+						name='studio' 
+						value={user.studio ? user.studio.name : null} 
+						options={that.state.studios.map(function(s){return {value:s.name, label:s.name};})} 
+						onChange={updateUser('studio')}
+					placeholder="Select studio..."
+					/>
 				</Reactable.Td>
 				<Reactable.Td column="Actions">
 					<button className="btn btn-xs btn-danger" handleClick={this.handleDelete}>
@@ -97,7 +121,7 @@ Users = React.createClass({
 						key: 'actions', 
 						label: 'Actions'
 					}
-					]} sortable={['name', 'email', 'studio', 'role']} filterable={['email', 'name', 'role', 'sciper', 'studio']} filterPlaceholder="Filter">
+					]} sortable={['name', 'email', 'role', 'studio']} filterable={['email', 'name', 'role', 'sciper', 'studio']} filterPlaceholder="Filter">
 					{ 
 						this.state.users.map(function(user, index){
 							return that.userTr(user);

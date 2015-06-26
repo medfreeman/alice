@@ -1,6 +1,6 @@
 Alice::Application.routes.draw do
 
-  resources :studios, only: [:new, :edit, :create] do 
+  resources :studios, only: [:index, :new, :edit, :create] do 
     resources :students, only: [:index] do 
       resources :posts, only: [:index]
     end
@@ -9,7 +9,7 @@ Alice::Application.routes.draw do
   resources :users, only: [:index, :update]
   post 'posts/:id/feature' => 'posts#feature', as: :post_feature
 
-  get "studios/(:studio_id)" => "posts#index", as: :studio
+  get "studios/:studio_id" => "posts#index", as: :studio
   get "studios/:studio_id/posts/:id" => "posts#show", as: :studio_post
   get "studios/:studio_id/:id" => "posts#student_posts", as: :studio_student
 

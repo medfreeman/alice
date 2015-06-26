@@ -12,17 +12,11 @@ tr.director{
 }
 
 .users-table{
-	select{
-	  -webkit-appearance: none;
-  	border: 0;
-  	padding: 0 24px 0 8px;
-  	box-shadow: none;
-  	width: 100%;
-  	max-width: 100%;
+  .Select-control{
   	background: transparent;
-  	&:hover{
-  		padding: 0 0 0 0 ;
-  		-webkit-appearance: menulist;
-  	}
-	}
+    border-color: transparentize(#d9d9d9, 0.8) transparentize(#cccccc, 0.8) transparentize(#b3b3b3, 0.8);
+    &:hover{
+      border-color: #d9d9d9 #cccccc #b3b3b3;
+    }
+  }
 }

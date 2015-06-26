@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  NULL_ATTRS = %w( studio_id )
+  before_save :nil_if_blank
+
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
   
@@ -77,5 +80,10 @@ class User < ActiveRecord::Base
     self.errors[:password_confirmation] << "does not match password" if password != password_confirmation
     password == password_confirmation && !password.blank?
   end
-  
+
+  protected
+
+  def nil_if_blank
+    NULL_ATTRS.each { |attr| self[attr] = nil if self[attr].blank? }
+  end  
 end
