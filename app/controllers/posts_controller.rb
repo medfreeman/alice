@@ -35,9 +35,15 @@ class PostsController < ApplicationController
     if current_user.can_feature_post? @post
       @post.featured = params[:featured]
       @post.save!
-      redirect_to request.referrer, notice: "The post has been featured"
+      respond_to do |format|
+        format.json {render json: @post}
+        format.html {redirect_to request.referrer, notice: "The post has been featured"}
+      end
     else
-      redirect_to request.referrer, alert: "You do not have permission to feature this post"
+      respond_to do |format|
+        format.json {render json: @post, status: :unprocessable_entity}
+        format.html {redirect_to request.referrer, alert: "You do not have permission to feature this post"}
+      end
     end
   end 
 

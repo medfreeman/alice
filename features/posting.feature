@@ -12,6 +12,7 @@ Feature:
 		Then I should see the post
 		And I should be an author of the post
 
+	@javascript
 	Scenario: Director features a post
 		Given I am logged in as a director
 		And I have a studio with 2 students
@@ -20,7 +21,6 @@ Feature:
 		When I feature a post
 		Then it should be in the front page
 
-	@wip
 	Scenario: User has posts
 		Given the following students:
 			| name    | studio    |

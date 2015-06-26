@@ -66,8 +66,8 @@ When(/^I feature a post$/) do
   @post ||= Post.first
   expect(@post).not_to be_featured
   visit studio_post_path(@studio, @post)
-  expect(page).to have_content('Feature')
-  click_on 'Feature'
+  expect(page).to have_selector('.unfeatured')
+  find('.unfeatured').click
   expect(@post.reload).to be_featured
 end
 
