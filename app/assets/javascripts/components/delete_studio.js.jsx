@@ -5,17 +5,18 @@ var DeleteStudio = React.createClass({
 		}
 	},
 	deleteStudio: function(e){
-		var that = this;
 		if(confirm('Do you really want to delete studio '+this.state.studio.name+'?'))
 		{
+			var self = this;
+			var success = function(res){
+				$(self.getDOMNode()).parents('li.studio').fadeOut(function(){
+					$(this).remove()
+				});
+			};
 			$.ajax({
-				url: '/studios/'+that.state.studio.id,
+				url: '/studios/'+self.state.studio.id,
 				method: 'DELETE',
-				success: function(res){
-					$(e.target).parents('li.studio').fadeOut(function(){
-						$(this).remove()
-					});
-				},
+				success: success,
 				error: function(e){
 					alert('Studio could not be deleted.')
 				}

@@ -20,7 +20,6 @@ var Users = React.createClass({
 	  this.filterByStudio(this.state.currentFilterStudio);
 	},
 	filterByStudio: function(value){
-		console.log("filtering with:", value);
 		if(!value)
 		{
 			this.setState({
@@ -64,7 +63,6 @@ var Users = React.createClass({
 	},
 	deleteUser: function(user){
 		var that = this;
-		console.log("userId:", user);
 		$.ajax({
 			url: "/admin/users/"+user.id,
 			method: 'delete',
