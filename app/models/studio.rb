@@ -6,5 +6,7 @@ class Studio < ActiveRecord::Base
 	has_one :director, ->{where(role:  User.roles[:director])}, class_name: 'User', foreign_key: :studio_id
 	has_many :posts
 
-
+	def deletable?
+		self.posts.empty? && self.students.empty? 
+	end
 end

@@ -21,6 +21,18 @@ class StudiosController < ApplicationController
 		@students = @studio.students
 	end
 
+	def destroy
+		@studio = Studio.find(params[:id])
+		if @studio.deletable? && @studio.delete
+			respond_to do |format|
+				format.json {head :no_content}
+			end
+		else
+			respond_to do |format|
+				format.json {head :unprocessable_entity}
+			end
+		end
+	end
 	private
 
 	def studio_params

@@ -17,12 +17,14 @@
         .row
           %ul.col-xs-12.col-sm-3
             - @studios.each do |studio|
-              %li{class: studio == @studio ? 'active' : nil}
-                = link_to studio.name, studio_path(studio)
+              %li.studio{class: studio == @studio ? 'active' : nil}
+                = link_to "Studio #{studio.name.titleize}", studio_posts_path(studio)
+                - if admin_signed_in?
+                  = react_component 'DeleteStudio', studio: studio
                 - if studio == @studio && !@students.nil? && !@students.empty?
                   %ul
                     - @students.each do |student|
-                      %li{class: student == @student ? 'active' : nil}= link_to(student.name, student_posts_path(studio, student))
+                      %li.student{class: student == @student ? 'active' : nil}= link_to(student.name, student_posts_path(studio, student))
           .col-xs-12.col-sm-9
             = yield
     = render 'layouts/footer'
