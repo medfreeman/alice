@@ -11,7 +11,7 @@ class StudiosController < ApplicationController
 		if @studio.save
 			redirect_to new_studio_path(@studio), notice: "Studio was successfully created."
 		else
-			render :new
+			render json: {errors: @studio.errors}, status: :unprocessable_entity
 		end
 	end
 

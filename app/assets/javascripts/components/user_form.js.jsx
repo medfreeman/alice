@@ -45,11 +45,7 @@ var UserForm = React.createClass({
   render: function() {
     return (
       <form action="" className="form-inline" onSubmit={this.handleSubmit}>
-        <div className="errors">
-          {Object.keys(this.state.errors).map(function(key){
-              return key + " " + this.state.errors[key][0];
-          })}
-        </div>
+        <FormErrors errors={this.state.errors}/>
         <div className="form-group">
             <div className="form-group">
               <input type="text" className="form-control" placeholder="sciper" name="sciper" value={this.state.sciper} onChange={this.handleChange}/>

@@ -56,6 +56,12 @@ var Users = React.createClass({
 		var users_ = React.addons.update(this.state.users, { $unshift: [user] })
 		this.updateUsersWith(users_);
 	},
+	addStudio: function(studio){
+		var studios_ = React.addons.update(this.state.studios, { $unshift: [studio] })
+		this.setState({
+			studios: studios_
+		});
+	},
 	deleteUser: function(user){
 		var that = this;
 		console.log("userId:", user);
@@ -215,6 +221,7 @@ var Users = React.createClass({
 			<div className="users-table">
 				<h2 className="title">Users</h2>
 				<UserForm handleNewUser={this.addUser}/>
+				<StudioForm handleNewStudio={this.addStudio}/>
 				<Select 
 					name='filterStudio'
 					value={this.state.currentFilterStudio}
