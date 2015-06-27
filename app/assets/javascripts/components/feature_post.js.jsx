@@ -26,7 +26,7 @@ var FeaturePost = React.createClass({
 		}	
 	},
   render: function() {
-  	var classes = ["fa", (this.state.post.featured ? 'fa-heart featured' : 'fa-heart-o unfeatured')];
+  	var classes = ["fa", (this.state.post.featured ? 'fa-star featured' : 'fa-star-o unfeatured')];
   	classes.push(this.state.processing ? 'loading' : null);
     return <i className={classes.join(' ')} onClick={this.featurePost}></i>;
   }
