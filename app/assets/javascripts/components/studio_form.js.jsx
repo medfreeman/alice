@@ -19,6 +19,7 @@ var StudioForm = React.createClass({
 			loading: true
 		});
 		var success = function(res){
+			console.log("res:", res);
 			that.props.handleNewStudio(res);
 			that.setState(that.getInitialState());
 		};
@@ -30,11 +31,13 @@ var StudioForm = React.createClass({
 					name: that.state.name
 				}
 			},
+			dataType: 'json',
 			success: success,
 			error: function(res){
+				console.error("Error creating studio:", res);
 				that.setState({
 					loading: false,
-					errors: res.responseJSON.errors
+					errors: res.JSONResponse.errors
 				});
 			}
 		});

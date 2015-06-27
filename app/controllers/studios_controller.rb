@@ -9,7 +9,10 @@ class StudiosController < ApplicationController
 	def create
 		@studio = Studio.new(studio_params)
 		if @studio.save
-			redirect_to new_studio_path(@studio), notice: "Studio was successfully created."
+			respond_to do |format|
+				format.html {redirect_to new_studio_path(@studio), notice: "Studio was successfully created."}
+				format.json {render json: @studio}
+			end
 		else
 			render json: {errors: @studio.errors}, status: :unprocessable_entity
 		end

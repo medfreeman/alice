@@ -56,6 +56,7 @@ var Users = React.createClass({
 		this.updateUsersWith(users_);
 	},
 	addStudio: function(studio){
+		console.log("studio:", studio);
 		var studios_ = React.addons.update(this.state.studios, { $unshift: [studio] })
 		this.setState({
 			studios: studios_
@@ -218,7 +219,7 @@ var Users = React.createClass({
 		return (
 			<div className="users-table">
 				<h2 className="title">Users</h2>
-				<UserForm handleNewUser={this.addUser}/>
+				<UserForm handleNewUser={this.addUser} roles={this.state.roles} studios={this.state.studios}/>
 				<StudioForm handleNewStudio={this.addStudio}/>
 				<Select 
 					name='filterStudio'

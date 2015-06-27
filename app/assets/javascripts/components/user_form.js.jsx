@@ -9,8 +9,11 @@ var UserForm = React.createClass({
     return {
       sciper: '',
       name: '',
-      role: '',
+      role: 'student',
+      studio: '',
       email: '',
+      roles: this.props.roles,
+      studios: this.props.studios,
       errors: {}
     };
   },
@@ -19,6 +22,16 @@ var UserForm = React.createClass({
     var stateChanger = {};
     stateChanger[name] = e.target.value;
     this.setState(stateChanger);
+  },
+  handleRoleChange: function(value){
+    this.setState({
+      role: value
+    });
+  },
+  handleStudioChange: function(value){
+    this.setState({
+      studio: value
+    });
   },
   handleSubmit: function(e){
     e.preventDefault();
@@ -34,8 +47,15 @@ var UserForm = React.createClass({
       console.log("data:", that.state.errors);
 
     };
+    debugger;
     $.post('users/create', {
-      user: this.state
+      user: {
+        email: this.state.email,
+        name: this.state.name,
+        sciper: this.state.sciper,
+        role: this.state.role,
+      },
+      studio: this.state.studio,
     }, success, 'JSON').fail(error);
   },
   valid: function(){
@@ -56,9 +76,22 @@ var UserForm = React.createClass({
             <div className="form-group">
               <input type="text" className="form-control" placeholder="Name" name="name" value={this.state.name} onChange={this.handleChange}/>
             </div>
-            <div className="form-group">
-              <input type="text" className="form-control" placeholder="role" name="role" value={this.state.role} onChange={this.handleChange}/>
-            </div>
+            <Select name="role" 
+              value={this.state.role} 
+              options={this.props.roles.map(function(r){
+                return {value: r, label: r};
+              })}
+              clearable={false}
+              searchable={false}
+              onChange={this.handleRoleChange}
+            />
+            <Select name="studio" value={this.state.studio} 
+              options={this.props.studios.map(function(s){
+                return {value: s.name, label: s.name};
+              })}
+              clearable={false}
+              onChange={this.handleStudioChange}
+            />
           <button className="btn btn-primary" type="submit" disabled={!this.valid()}>Add User</button>
         </div>
       </form>
