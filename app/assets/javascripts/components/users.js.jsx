@@ -4,8 +4,10 @@ var Users = React.createClass({
 			return {
 				currentUser: this.props.current_user,
 				users: this.props.users,
+				displayedUsers: this.props.users,
 				roles: this.props.roles,
 				studios: this.props.studios,
+				filteredByStudio: false
 			};
 	},
 	getDefaultProps: function(){
@@ -13,12 +15,46 @@ var Users = React.createClass({
 			users: []
 		};
 	},
-	
+	updateUsersWith: function(users_){
+		this.setState({users: users_});
+	  this.filterByStudio(this.state.currentFilterStudio);
+	},
+	filterByStudio: function(value){
+		console.log("filtering with:", value);
+		if(!value)
+		{
+			this.setState({
+				filteredByStudio: false,
+				displayedUsers: this.state.users,
+				currentFilterStudio: undefined
+			});
+		}
+		else if(value == 'unassigned')
+		{
+			var users_ = _.filter(this.state.users, function(user){
+				return !user.studio;
+			});
+			this.setState({
+				filteredByStudio: true,
+				displayedUsers: users_,
+				currentFilterStudio: value
+			});
+		}
+		else
+		{
+			var users_ = _.filter(this.state.users, function(user){
+				return user.studio && user.studio.name == value;
+			});
+			this.setState({
+				filteredByStudio: true,
+				displayedUsers: users_,
+				currentFilterStudio: value
+			});
+		}
+	},
 	addUser: function(user){
 		var users_ = React.addons.update(this.state.users, { $unshift: [user] })
-		this.setState({
-			users: users_
-		});
+		this.updateUsersWith(users_);
 	},
 	deleteUser: function(user){
 		var that = this;
@@ -30,11 +66,13 @@ var Users = React.createClass({
 		    var index = that.state.users.indexOf(user);
 				var users_ = React.addons.update(that.state.users, { $splice: [[index, 1]] })
 				that.setState({users: users_});
+				that.filterByStudio(that.state.currentFilterStudio);
 			},
 		});
 	},
 	createStudio: function(studioName){
 		var that = this;
+		console.log("studioName:", studioName);
 		$.ajax({
 			href: 'studios',
 			data: {
@@ -58,7 +96,7 @@ var Users = React.createClass({
 	      var index = that.state.users.indexOf(user);
 
 	      var users_ = React.addons.update(that.state.users, { $splice: [[index, 1, res.user]] });
-	      that.setState({users: users_});
+	      that.updateUsersWith(users_);
 			};
 			$.ajax({
 				url: '/admin/users/'+userId,
@@ -76,6 +114,7 @@ var Users = React.createClass({
 				var data = {
 					user: {}
 				};
+				console.log("updateUser value:", value);
 				data.user[property] = value;
 				ajaxUpdateUser(userId, data);
 			}
@@ -95,7 +134,7 @@ var Users = React.createClass({
 			user.editable = !user.editable;
 			var index = that.state.users.indexOf(user);
       var users_ = React.addons.update(that.state.users, { $splice: [[index, 1, user]] });
-      that.setState({users: users_});
+      that.updateUsersWith(users_);
 		};
 
 		var userEmail, userName, editButton;
@@ -143,21 +182,25 @@ var Users = React.createClass({
 					{userEmail}
 				</Reactable.Td>
 				<Reactable.Td column="role_">
-					<Select name='role' value={user.role} options={that.state.roles.map(function(role){
-						return {value: role, label: role};
-					})} onChange={updateUser('role')}
-					searchable={false} clearable={false}
+					<Select 
+						name='role' 
+						value={user.role} 
+						options={that.state.roles.map(function(role){
+							return {value: role, label: role};
+						})} 
+						onChange={updateUser('role')}
+						searchable={false} 
+						clearable={false}
 					/>
 				</Reactable.Td>
 				<Reactable.Td column="studio_">
 					<Select 
-						allowCreate={true}
-						onCreateValue={this.createStudio}
+						clearable={true}
 						name='studio' 
 						value={user.studio ? user.studio.name : null} 
 						options={that.state.studios.map(function(s){return {value:s.name, label:s.name};})} 
 						onChange={updateUser('studio')}
-					placeholder="Select studio..."
+						placeholder="Select studio..."
 					/>
 				</Reactable.Td>
 				<Reactable.Td column="actions">
@@ -172,6 +215,13 @@ var Users = React.createClass({
 			<div className="users-table">
 				<h2 className="title">Users</h2>
 				<UserForm handleNewUser={this.addUser}/>
+				<Select 
+					name='filterStudio'
+					value={this.state.currentFilterStudio}
+					options={[{value: 'unassigned', label: 'unassigned'}].concat(that.state.studios.map(function(s){return {value:s.name, label:s.name};}))} 
+					onChange={this.filterByStudio}
+					placeholder="Filter by studio..."
+				/>
 				<Table className="table table-bordered"  columns={[
 					{
 						key: 'sciper',
@@ -197,9 +247,9 @@ var Users = React.createClass({
 						key: 'actions', 
 						label: 'Actions'
 					}
-					]} sortable={['name', 'email', 'role', 'studio']} filterable={['email', 'name', 'role', 'sciper', 'studio']} filterPlaceholder="Filter">
+					]} sortable={['name_', 'email_', 'role_', 'studio_']} filterable={['email', 'name', 'sciper']} filterPlaceholder="Filter">
 					{ 
-						this.state.users.map(function(user, index){
+						this.state.displayedUsers.map(function(user, index){
 							return that.userTr(user);
 						})
 					}

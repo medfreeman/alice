@@ -9,10 +9,8 @@ class UsersController < ApplicationController
 
   def update
     params_ = permitted_params.to_h
-    if !params_["studio"].blank?
-      params_["studio"] = Studio.find_or_create_by(name: params_["studio"])
-    else
-      params_["studio"] = nil
+    if params_.keys.include?('studio')
+      params_["studio"] = params_["studio"].blank? ? nil : Studio.find_or_create_by(name: params_["studio"])
     end
     @user.update(params_)
     render json: {user:@user.serialize}
