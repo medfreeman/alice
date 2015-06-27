@@ -9,7 +9,7 @@ var FeaturePost = React.createClass({
 		var that = this;
 		if(!this.state.processing)
 		{
-			that.state.processing = true;
+			that.setState({processing: true});
 			$.ajax({
 				url: '/posts/'+ that.state.post.id +'/feature',
 				method: 'post',
@@ -17,14 +17,17 @@ var FeaturePost = React.createClass({
 					featured: !that.state.post.featured
 				},
 				success: function(res){
-					that.state.processing = false;
-					that.setState({post: res});
+					that.setState({
+						processing: false,
+						post: res
+					});
 				},
 			});
 		}	
 	},
   render: function() {
-  	var classes = "fa " + (this.state.post.featured ? 'fa-heart featured' : 'fa-heart-o unfeatured');
-    return <i className={classes} onClick={this.featurePost}></i>;
+  	var classes = ["fa", (this.state.post.featured ? 'fa-heart featured' : 'fa-heart-o unfeatured')];
+  	classes.push(this.state.processing ? 'loading' : null);
+    return <i className={classes.join(' ')} onClick={this.featurePost}></i>;
   }
 });
