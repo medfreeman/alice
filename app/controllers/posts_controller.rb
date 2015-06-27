@@ -9,6 +9,7 @@ class PostsController < ApplicationController
     if @studio.nil?
       @posts = Post.featured
     else
+      @title = @studio.name.titleize
       @posts = @studio.posts
       @students = @studio.students
     end
@@ -26,6 +27,7 @@ class PostsController < ApplicationController
 
   def student_posts
     @student = User.includes(:posts).find(params[:id])
+    @title = @student.name
     @students = @studio.students
     @posts   = @student.posts
   end

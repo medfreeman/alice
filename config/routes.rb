@@ -1,7 +1,7 @@
 Alice::Application.routes.draw do
   match "/upload" => "assets#upload", via: :post
   
-  resources :studios do 
+  resources :studios, only: [:new, :create, :update, :edit] do 
     resources :students, only: [:index] do 
       resources :posts, only: [:index]
     end
@@ -9,7 +9,7 @@ Alice::Application.routes.draw do
   resources :posts, except: [:show, :index]
   post 'posts/:id/feature' => 'posts#feature', as: :post_feature
 
-  get "studios/:studio_id" => "posts#index", as: :studio_posts
+  get "studios/(:studio_id)" => "posts#index", as: :studio_posts
   get "studios/:studio_id/posts/:id" => "posts#show", as: :studio_post
   get "studios/:studio_id/:id" => "posts#student_posts", as: :student_posts
 

@@ -2,7 +2,7 @@
 %html
   %head
     %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", :name => "viewport"}/
-    %title= @title || "Alice"
+    %title= content_for?(:title) ? "#{yield(:title)} | Alice" : "Alice"
     = favicon_link_tag 'favicon.ico'
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
@@ -15,16 +15,8 @@
           .col-sm-6.col-sm-offset-3.text-center
             = render 'layouts/messages'
         .row
-          %ul.col-xs-12.col-sm-3
-            - @studios.each do |studio|
-              %li.studio{class: studio == @studio ? 'active' : nil}
-                = link_to "Studio #{studio.name.titleize}", studio_posts_path(studio)
-                - if admin_signed_in?
-                  = react_component 'DeleteStudio', studio: studio
-                - if studio == @studio && !@students.nil? && !@students.empty?
-                  %ul
-                    - @students.each do |student|
-                      %li.student{class: student == @student ? 'active' : nil}= link_to(student.name, student_posts_path(studio, student))
-          .col-xs-12.col-sm-9
+          - multi_col = content_for?(:left_col)
+          = yield :left_col
+          .col-xs-12{class: multi_col ? "col-sm-9" : nil}
             = yield
     = render 'layouts/footer'

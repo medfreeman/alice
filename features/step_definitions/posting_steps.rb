@@ -92,7 +92,7 @@ end
 
 When(/^I visit student (\w+)$/) do |student|
   user = User.find(student)
-  visit studio_student_path(user.studio, user)
+  visit student_posts_path(user.studio, user)
 end
 
 Then(/^I should see the following posts$/) do |table|
