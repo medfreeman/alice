@@ -76,7 +76,9 @@ var UserForm = React.createClass({
             <input type="text" placeholder="Name" name="name" value={this.state.name} onChange={this.handleChange}/>
           </div>
         </div>
-        <Select name="role" 
+        <Select 
+          className="not-field"
+          name="role" 
           value={this.state.role} 
           options={this.props.roles.map(function(r){
             return {value: r, label: r};
@@ -85,7 +87,10 @@ var UserForm = React.createClass({
           searchable={false}
           onChange={this.handleRoleChange}
         />
-        <Select name="studio" value={this.state.studio} 
+        <Select 
+          className="not-field"
+          name="studio" 
+          value={this.state.studio} 
           options={this.props.studios.map(function(s){
             return {value: s.name, label: s.name};
           })}

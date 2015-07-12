@@ -20,6 +20,12 @@ a, .ui.breadcrumb a{
 .tabular .item{
   cursor: pointer;
 }
+.ui.form .not-field input{
+  width: 100%!important;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
 .reactable-filterer input{
   font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
   margin: 0;

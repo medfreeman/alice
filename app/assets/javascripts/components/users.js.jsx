@@ -182,7 +182,7 @@ var Users = React.createClass({
 			</div>
 		);
 		return (
-			<Reactable.Tr className={"user " + user.role} key={user.id} data={user} data-user-id={user.id}>
+			<Reactable.Tr className={"user ui form " + user.role} key={user.id} data={user} data-user-id={user.id}>
 				<Reactable.Td column="name_">
 					{userName}
 				</Reactable.Td>
@@ -202,7 +202,8 @@ var Users = React.createClass({
 					/>
 				</Reactable.Td>
 				<Reactable.Td column="studio_">
-					<Select 
+					<Select
+						className="not-field"
 						clearable={true}
 						name='studio' 
 						value={user.studio ? user.studio.name : null} 
