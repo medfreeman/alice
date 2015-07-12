@@ -64,36 +64,39 @@ var UserForm = React.createClass({
   },
   render: function() {
     return (
-      <form action="" className="form-inline" onSubmit={this.handleSubmit}>
+      <form action="" className="ui form" onSubmit={this.handleSubmit}>
         <FormErrors errors={this.state.errors}/>
-        <div className="form-group">
-            <div className="form-group">
-              <input type="text" className="form-control" placeholder="sciper" name="sciper" value={this.state.sciper} onChange={this.handleChange}/>
-            </div>
-            <div className="form-group">
-              <input type="text" className="form-control" placeholder="Email" name="email" value={this.state.email} onChange={this.handleChange}/>
-            </div>
-            <div className="form-group">
-              <input type="text" className="form-control" placeholder="Name" name="name" value={this.state.name} onChange={this.handleChange}/>
-            </div>
-            <Select name="role" 
-              value={this.state.role} 
-              options={this.props.roles.map(function(r){
-                return {value: r, label: r};
-              })}
-              clearable={false}
-              searchable={false}
-              onChange={this.handleRoleChange}
-            />
-            <Select name="studio" value={this.state.studio} 
-              options={this.props.studios.map(function(s){
-                return {value: s.name, label: s.name};
-              })}
-              clearable={false}
-              onChange={this.handleStudioChange}
-            />
-          <button className="btn btn-primary" type="submit" disabled={!this.valid()}>Add User</button>
+        <div className="fields">
+          <div className="field">
+            <input type="text" placeholder="sciper" name="sciper" value={this.state.sciper} onChange={this.handleChange}/>
+          </div>
+          <div className="field">
+            <input type="text" placeholder="Email" name="email" value={this.state.email} onChange={this.handleChange}/>
+          </div>
+          <div className="field">
+            <input type="text" placeholder="Name" name="name" value={this.state.name} onChange={this.handleChange}/>
+          </div>
         </div>
+        <Select name="role" 
+          value={this.state.role} 
+          options={this.props.roles.map(function(r){
+            return {value: r, label: r};
+          })}
+          clearable={false}
+          searchable={false}
+          onChange={this.handleRoleChange}
+        />
+        <Select name="studio" value={this.state.studio} 
+          options={this.props.studios.map(function(s){
+            return {value: s.name, label: s.name};
+          })}
+          clearable={false}
+          onChange={this.handleStudioChange}
+        />
+        <button className="ui button" type="submit" disabled={!this.valid()}>
+          <i className="add icon"></i>
+          Add User
+          </button>
       </form>
     );
   }

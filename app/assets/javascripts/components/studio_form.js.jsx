@@ -50,11 +50,11 @@ var StudioForm = React.createClass({
   render: function() {
   	console.log("this.state.errors:", this.state.errors);
     return (
-    	<div>
+    	<div className="ui form fields">
     		<FormErrors errors={this.state.errors}/>
-	    	<input name="name" placeholder="studio name" onChange={this.handleChange} value={this.state.name} />
-	    	<button className="btn btn-xs btn-primary" onClick={this.newStudio} disabled={this.loading}>
-	    		Add Studio
+	    	<input clasName="field" name="name" placeholder="studio name" onChange={this.handleChange} value={this.state.name} />
+	    	<button className="ui button" onClick={this.newStudio} disabled={this.loading}>
+	    		<i className="add icon"></i>Add Studio
 	    	</button>
 	    </div>
     );

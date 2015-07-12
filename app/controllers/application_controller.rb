@@ -25,7 +25,12 @@ class ApplicationController < ActionController::Base
   
   # Redirects on successful sign in
   def after_sign_in_path_for(resource)
-    inside_path
+    if resource.studio.nil?
+      flash[:notice] = "You are not assigned to any studio yet"
+      root_path
+    else
+      studio_student_posts_path(resource.studio, resource)
+    end
   end
   
   # Auto-sign out locked users

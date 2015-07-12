@@ -1,5 +1,8 @@
 var Table = Reactable.Table;
 var Users = React.createClass({
+	componentDidMount: function(){
+		$('.tabular.menu .item').tab();
+	},
 	getInitialState: function(){
 			return {
 				currentUser: this.props.current_user,
@@ -145,10 +148,10 @@ var Users = React.createClass({
 		var userEmail, userName, editButton;
 		if(user.editable)
 		{
-			userName = <input type="text" defaultValue={user.name} name="user[name]"/>;
-			userEmail = <input type="text" defaultValue={user.email} name="user[email]"/>;
+			userName = <div className="field"><input type="text" defaultValue={user.name} name="user[name]"/></div>;
+			userEmail = <div className="field"><input type="text" defaultValue={user.email} name="user[email]"/></div>;
 			editButton = (
-				<button className="btn btn-xs btn-primary" onClick={saveUser}>
+				<button className="button" onClick={saveUser}>
 					Save
 				</button>
 			);
@@ -167,7 +170,7 @@ var Users = React.createClass({
 		if(user.id != that.state.currentUser.id)
 		{
 			deleteButton = (
-				<button className="btn btn-xs btn-danger" onClick={deleteUser}>
+				<button className="button" onClick={deleteUser}>
 					Delete
 				</button>
 			);
@@ -219,8 +222,20 @@ var Users = React.createClass({
 		return (
 			<div className="users-table">
 				<h2 className="title">Users</h2>
-				<UserForm handleNewUser={this.addUser} roles={this.state.roles} studios={this.state.studios}/>
-				<StudioForm handleNewStudio={this.addStudio}/>
+				<div className="ui tabular menu">
+				  <div className="item" data-tab="add-user">add user</div>
+				  <div className="item" data-tab="add-studio">add studio</div>
+				</div>
+				<div className="ui tab" data-tab="add-user">
+					<UserForm handleNewUser={this.addUser} roles={this.state.roles} studios={this.state.studios}/>
+				</div>
+				<div className="ui tab" data-tab="add-studio">
+					<StudioForm handleNewStudio={this.addStudio}/>
+				</div>
+				<h4 className="ui horizontal divider header">
+				  <i className="users icon"></i>
+				  Users
+				</h4>
 				<Select 
 					name='filterStudio'
 					value={this.state.currentFilterStudio}
@@ -253,7 +268,7 @@ var Users = React.createClass({
 						key: 'actions', 
 						label: 'Actions'
 					}
-					]} sortable={['name_', 'email_', 'role_', 'studio_']} filterable={['email', 'name', 'sciper']} filterPlaceholder="Filter">
+					]} sortable={['name_', 'email_', 'role_', 'studio_']} filterable={['email', 'name', 'sciper']} filterPlaceholder="Filter by user...">
 					{ 
 						this.state.displayedUsers.map(function(user, index){
 							return that.userTr(user);

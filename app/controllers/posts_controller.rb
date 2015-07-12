@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :feature]
   before_filter :set_studio, only: [:show, :index, :student_posts]
   before_filter :check_permission, only: [:new, :edit, :create]
+  before_filter :check_studio, only: [:new, :edit, :create]
   before_filter :prepare_form, only: [:new, :edit]
 
   def index
@@ -121,5 +122,9 @@ class PostsController < ApplicationController
 
     def prepare_form
       @students = current_user.studio.students.select{|u| u != current_user}
+    end
+
+    def check_studio
+      redirect_to root_path, notice: "You are not assigned to any studio yet" if current_user.studio.nil?
     end
 end
