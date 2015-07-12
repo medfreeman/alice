@@ -206,8 +206,10 @@ var Users = React.createClass({
 						className="not-field"
 						clearable={true}
 						name='studio' 
-						value={user.studio ? user.studio.name : null} 
-						options={that.state.studios.map(function(s){return {value:s.id, label:s.name};})} 
+						value={user.studio ? _.find(that.state.studios, function(s){return user.studio.id == s.id}).name : null} 
+						options={that.state.studios.map(function(s){
+							return {value:s.id, label:s.name};
+						})} 
 						onChange={updateUser('studio')}
 						placeholder="Select studio..."
 					/>
