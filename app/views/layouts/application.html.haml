@@ -11,8 +11,8 @@
     %header= render 'layouts/navigation'
     .ui.container.text
       = render 'layouts/messages'
-    .ui.container.grid
-      .two.wide.column
+    .ui.container.grid.stackable
+      .three.wide.column
         .list-header Tous les blogs
         %ul.ui.list
           - @studios.each do |studio|
@@ -24,5 +24,5 @@
                 %ul.ui.list
                   - @students.each do |student|
                     %li.item.student{class: student == @student ? 'active' : nil}= link_to(student.name, student_posts_path(studio, student))
-      .eight.column.wide= yield
+      .nine.wide.column= yield
     = render 'layouts/footer'

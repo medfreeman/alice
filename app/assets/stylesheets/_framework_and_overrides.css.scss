@@ -3,5 +3,9 @@ li:before{
 }
 
 a{
-  color: $black;
+  color: inherit;
+  &:hover{
+    color: inherit;
+    text-decoration: underline;
+  }
 }

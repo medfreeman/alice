@@ -1,11 +1,10 @@
-%div= post.body.html_safe
-
-%ul.atuhors
-  - post.authors.each do |author|
-    %li= author.name
-%div= link_to 'Show', post
-- if can_edit_post? post
-  %div= link_to 'Edit', edit_post_path(post)
-  %div= link_to 'Destroy', post, :method => :delete, :data => { :confirm => 'Are you sure?' }
-- if can_feature_post? post
-  %div= react_component 'FeaturePost', post: post
+%h2.post-title= post.title
+.post-details
+  Par #{post.authors.map{|u| link_to(u.name, student_posts_path(u.studio, u))}.join(', ').html_safe}, #{post.created_at.strftime("%d/%m/%y")}
+.post-body= post.body.html_safe
+.post-actions
+  - if can_edit_post? post
+    %div= link_to 'Edit', edit_post_path(post)
+    %div= link_to 'Destroy', post, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  - if can_feature_post? post
+    %div= react_component 'FeaturePost', post: post
