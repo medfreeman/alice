@@ -5,3 +5,15 @@ $black: #111111;
 $smaller: 0.9em;
 $larger: 1.2em;
 $x-large: 1.8em;
+
+
+
+$mobile                 : "(max-width: 767px)";
+$portrait               : "(orientation: portrait)";
+$landscape              : "(orientation: landscape)";
+$xs                     : $mobile;
+$tablet                 : "(min-width: 767px)";
+$sm                     : $tablet;
+$md                     : "(min-width: 991px)";
+$lg                     : "(min-width: 1200px)";
+$ie                     : "all and (-ms-high-contrast: none), (-ms-high-contrast: active)";

@@ -17,3 +17,26 @@
 		content: attr('title')+'asd';
 	}
 }
+
+.post{
+	position: relative;
+}
+.post-actions{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	transition: all 0.2s ease-out;
+	@media #{$tablet}
+	{
+		opacity: 0.05;
+		.post:hover &{
+			opacity: 1;
+		}
+	}
+	.action{
+		display: inline-block;
+	}
+	i{
+		font-size: $larger;
+	}
+}
