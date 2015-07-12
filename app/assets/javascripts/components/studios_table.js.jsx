@@ -50,7 +50,7 @@ var StudiosTable = React.createClass({
 					success: function(data){
 						var index = that.state.studios.indexOf(studio);
 						var studios_ = React.addons.update(that.state.studios, { $splice: [[index, 1, data]] });
-						that.props.handleStudiosChange(studios_);
+						that.props.handleStudios(studios_);
 						that.setState(that.getInitialState());
 					},
 					error: function(e){

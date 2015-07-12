@@ -218,6 +218,11 @@ var Users = React.createClass({
 			</Reactable.Tr>
 		);
 	},
+	handleStudios: function(studios){
+		this.setState({
+			studios: studios,
+		});
+	},
 	render: function(){
 		var that = this;
 		return (
