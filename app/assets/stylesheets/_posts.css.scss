@@ -11,3 +11,9 @@
 	margin-bottom: 15px;
 	font-size: $smaller;
 }
+
+.post-body{
+	img:after{
+		content: attr('title')+'asd';
+	}
+}

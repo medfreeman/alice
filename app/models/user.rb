@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   
   scope :unassigned, ->{ where(studio_id: nil)}
 
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable,
   :recoverable, :rememberable, :trackable, :validatable, :confirmable
   enum role: [:student, :director]
 

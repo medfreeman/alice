@@ -1,16 +1,20 @@
-= form_for @post do |f|
+= form_for @post, html: {class: 'ui form'} do |f|
   - if @post.errors.any?
     #error_explanation
       %h2= "#{pluralize(@post.errors.count, "error")} prohibited this post from being saved:"
       %ul
         - @post.errors.full_messages.each do |msg|
           %li= msg
-  .form-group
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
     = f.label :body
     = f.text_area :body, class: "froala"
-  .form-group
-    = f.label :authors
-    = f.collection_check_boxes :authors, @students, :id, :name, {checked: @post.authors.map(&:id)}
+  - if !@students.empty?
+    .field
+      = f.label :authors
+      = f.collection_check_boxes :authors, @students, :id, :name, {checked: @post.authors.map(&:id)}
 
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: "ui button"

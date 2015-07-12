@@ -151,7 +151,7 @@ var Users = React.createClass({
 			userName = <div className="field"><input type="text" defaultValue={user.name} name="user[name]"/></div>;
 			userEmail = <div className="field"><input type="text" defaultValue={user.email} name="user[email]"/></div>;
 			editButton = (
-				<button className="button" onClick={saveUser}>
+				<button className="ui button mini green" onClick={saveUser}>
 					Save
 				</button>
 			);
@@ -159,7 +159,7 @@ var Users = React.createClass({
 		else
 		{
 			editButton = (
-				<button className="btn btn-xs btn-primary" onClick={editUserToggle}>
+				<button className="ui button mini" onClick={editUserToggle}>
 					Edit
 				</button>
 			);
@@ -167,10 +167,10 @@ var Users = React.createClass({
 			userEmail = user.email;
 		}
 		var deleteButton;
-		if(user.id != that.state.currentUser.id)
+		if(user.id != that.state.currentUser.id && !user.editable)
 		{
 			deleteButton = (
-				<button className="button" onClick={deleteUser}>
+				<button className="ui button mini basic red" onClick={deleteUser}>
 					Delete
 				</button>
 			);
@@ -223,8 +223,15 @@ var Users = React.createClass({
 			<div className="users-table">
 				<h2 className="title">Users</h2>
 				<div className="ui tabular menu">
+					<div className="item active" data-tab="users-list">users</div>
 				  <div className="item" data-tab="add-user">add user</div>
 				  <div className="item" data-tab="add-studio">add studio</div>
+				  <div className="item right">
+				  	<a href="/admin/users/upload">
+				  		upload csv file 
+				  		<i className="icon external"></i>
+				  	</a>
+				  </div>
 				</div>
 				<div className="ui tab" data-tab="add-user">
 					<UserForm handleNewUser={this.addUser} roles={this.state.roles} studios={this.state.studios}/>
@@ -232,49 +239,47 @@ var Users = React.createClass({
 				<div className="ui tab" data-tab="add-studio">
 					<StudioForm handleNewStudio={this.addStudio}/>
 				</div>
-				<h4 className="ui horizontal divider header">
-				  <i className="users icon"></i>
-				  Users
-				</h4>
-				<Select 
-					name='filterStudio'
-					value={this.state.currentFilterStudio}
-					options={[{value: 'unassigned', label: 'unassigned'}].concat(that.state.studios.map(function(s){return {value:s.name, label:s.name};}))} 
-					onChange={this.filterByStudio}
-					placeholder="Filter by studio..."
-				/>
-				<Table className="table table-bordered"  columns={[
-					{
-						key: 'sciper',
-						label: 'SCIPER'
-					},
-					{
-						key: 'name_',
-						label: 'Name'
-					},
-					{
-						key: 'email_',
-						label: 'Email'
-					},
-					{
-						key: 'role_',
-						label: 'Role'
-					},
-					{
-						key: 'studio_',
-						label: 'Studio'
-					},
-					{
-						key: 'actions', 
-						label: 'Actions'
-					}
-					]} sortable={['name_', 'email_', 'role_', 'studio_']} filterable={['email', 'name', 'sciper']} filterPlaceholder="Filter by user...">
-					{ 
-						this.state.displayedUsers.map(function(user, index){
-							return that.userTr(user);
-						})
-					}
-				</Table>
+				<div className="ui tab active" data-tab="users-list">
+					<Select 
+						name='filterStudio'
+						value={this.state.currentFilterStudio}
+						options={[{value: 'unassigned', label: 'unassigned'}].concat(that.state.studios.map(function(s){return {value:s.name, label:s.name};}))} 
+						onChange={this.filterByStudio}
+						placeholder="Filter by studio..."
+					/>
+					<Table className="ui table striped compact "  columns={[
+						{
+							key: 'sciper',
+							label: 'SCIPER'
+						},
+						{
+							key: 'name_',
+							label: 'Name'
+						},
+						{
+							key: 'email_',
+							label: 'Email'
+						},
+						{
+							key: 'role_',
+							label: 'Role'
+						},
+						{
+							key: 'studio_',
+							label: 'Studio'
+						},
+						{
+							key: 'actions', 
+							label: 'Actions'
+						}
+						]} sortable={['name_', 'email_', 'role_', 'studio_']} filterable={['email', 'name', 'sciper']} filterPlaceholder="Filter by user...">
+						{ 
+							this.state.displayedUsers.map(function(user, index){
+								return that.userTr(user);
+							})
+						}
+					</Table>
+				</div>
 			</div>
 		);
 	},

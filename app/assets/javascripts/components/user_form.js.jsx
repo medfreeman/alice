@@ -47,7 +47,6 @@ var UserForm = React.createClass({
       console.log("data:", that.state.errors);
 
     };
-    debugger;
     $.post('users/create', {
       user: {
         email: this.state.email,
@@ -97,6 +96,9 @@ var UserForm = React.createClass({
           <i className="add icon"></i>
           Add User
           </button>
+        <div>
+          The user will receive an email from which he can select his password.
+        </div>
       </form>
     );
   }

@@ -24,6 +24,6 @@ var DeleteStudio = React.createClass({
 		}
 	},
   render: function() {
-    return <i className="fa-close" onClick={this.deleteStudio}></i>;
+    return <i className="icon delete" onClick={this.deleteStudio}></i>;
   }
 });

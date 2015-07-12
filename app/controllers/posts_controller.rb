@@ -111,7 +111,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      _params = params.require(:post).permit(:body, authors: [])
+      _params = params.require(:post).permit(:body, :title, authors: [])
       _params[:authors].delete("")
       _params[:authors].each_with_index do |author, i|
         _params[:authors][i] = User.find(author.to_i)

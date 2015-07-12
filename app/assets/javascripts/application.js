@@ -17,7 +17,6 @@
 //= require react_ujs
 //= require underscore/underscore-min
 //= require components
-//= require froala/js/froala_editor.min.js
 //= require semantic-ui/dist/semantic.min.js
 //= require_tree .
 
@@ -27,4 +26,13 @@ $(document).on('ready page:load',function(){
 	$('.ui.dropdown').dropdown({
 		on: 'click hover'
 	});
+
+	$('.message .close')
+  .on('click', function() {
+    $(this)
+      .closest('.message')
+      .transition('fade')
+    ;
+  })
+;
 });

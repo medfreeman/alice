@@ -1,15 +1,36 @@
 // Header
 nav{
 	border-bottom: $brand-color 4px solid;
+	margin-bottom: 25px;
+	.logo{
+		min-width: 150px;
+	}
+	.blog-title{
+		text-transform: uppercase;
+		font-size: $x-large;
+	}
 }
+
 #login-form label{
 	display: none;
 }
 
-.studio.active a, .studio:hover a{
+.list-header{
+	text-transform: uppercase;
+	font-size: $smaller;
+	color: lighten($black, 50%);
+	border-bottom: 1px solid lighten($black, 80%);
+}
+.item.active > a, .item:hover > a{
 	color: $brand-color;
 }
 // /Header
 
 // Footer
+
+footer{
+	margin-top: 50px;
+	border-top: 1px solid $black;
+	text-align: center;
+}
 // /Footer

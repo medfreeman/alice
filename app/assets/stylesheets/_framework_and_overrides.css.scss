@@ -1,3 +1,6 @@
+img{
+  max-width: 100%;
+}
 li:before{
   content: none!important;
 }
@@ -14,6 +17,9 @@ a, .ui.breadcrumb a{
   background-color: transparent;
 }
 
+.tabular .item{
+  cursor: pointer;
+}
 .reactable-filterer input{
   font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
   margin: 0;
@@ -30,4 +36,35 @@ a, .ui.breadcrumb a{
   box-shadow: 0 0 0 0 transparent inset;
   -webkit-transition: color .1s ease,border-color .1s ease;
   transition: color .1s ease,border-color .1s ease;
+}
+
+.icon{
+  display: inline-block;
+  opacity: 1;
+  margin: 0 .25rem 0 0;
+  width: 1.18em;
+  height: 1em;
+  font-family: Icons;
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: inherit;
+  text-align: center;
+  speak: none;
+  font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+input[type="checkbox"]{
+  display: none;
+  & + label:before{
+    @extend .icon;
+    content: "\f096";
+  }
+  &:checked + label:before{
+    @extend .icon;
+    content: "\f046";
+  }
 }

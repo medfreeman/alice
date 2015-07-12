@@ -1,7 +1,7 @@
 Alice::Application.routes.draw do
   match "/upload" => "assets#upload", via: :post
   
-  resources :studios, only: [:new, :create, :update, :edit] do 
+  resources :studios, only: [:new, :create, :update, :edit, :destroy] do 
     resources :students, only: [:index] do 
       resources :posts, only: [:index]
     end

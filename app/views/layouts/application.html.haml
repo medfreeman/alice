@@ -4,25 +4,32 @@
     %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", :name => "viewport"}/
     %title= content_for?(:title) ? "#{yield(:title)} | Alice" : "Alice"
     = favicon_link_tag 'favicon.ico'
+    %link{:rel => "stylesheet", :href => "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"}/
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
     %header= render 'layouts/navigation'
-    .ui.container.text
-      = render 'layouts/messages'
-    .ui.container.grid.stackable
-      .three.wide.column
-        .list-header Tous les blogs
-        %ul.ui.list
-          - @studios.each do |studio|
-            %li.item.studio{class: studio == @studio ? 'active' : nil}
-              = link_to "Studio #{studio.name.titleize}", studio_posts_path(studio)
-              - if admin_signed_in?
-                = react_component 'DeleteStudio', studio: studio
-              - if studio == @studio && !@students.nil? && !@students.empty?
-                %ul.ui.list
-                  - @students.each do |student|
-                    %li.item.student{class: student == @student ? 'active' : nil}= link_to(student.name, student_posts_path(studio, student))
-      .nine.wide.column= yield
+    %main
+      .ui.container.text
+        = render 'layouts/messages'
+      .ui.container.grid.stackable
+        .three.wide.column
+          .list-header Tous les blogs
+          %ul.ui.list
+            - @studios.each do |studio|
+              %li.item.studio{class: studio == @studio ? 'active' : nil}
+                = link_to "Studio #{studio.name.titleize}", studio_posts_path(studio)
+                - if admin_signed_in?
+                  = react_component 'DeleteStudio', studio: studio
+                - if studio == @studio && !@students.nil? && !@students.empty?
+                  %ul.ui.list
+                    - @students.each do |student|
+                      %li.item.student{class: student == @student ? 'active' : nil}= link_to(student.name, student_posts_path(studio, student))
+          .list-header +
+          %ul.ui.list
+            %li.item= link_to "BLOG Archives", "http://alice.epfl.ch/page-96461-fr.html", target: '_blank'
+            %li.item= link_to "ALICE online", "http://alice.epfl.ch/", target: '_blank'
+            %li.item= link_to "EPFL online", "http://epfl.ch/", target: '_blank'
+        .thirteen.wide.column= yield
     = render 'layouts/footer'

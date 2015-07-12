@@ -1,22 +1,25 @@
 %nav.ui.container
   .ui.text.menu
-    .item= image_tag "logo-alice.png"
-    .item 
-      Blog Review
-      .ui.breadcrumb
-        .section= link_to 'epfl'
-        %i.right.angle.icon.divider
-        .section= link_to 'alice'
-        %i.right.angle.icon.divider
-        .section= link_to 'y1 inside Lausanne', root_path
+    .item=link_to(image_tag("logo-alice.png", class: "logo"), root_path)
+    .item.blog-titles
+      %div    
+        .blog-title
+          Blog Review
+        .ui.breadcrumb
+          .section= link_to 'epfl'
+          %i.right.angle.icon.divider
+          .section= link_to 'alice'
+          %i.right.angle.icon.divider
+          .section= link_to 'y1 inside Lausanne', root_path
     - if user_signed_in?
       #logout-link.right.item.ui.dropdown
         .text My Account
         %i.dropdown.icon
         .menu
           .item= link_to "New Post", new_post_path
+          .item= link_to "My Posts", student_posts_path(current_user.studio, current_user)
           - if current_user.admin?
-            .item= link_to "Edit Users", users_path
+            .item= link_to "Manage Users", users_path
           .item= link_to "LOG OUT", destroy_user_session_path, method: 'DELETE'
     - else
       #login-link.right.item
