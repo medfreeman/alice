@@ -18,6 +18,15 @@ class StudiosController < ApplicationController
 		end
 	end
 
+	def update
+		@studio = Studio.find(params[:id])
+		if @studio.update!(studio_params)
+			render json: @studio
+		else
+			render json: @studio.errors
+		end
+	end
+
 	def show
 		@studio = Studio.includes(:director).find(params[:id])
 		@director = @studio.director

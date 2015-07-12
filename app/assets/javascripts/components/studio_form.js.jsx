@@ -48,7 +48,6 @@ var StudioForm = React.createClass({
 		})
 	},
   render: function() {
-  	console.log("this.state.errors:", this.state.errors);
     return (
     	<div className="ui form fields">
     		<FormErrors errors={this.state.errors}/>
