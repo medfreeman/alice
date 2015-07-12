@@ -1,16 +1,16 @@
 /*
  * Overwritten by RailsBricks
  *
- *= require_self
  *= require react-select/dist/default.css
  *= require font-awesome
  *= require froala/css/froala_editor.min.css
  *= require froala/css/froala_style.min.css
  *= require semantic-ui/dist/semantic.min.css
+ *= require_self
  */
 
-@import "framework_and_overrides";
 @import "variables";
+@import "framework_and_overrides";
 @import "page_layout";
 tr.director{
 	background-color: transparentize(blue, 0.9);

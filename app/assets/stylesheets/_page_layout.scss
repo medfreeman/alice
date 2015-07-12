@@ -3,7 +3,7 @@ nav{
 	border-bottom: $brand-color 4px solid;
 }
 
-.studio.active, .studio:hover{
+.studio.active a, .studio:hover a{
 	color: $brand-color;
 }
 // /Header

@@ -14,7 +14,7 @@
     .ui.container.grid
       .two.wide.column
         .list-header Tous les blogs
-        %ul.ui.list.link
+        %ul.ui.list
           - @studios.each do |studio|
             %li.item.studio{class: studio == @studio ? 'active' : nil}
               = link_to "Studio #{studio.name.titleize}", studio_posts_path(studio)
