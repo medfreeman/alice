@@ -18,4 +18,13 @@
 //= require underscore/underscore-min
 //= require components
 //= require froala/js/froala_editor.min.js
+//= require semantic-ui/dist/semantic.min.js
 //= require_tree .
+
+
+$(document).on('ready page:load',function(){
+	$('.ui.modal').modal('attach events', '#login-link');
+	$('.ui.dropdown').dropdown({
+		on: 'click hover'
+	});
+});

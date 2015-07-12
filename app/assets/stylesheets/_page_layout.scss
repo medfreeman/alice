@@ -2,6 +2,9 @@
 nav{
 	border-bottom: $brand-color 4px solid;
 }
+#login-form label{
+	display: none;
+}
 
 .studio.active a, .studio:hover a{
 	color: $brand-color;

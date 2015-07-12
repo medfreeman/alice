@@ -2,10 +2,14 @@ li:before{
   content: none!important;
 }
 
-a{
+a, .ui.breadcrumb a{
   color: inherit;
   &:hover{
     color: inherit;
     text-decoration: underline;
   }
+}
+
+.ui.basic .actions{
+  background-color: transparent;
 }

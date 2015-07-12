@@ -3,20 +3,38 @@
     .item= image_tag "logo-alice.png"
     .item 
       Blog Review
-      %ul.breadcrumb
-        %li= link_to 'epfl'
-        %li= link_to 'alice'
-        %li= link_to 'y1 inside Lausanne'
-
-
-/ %nav.navbar.navbar-inverse
-/   .container
-/     .navbar-header
-/       %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
-/         %span.sr-only Toggle navigation
-/         %span.icon-bar
-/         %span.icon-bar
-/         %span.icon-bar
-/       = link_to 'Home', root_path, class: 'navbar-brand'
-/     .collapse.navbar-collapse
-/       %ul.nav.navbar-nav= render 'layouts/navigation_links'
+      .ui.breadcrumb
+        .section= link_to 'epfl'
+        %i.right.angle.icon.divider
+        .section= link_to 'alice'
+        %i.right.angle.icon.divider
+        .section= link_to 'y1 inside Lausanne', root_path
+    - if user_signed_in?
+      #logout-link.right.item.ui.dropdown
+        .text My Account
+        %i.dropdown.icon
+        .menu
+          .item= link_to "New Post", new_post_path
+          - if current_user.admin?
+            .item= link_to "Edit Users", users_path
+          .item= link_to "LOG OUT", destroy_user_session_path, method: 'DELETE'
+    - else
+      #login-link.right.item
+        LOGIN
+      #login-form.ui.basic.modal.small
+        %i.close.icon
+        .header Log In
+        = form_for(:user, :as => "User", :url => session_path(:user), role: "form", html: {class: 'ui form'}) do |f|
+          .content
+            .field
+              = f.label :email, class: "hidden"
+              = f.text_field :email, placeholder: 'email'
+            .field
+              = f.label :password, class: "hidden"
+              = f.password_field :password, placeholder: 'password'
+            .field
+              = link_to "Forgot your password?", new_password_path(:user)
+          .actions
+            %button.ui.inverted.button.basic.green{type: 'submit'}
+              %i.checkmark.icon 
+              Log in
