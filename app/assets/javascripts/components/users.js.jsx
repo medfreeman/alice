@@ -163,8 +163,8 @@ var Users = React.createClass({
 					Edit
 				</button>
 			);
-			userName = user.name;
-			userEmail = user.email;
+			userName = <div onDoubleClick={editUserToggle}>{user.name}</div>;
+			userEmail = <div onDoubleClick={editUserToggle}>{user.email}</div>;
 		}
 		var deleteButton;
 		if(user.id != that.state.currentUser.id && !user.editable)

@@ -37,7 +37,7 @@ var StudioForm = React.createClass({
 				console.error("Error creating studio:", res);
 				that.setState({
 					loading: false,
-					errors: res.JSONResponse.errors
+					errors: res.responseJSON.errors
 				});
 			}
 		});
