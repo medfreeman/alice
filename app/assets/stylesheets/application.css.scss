@@ -6,10 +6,12 @@
  *= require font-awesome
  *= require froala/css/froala_editor.min.css
  *= require froala/css/froala_style.min.css
- }
+ *= require semantic-ui/dist/semantic.min.css
  */
-@import "framework_and_overrides";
 
+@import "framework_and_overrides";
+@import "variables";
+@import "page_layout";
 tr.director{
 	background-color: transparentize(blue, 0.9);
 }

@@ -17,6 +17,5 @@
 //= require react_ujs
 //= require underscore/underscore-min
 //= require components
-//= require bootstrap
 //= require froala/js/froala_editor.min.js
 //= require_tree .

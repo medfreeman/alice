@@ -17,7 +17,6 @@ gem 'friendly_id', '5.0.4'
 gem 'best_in_place'
 
 gem 'font-awesome-sass', '4.2.0'
-gem 'bootstrap-sass', '3.2.0.2'
 gem "autoprefixer-rails"
 gem 'react-rails', '~> 1.0'
 

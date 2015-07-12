@@ -8,15 +8,21 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
-    #wrap
-      %header= render 'layouts/navigation'
-      .container
-        .row
-          .col-sm-6.col-sm-offset-3.text-center
-            = render 'layouts/messages'
-        .row
-          - multi_col = content_for?(:left_col)
-          = yield :left_col
-          .col-xs-12{class: multi_col ? "col-sm-9" : nil}
-            = yield
+    %header= render 'layouts/navigation'
+    .ui.container.text
+      = render 'layouts/messages'
+    .ui.container.grid
+      .two.wide.column
+        .list-header Tous les blogs
+        %ul.ui.list.link
+          - @studios.each do |studio|
+            %li.item.studio{class: studio == @studio ? 'active' : nil}
+              = link_to "Studio #{studio.name.titleize}", studio_posts_path(studio)
+              - if admin_signed_in?
+                = react_component 'DeleteStudio', studio: studio
+              - if studio == @studio && !@students.nil? && !@students.empty?
+                %ul.ui.list
+                  - @students.each do |student|
+                    %li.item.student{class: student == @student ? 'active' : nil}= link_to(student.name, student_posts_path(studio, student))
+      .eight.column.wide= yield
     = render 'layouts/footer'

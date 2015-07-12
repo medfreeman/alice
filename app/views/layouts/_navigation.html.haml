@@ -1,0 +1,22 @@
+%nav.ui.container
+  .ui.text.menu
+    .item= image_tag "logo-alice.png"
+    .item 
+      Blog Review
+      %ul.breadcrumb
+        %li= link_to 'epfl'
+        %li= link_to 'alice'
+        %li= link_to 'y1 inside Lausanne'
+
+
+/ %nav.navbar.navbar-inverse
+/   .container
+/     .navbar-header
+/       %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+/         %span.sr-only Toggle navigation
+/         %span.icon-bar
+/         %span.icon-bar
+/         %span.icon-bar
+/       = link_to 'Home', root_path, class: 'navbar-brand'
+/     .collapse.navbar-collapse
+/       %ul.nav.navbar-nav= render 'layouts/navigation_links'
