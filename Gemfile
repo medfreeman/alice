@@ -54,8 +54,6 @@ group :development, :test do
   gem 'figaro', '0.7.0'     # env variables
   gem 'rspec-rails', '3.1.0'
   gem 'jazz_hands'
-  # gem 'pry-rescue'
-  # gem 'pry-stack_explorer'
   gem 'terminal-notifier-guard'
 end
 
@@ -69,4 +67,11 @@ group :test do
   gem 'launchy'
   gem 'chromedriver-helper'
   gem 'poltergeist'
+end
+
+group :production do
+  gem 'rails_12factor'
+  gem 'newrelic_rpm'
+  gem 'dalli'
+  gem 'memcachier'
 end
