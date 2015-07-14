@@ -112,9 +112,13 @@ class PostsController < ApplicationController
 
     def post_params
       _params = params.require(:post).permit(:body, :title, authors: [])
-      _params[:authors].delete("")
-      _params[:authors].each_with_index do |author, i|
-        _params[:authors][i] = User.find(author.to_i)
+      if !_params[:authors].blank?
+        _params[:authors].delete("") 
+        _params[:authors].each_with_index do |author, i|
+          _params[:authors][i] = User.find(author.to_i)
+        end
+      else 
+        _params[:authors] = []
       end
       _params[:authors] << current_user
       _params.merge(studio: current_user.studio)

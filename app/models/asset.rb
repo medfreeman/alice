@@ -2,7 +2,8 @@ class Asset < ActiveRecord::Base
 	belongs_to :assetable, polymorphic: true
 	has_attached_file :file,
 		:styles => {
-			:large => "1200>",
+			:xlarge => "2400>",
+			:large => "900>",
 			:thumb => "150x90#"
 		},
 		:default_url => "/images/missing.jpg",
