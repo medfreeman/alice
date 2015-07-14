@@ -21,7 +21,7 @@ Alice::Application.routes.draw do
 
   devise_for :users, :controllers => {:confirmations => 'confirmations'}, :path_names => {:sign_in => 'login', :sign_out => 'logout'}
   devise_scope :user do
-    put "/confirm" => "confirmations#confirm"
+    patch "/confirm" => "confirmations#confirm"
   end
 
   

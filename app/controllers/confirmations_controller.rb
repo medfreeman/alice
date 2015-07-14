@@ -16,7 +16,7 @@ class ConfirmationsController < Devise::ConfirmationsController
       def confirm
         @original_token = params[resource_name].try(:[], :confirmation_token)
         digested_token = Devise.token_generator.digest(self, :confirmation_token, @original_token)
-        self.resource = resource_class.find_by_confirmation_token! digested_token
+        self.resource = resource_class.find_by_confirmation_token! @original_token
         resource.assign_attributes(permitted_params) unless params[resource_name].nil?
 
         if resource.valid? && resource.password_match?

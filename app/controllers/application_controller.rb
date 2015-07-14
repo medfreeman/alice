@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   # Redirects on successful sign in
   def after_sign_in_path_for(resource)
     if resource.studio.nil?
-      flash[:notice] = "You are not assigned to any studio yet"
+      flash[:notice] = "You are not assigned to any studio yet" unless resource.sign_in_count == 1
       root_path
     else
       studio_student_posts_path(resource.studio, resource)
