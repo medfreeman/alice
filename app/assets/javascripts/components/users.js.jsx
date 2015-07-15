@@ -163,8 +163,8 @@ var Users = React.createClass({
 					Edit
 				</button>
 			);
-			userName = <div onDoubleClick={editUserToggle}>{user.name}</div>;
-			userEmail = <div onDoubleClick={editUserToggle}>{user.email}</div>;
+			userName = <div>{user.name}</div>;
+			userEmail = <div>{user.email}</div>;
 		}
 		var deleteButton;
 		if(user.id != that.state.currentUser.id && !user.editable)
@@ -182,7 +182,7 @@ var Users = React.createClass({
 			</div>
 		);
 		return (
-			<Reactable.Tr className={"user ui form " + user.role} key={user.id} data={user} data-user-id={user.id}>
+			<Reactable.Tr className={"user ui form " + user.role} key={user.id} data={user} data-user-id={user.id} onDoubleClick={editUserToggle}>
 				<Reactable.Td column="name_">
 					{userName}
 				</Reactable.Td>
