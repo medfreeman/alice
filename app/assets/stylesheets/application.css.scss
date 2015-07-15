@@ -44,3 +44,7 @@ body{
 .inline{
   display: inline-block;
 }
+
+[href="http://editor.froala.com"] {
+  display: none !important;
+}

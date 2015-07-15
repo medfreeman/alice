@@ -1,6 +1,7 @@
 class AssetsController < ApplicationController
 	def upload
 		begin
+
 			asset = Asset.create!(file: params[:file])
 			render json: {
 				link: asset.file.url(:large),
@@ -9,6 +10,7 @@ class AssetsController < ApplicationController
 				original: asset.file.url,
 			}
 		rescue => e
+			puts "Error #{e}"
 			render json: {
 				error: e.inspect
 			}
