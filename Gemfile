@@ -10,7 +10,7 @@ gem 'bcrypt', '3.1.7'
 gem 'haml-rails'
 gem 'puma'
 gem 'rest-client'
-
+gem "paperclip-storage-ftp"
 gem 'devise', '3.3.0'
 gem 'friendly_id', '5.0.4'
 
