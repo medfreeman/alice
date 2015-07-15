@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   
   # Validations
   # :email
-  validates_format_of :email, with: /\A([^@\s]+)@epfl.ch/i, if: Proc.new {|u| !u.admin?}
+  #validates_format_of :email, with: /\A([^@\s]+)@epfl.ch/i, if: Proc.new {|u| !u.admin?}
   
   def self.paged(page_number)
     order(admin: :desc, email: :asc).page page_number

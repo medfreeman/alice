@@ -19,14 +19,17 @@
           %ul.ui.list
             - @studios.each do |studio|
               %li.item.studio{class: studio == @studio ? 'active' : nil}
-                = link_to "Studio #{studio.name.titleize}", studio_posts_path(studio)
+                = link_to "studio #{studio.name.titleize}", studio_posts_path(studio)
                 - if studio == @studio && !@students.nil? && !@students.empty?
                   %ul.ui.list
+                    %li.item= link_to 'most recent'
+                    %li.item= link_to 'dessin de situations'
+                    %hr/
                     - @students.each do |student|
                       %li.item.student{class: student == @student ? 'active' : nil}= link_to(student.name, student_posts_path(studio, student))
           .list-header +
           %ul.ui.list
-            %li.item= link_to "BLOG Archives", "http://alice.epfl.ch/page-96461-fr.html", target: '_blank'
+            %li.item= link_to "BLOG archives", "http://alice.epfl.ch/page-96461-fr.html", target: '_blank'
             %li.item= link_to "ALICE online", "http://alice.epfl.ch/", target: '_blank'
             %li.item= link_to "EPFL online", "http://epfl.ch/", target: '_blank'
         .thirteen.wide.column= yield
