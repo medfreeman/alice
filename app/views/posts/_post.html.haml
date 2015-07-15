@@ -9,6 +9,6 @@
     - if can_edit_post? post
       .ui.dropdown.action
         %i.icon.setting
-        %ul.menu.dropdown
-          %li.item= link_to 'Edit', edit_post_path(post)
-          %li.item= link_to 'Destroy', post, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        .menu.dropdown
+          = link_to 'Edit', edit_post_path(post), class: 'item'
+          = link_to 'Destroy', post, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "item"

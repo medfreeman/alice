@@ -16,12 +16,12 @@
         .text My Account
         %i.dropdown.icon
         .menu
-          .item= link_to "New Post", new_post_path
+          = link_to "New Post", new_post_path, class: "item"
           - if !current_user.studio.nil?
-            .item= link_to "My Posts", student_posts_path(current_user.studio, current_user)
+            = link_to "My Posts", student_posts_path(current_user.studio, current_user), class: "item"
           - if current_user.admin?
-            .item= link_to "Manage Users", users_path
-          .item= link_to "LOG OUT", destroy_user_session_path, method: 'DELETE'
+            = link_to "Manage Users", users_path, class: "item"
+          = link_to "LOG OUT", destroy_user_session_path, method: 'DELETE', class: "item"
     - else
       #login-link.right.item
         LOGIN
