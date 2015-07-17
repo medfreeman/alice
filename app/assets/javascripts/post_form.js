@@ -24,7 +24,12 @@ $.Editable.prototype.processInsertImage = function(b, response, c) {
 	var e = "fr-fin";
 	"left" == this.options.defaultImageAlignment && (e = "fr-fil"), "right" == this.options.defaultImageAlignment && (e = "fr-fir"), e += " fr-di" + this.options.defaultImageDisplay[0];
 	console.log("response:", response);
-	var f = '<a href="#" data-responsive-src="' + response.mobile + '" data-src="' + response.xlarge + '" class="lightgallery" ><img class="' + e + ' fr-just-inserted" alt="' + this.options.defaultImageTitle + '" src="' + b + '"' + d + "></a>",
+	var f = '<p> \
+		<div class="image-wrapper"> \
+			<img data-responsive-src="' + response.mobile + '" data-src="' + response.xlarge + '" class="lightgallery" class="' + e + ' fr-just-inserted lightgallery" alt="' + this.options.defaultImageTitle + '" src="' + b + '"' + d + '"> \
+			<a class="link-to-original" href="' + response.original + '" target="_blank">See original</a> \
+		</div> \
+	</p>',
 	g = this.getSelectionElements()[0],
 	h = this.getRange(),
 	i = !this.browser.msie && $.Editable.getIEversion() > 8 ? a(h.startContainer) : null;
@@ -59,6 +64,7 @@ $(document).on('ready page:load',function(){
 		imageMove: true,
 		paragraphy: true,
 		defaultImageTitle: "Image " + new Date(),
+		defaultImageWidth: "80%",
 		headers: {
 			'X-CSRF-Token': csrf_token
 		},

@@ -44,6 +44,15 @@
 .post, .post-form{
 	counter-reset: caption;
 }
+
+.image-wrapper{
+	position: relative;
+	text-align: center;
+}
+
+.link-to-original{
+
+}
 .image-caption{
 	counter-increment: caption;
 	color: lighten($black, 45%);
