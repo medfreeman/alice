@@ -40,3 +40,18 @@
 		font-size: $larger;
 	}
 }
+
+.post, .post-form{
+	counter-reset: caption;
+}
+.image-caption{
+	counter-increment: caption;
+	color: lighten($black, 45%);
+	margin-top: -15px;
+	text-align: center;
+	font-style: italic;
+	font-size: $x-small;
+	&:before{
+		content: counter(caption) " "
+	}
+}

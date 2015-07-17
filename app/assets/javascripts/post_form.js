@@ -1,6 +1,7 @@
 //= require froala/js/froala_editor.min.js
 //= require froala/js/plugins/inline_styles.min.js
 //= require froala/js/plugins/block_styles.min.js
+//= require froala/js/plugins/inline_styles.min.js
 //= require froala/js/plugins/lists.min.js
 //= require froala/js/plugins/tables.min.js
 //= require froala/js/plugins/video.min.js
@@ -32,7 +33,7 @@ $.Editable.prototype.processInsertImage = function(b, response, c) {
 
 $(document).on('ready page:load',function(){
 	var csrf_token = $('meta[name="csrf-token"]').attr('content');
-	var buttons = ['undo', 'redo' , 'sep', 'bold', 'italic', 'underline', 'sep', 'createLink', 'sep', 'formatBlock', 'sep',  'insertUnorderedList', 'sep', 'insertImage', 'insertVideo', 'uploadFile', 'sep', 'html']
+	var buttons = ['undo', 'redo' , 'sep', 'bold', 'italic', 'underline', 'sep', 'createLink', 'sep', 'formatBlock', 'blockStyle', 'sep',  'insertUnorderedList', 'sep', 'insertImage', 'insertVideo', 'uploadFile', 'sep', 'html']
 	$('.froala').editable({
 		inlineMode: false,
 		plainPaste: true,
@@ -44,7 +45,7 @@ $(document).on('ready page:load',function(){
 		},
 		blockStyles: {
 			'p': {
-				'image-caption': 'image caption',
+				'caption': 'image caption',
 			}
 		},
 		alwaysBlank: true,
