@@ -12,8 +12,13 @@ class Post < ActiveRecord::Base
 		:default_url => "/images/missing.jpg",
 		:use_timestamp => false
 	validates_attachment_content_type :thumbnail, :content_type => /\Aimage\/.*\Z/
-	
+
 	scope :featured, ->{where(featured: true)}
 	accepts_nested_attributes_for(:participations)	
 	validates_presence_of :body, :studio
+
+	def status
+		self[:status] ? "formes" : "processus"
+	end
+
 end

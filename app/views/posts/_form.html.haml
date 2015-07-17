@@ -11,10 +11,14 @@
   .field
     = f.label :thumbnail
     = f.file_field :thumbnail, class: "image-input"
-    .thumbnail= image_tag (@post.thumbnail.blank? ? "#" : @post.thumbnail.url(:thumb)), class: "form-image-thumb"
+    .thumbnail= image_tag (@post.thumbnail.blank? ? @post.thumbnail.url(:thumb) : @post.thumbnail.url(:thumb)), class: "form-image-thumb"
   .field
     = f.label :body
     = f.text_area :body, class: "froala"
+  .ui.checkbox.toggle.two-labels
+    %span Processus
+    = f.check_box :status, checked: @post.status?
+    %label{:for => "post_status"} Formes
   - if !@students.empty?
     .field
       = f.label :authors
