@@ -1,8 +1,11 @@
 class Post < ActiveRecord::Base
+	belongs_to :studio
 	has_many :participations
 	has_many :authors, through: :participations, class_name: "User"	
-	belongs_to :studio
 	has_many :assets, as: :assetable
+
+	acts_as_taggable
+	acts_as_taggable_on :categories
 
 	has_attached_file :thumbnail,
 		:styles => {

@@ -71,6 +71,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+    binding.pry
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to studio_post_path(@post.studio, @post), notice: 'Post was successfully updated.' }
@@ -111,7 +112,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      _params = params.require(:post).permit(:thumbnail, :status, :body, :title, authors: [])
+      _params = params.require(:post).permit(:thumbnail, :status, :body, :title, tag_list: [], authors: [])
       if !_params[:authors].blank?
         _params[:authors].delete("") 
         _params[:authors].each_with_index do |author, i|
@@ -126,6 +127,7 @@ class PostsController < ApplicationController
 
     def prepare_form
       @students = current_user.studio.students.select{|u| u != current_user}
+      @tags = current_user.studio.tag_counts_on(:tags)
     end
 
     def check_studio

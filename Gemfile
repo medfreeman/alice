@@ -19,7 +19,7 @@ gem 'best_in_place'
 gem 'font-awesome-sass', '4.2.0'
 gem "autoprefixer-rails"
 gem 'react-rails', '~> 1.0'
-
+gem 'acts-as-taggable-on', '~> 3.4'
 
 gem 'pg'
 gem "paperclip"
