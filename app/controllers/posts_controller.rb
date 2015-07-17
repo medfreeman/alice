@@ -111,7 +111,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      _params = params.require(:post).permit(:body, :title, authors: [])
+      _params = params.require(:post).permit(:thumbnail, :body, :title, authors: [])
       if !_params[:authors].blank?
         _params[:authors].delete("") 
         _params[:authors].each_with_index do |author, i|

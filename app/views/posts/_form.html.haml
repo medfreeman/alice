@@ -1,4 +1,4 @@
-= form_for @post, html: {class: 'ui form'} do |f|
+= form_for @post, html: {class: 'ui form', :multipart => true } do |f|
   - if @post.errors.any?
     #error_explanation
       %h2= "#{pluralize(@post.errors.count, "error")} prohibited this post from being saved:"
@@ -8,6 +8,10 @@
   .field
     = f.label :title
     = f.text_field :title
+  .field
+    = f.label :thumbnail
+    = f.file_field :thumbnail, class: "image-input"
+    .thumbnail= image_tag (@post.thumbnail.blank? ? "#" : @post.thumbnail.url(:thumb)), class: "form-image-thumb"
   .field
     = f.label :body
     = f.text_area :body, class: "froala"
