@@ -40,7 +40,7 @@ module Alice
     config.assets.paths << Rails.root.join('bower_components')
     config.assets.paths << Rails.root.join('node_modules')
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
-    config.assets.precompile += %w( .svg .eot .woff .ttf)
+    config.assets.precompile += %w( .svg .eot .woff .ttf semantic.css)
 
     config.paperclip_defaults = {
       :storage => :fog,
