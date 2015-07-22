@@ -5,7 +5,7 @@
   .post-body= post.body.html_safe
   .post-tags
     = post.status
-    - @post.tag_list.each do |tag|
+    - post.tag_list.each do |tag|
       .ui.tag.label= tag
   .post-actions
     - if can_feature_post? post
