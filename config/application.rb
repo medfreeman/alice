@@ -44,7 +44,7 @@ module Alice
 
     config.paperclip_defaults = {
       :storage => :fog,
-      :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public"},
+      :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public/paperclip"},
       :fog_directory => "",
       :fog_host => ""
     }
