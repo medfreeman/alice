@@ -16,7 +16,6 @@
     = f.label :body
     = f.text_area :body, class: "froala"
   .field
-    = @tags.inspect
     = f.select(:tag_list, options_from_collection_for_select(@tags, 'name', 'name'), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})
 
   .ui.checkbox.toggle.two-labels

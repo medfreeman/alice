@@ -20,12 +20,14 @@
             - @studios.each do |studio|
               %li.item.studio{class: studio == @studio ? 'active' : nil}
                 = link_to "studio #{studio.name.titleize}", studio_posts_path(studio)
-                - if studio == @studio && !@students.nil? && !@students.empty?
+                - if studio == @studio
                   %ul.ui.list
-                    %li.item= link_to 'most recent'
-                    %li.item= link_to 'dessin de situations'
-                    %hr/
-                    - @students.each do |student|
+                    %li.item= link_to 'most recent', studio_most_recent_path(studio)
+                    - studio.tag_list.each do |tag|
+                      %li{class: tag == @tag ? 'active' : nil}= link_to tag, studio_tag_path(studio, tag)
+                    %li
+                      %hr/
+                    - studio.students.each do |student|
                       %li.item.student{class: student == @student ? 'active' : nil}= link_to(student.name, student_posts_path(studio, student))
           .list-header +
           %ul.ui.list

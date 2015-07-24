@@ -4,6 +4,8 @@ class Post < ActiveRecord::Base
 	has_many :authors, through: :participations, class_name: "User"	
 	has_many :assets, as: :assetable
 
+	default_scope {order('created_at DESC')}
+
 	acts_as_taggable
 	acts_as_taggable_on :categories
 

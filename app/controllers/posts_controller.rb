@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_filter :authenticate_user!, only: [:create, :edit, :new]
   before_action :set_post, only: [:show, :edit, :update, :destroy, :feature]
-  before_filter :set_studio, only: [:show, :index, :student_posts]
+  before_filter :set_studio, only: [:show, :index, :student_posts, :tagged_posts]
   before_filter :check_permission, only: [:new, :edit, :create]
   before_filter :check_studio, only: [:new, :edit, :create]
   before_filter :prepare_form, only: [:new, :edit]
@@ -11,7 +11,11 @@ class PostsController < ApplicationController
       @posts = Post.featured
     else
       @title = @studio.name.titleize
-      @posts = @studio.posts
+      if params[:filter] == :most_recent
+        @posts = @studio.posts
+      else
+        @posts = @studio.featured_posts
+      end
       @students = @studio.students
     end
   end
@@ -26,11 +30,19 @@ class PostsController < ApplicationController
   def edit
   end
 
+  def tagged_posts
+    @tag = params[:id]
+    @title = "#{@studio.name.titleize} – #{@tag}"
+    @posts = Post.tagged_with(@tag)
+    render :index
+  end
+
   def student_posts
     @student = User.includes(:posts).find(params[:id])
     @title = @student.name
     @students = @studio.students
     @posts   = @student.posts
+    render :index
   end
 
   # POST feature
