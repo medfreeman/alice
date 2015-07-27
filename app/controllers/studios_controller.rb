@@ -18,12 +18,23 @@ class StudiosController < ApplicationController
 		end
 	end
 
+	def edit
+		@studio = Studio.find(params[:id])
+		@tags = @studio.tag_counts_on(:tags)
+	end
+
 	def update
 		@studio = Studio.find(params[:id])
 		if @studio.update!(studio_params)
-			render json: @studio
+			respond_to do |format|
+				format.json {render json: @studio}
+				format.html {redirect_to edit_studio_path(@studio)}
+			end
 		else
-			render json: @studio.errors
+			respond_to do |format|
+				format.json {render json: @studio.errors}
+				format.html {redirect_to edit_studio_path(@studio)}
+			end
 		end
 	end
 
@@ -48,7 +59,7 @@ class StudiosController < ApplicationController
 	private
 
 	def studio_params
-		params.require(:studio).permit(:name)
+		params.require(:studio).permit(:name, tag_list: [])
 	end
 
 	def check_admin
