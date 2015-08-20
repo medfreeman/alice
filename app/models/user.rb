@@ -68,6 +68,9 @@ class User < ActiveRecord::Base
     post.nil? || post.authors.include?(self)
   end
 
+  def can_edit_categories?
+    self.admin?
+  end
   ##############################################
 
   def password_required?

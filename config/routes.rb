@@ -9,6 +9,7 @@ Alice::Application.routes.draw do
   resources :posts, except: [:show, :index]
   post 'posts/:id/feature'             => 'posts#feature', as: :post_feature
 
+  get "category/:id"                   => "posts#tagged_posts", as: :category
   get "studios/(:studio_id)"           => "posts#index", as: :studio_posts
   get "studios/:studio_id/most-recent" => "posts#index", as: :studio_most_recent, filter: :most_recent
   get "studios/:studio_id/posts/:id"   => "posts#show", as: :studio_post

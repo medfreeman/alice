@@ -34,6 +34,7 @@ $(document).on('ready page:load',function(){
       .closest('.message')
       .transition('fade')
     ;
-  })
-;
+  });
+
+  $('.ui.accordion').accordion();
 });

@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :reject_locked!, if: :devise_controller?
   before_filter :load_studios
+  before_filter :load_categories
 
   # Devise permitted params
   def configure_permitted_parameters
@@ -65,5 +66,9 @@ class ApplicationController < ActionController::Base
 
   def load_studios
     @studios = Studio.all
-  end  
+  end
+
+  def load_categories
+    @all_categories = Post.tags_on :categories
+  end
 end

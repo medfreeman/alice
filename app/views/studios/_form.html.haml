@@ -9,6 +9,7 @@
     = f.label :name
     = f.text_field :name
   .field
-    = f.select(:tag_list, options_from_collection_for_select(@tags, 'name', 'name'), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})
+    = f.text_field :tag_list, value: @tags.nil? ? nil : @tags.join(', ')
+    =# f.select(:tag_list, options_from_collection_for_select(@tags, 'name', 'name'), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})
   .actions
     = f.submit 'Save', class: "ui button"

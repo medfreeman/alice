@@ -28,11 +28,16 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @categories = @post.tag_list_on :category
   end
 
   def tagged_posts
-    @tag = params[:id]
-    @title = "#{@studio.name.titleize} – #{@tag}"
+    @tag = ActsAsTaggableOn::Tag.find(params[:id])
+    if @studio 
+      @title = "#{@studio.name.titleize} – #{@tag.name}"
+    else
+      @tag.name.titleize  
+    end
     @posts = Post.tagged_with(@tag)
     render :index
   end
@@ -83,8 +88,8 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    binding.pry
     respond_to do |format|
+      binding.pry
       if @post.update(post_params)
         format.html { redirect_to studio_post_path(@post.studio, @post), notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
@@ -124,7 +129,12 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      _params = params.require(:post).permit(:thumbnail, :status, :body, :title, tag_list: [], authors: [])
+      _params = params
+      if current_user.can_edit_categories?
+        _params = params.require(:post).permit(:thumbnail, :status, :body, :title, :category_list, tag_list: [], authors: [])
+      else
+        _params = params.require(:post).permit(:thumbnail, :status, :body, :title, tag_list: [], authors: [])
+      end
       if !_params[:authors].blank?
         _params[:authors].delete("") 
         _params[:authors].each_with_index do |author, i|

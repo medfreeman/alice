@@ -59,7 +59,7 @@ class StudiosController < ApplicationController
 	private
 
 	def studio_params
-		params.require(:studio).permit(:name, tag_list: [])
+		params.require(:studio).permit(:name, :tag_list, tag_list: [])
 	end
 
 	def check_admin

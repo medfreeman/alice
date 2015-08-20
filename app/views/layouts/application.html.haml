@@ -16,19 +16,21 @@
       .ui.container.grid.stackable
         .three.wide.column
           .list-header Tous les blogs
-          %ul.ui.list
+          %ul.ui.list.accordion
             - @studios.each do |studio|
-              %li.item.studio{class: studio == @studio ? 'active' : nil}
-                = link_to "studio #{studio.name.titleize}", studio_posts_path(studio)
-                - if studio == @studio
-                  %ul.ui.list
-                    %li.item= link_to 'most recent', studio_most_recent_path(studio)
-                    - studio.tag_list.each do |tag|
-                      %li{class: tag == @tag ? 'active' : nil}= link_to tag, studio_tag_path(studio, tag)
-                    %li
-                      %hr/
-                    - studio.students.each do |student|
-                      %li.item.student{class: student == @student ? 'active' : nil}= link_to(student.name, student_posts_path(studio, student))
+              %li.item.studio
+                = link_to "studio #{studio.name.titleize}", studio_posts_path(studio), class: studio == @studio ? 'active' : nil
+                .title.fa.fa-caret-down
+                %ul.ui.list.content{class: studio == @studio ? 'active' : nil}
+                  %li.item= link_to 'most recent', studio_most_recent_path(studio), class: (@tag.nil? && @student.nil? ? 'active' : nil)
+                  - studio.tag_list.each do |tag|
+                    %li= link_to tag, studio_tag_path(studio, tag), class: tag == @tag ? 'active' : nil
+                  %li
+                    %hr/
+                  - studio.students.each do |student|
+                    %li.item.student= link_to(student.name, student_posts_path(studio, student), class: student == @student ? 'active' : nil)
+            - @all_categories.each do |cat|
+              %li.item= link_to cat.name, category_path(cat.name), class: cat == @category ? 'active' : nil
           .list-header +
           %ul.ui.list
             %li.item= link_to "BLOG archives", "http://alice.epfl.ch/page-96461-fr.html", target: '_blank'
