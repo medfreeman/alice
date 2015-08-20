@@ -28,17 +28,18 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @categories = @post.tag_list_on :category
+    @categories = @post.tags_on(:category)
   end
 
   def tagged_posts
-    @tag = ActsAsTaggableOn::Tag.find(params[:id])
+    @tag = params[:id]
     if @studio 
-      @title = "#{@studio.name.titleize} – #{@tag.name}"
+      @title = "#{@studio.name.titleize} – #{@tag.titleize}"
+      @posts = Post.tagged_with(@tag)
     else
-      @tag.name.titleize  
+      @posts = Post.tagged_with(@tag, on: :category)
+      @tag.titleize  
     end
-    @posts = Post.tagged_with(@tag)
     render :index
   end
 
@@ -89,7 +90,6 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1.json
   def update
     respond_to do |format|
-      binding.pry
       if @post.update(post_params)
         format.html { redirect_to studio_post_path(@post.studio, @post), notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }

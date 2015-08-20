@@ -30,7 +30,7 @@
                   - studio.students.each do |student|
                     %li.item.student= link_to(student.name, student_posts_path(studio, student), class: student == @student ? 'active' : nil)
             - @all_categories.each do |cat|
-              %li.item= link_to cat.name, category_path(cat.name), class: cat == @category ? 'active' : nil
+              %li.item= link_to cat.name, category_path(id: cat.name), class: cat == @category ? 'active' : nil
           .list-header +
           %ul.ui.list
             %li.item= link_to "BLOG archives", "http://alice.epfl.ch/page-96461-fr.html", target: '_blank'
