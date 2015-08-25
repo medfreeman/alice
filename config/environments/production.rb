@@ -99,7 +99,8 @@ Alice::Application.configure do
     :ftp_servers => [{
       :host     => ENV['FTP_SERVER'],
       :user     => ENV['FTP_USERNAME'],
-      :password => ENV['FTP_PASSWORD']
+      :password => ENV['FTP_PASSWORD'],
+      :passive  => true
     }]
   }
   end
