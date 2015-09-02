@@ -9,6 +9,6 @@ module PostsHelper
 	end
 
 	def can_edit_post? post
-		current_user.admin? || (user_signed_in? &&	current_user.can_edit_post?(post))
+		user_signed_in? &&	(current_user.admin? || current_user.can_edit_post?(post))
 	end
 end

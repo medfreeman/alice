@@ -122,6 +122,7 @@ class PostsController < ApplicationController
     end
 
     def check_permission
+      return if current_user.admin?
       if current_user.studio.nil? || !current_user.can_edit_post?(@post)
         redirect_to root_path, alert: "You must be assigned to a studio to write a new post" 
       end

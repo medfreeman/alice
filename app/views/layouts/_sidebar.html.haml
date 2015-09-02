@@ -3,13 +3,13 @@
   - @studios.each do |studio|
     -active = studio == @studio ? 'active' : nil
     %li.item.studio
-      = link_to "studio #{studio.name.titleize}", studio_posts_path(studio), class: active
+      = link_to "studio #{studio.name}", studio_posts_path(studio), class: active
       .ui.title{class: active}
         %i.dropdown.icon
       %ul.ui.list.content{class: studio == @studio ? 'active' : nil}
         - studio.tag_list.each_with_index do |tag, i|
           %li= link_to tag, studio_tag_path(studio, tag), class: tag == @tag ? 'active' : nil
-          - if i == studio.tag_list.count
+          - if i == (studio.tag_list.count-1)
             %li
               %hr/
         %li.item= link_to 'MOST RECENT', studio_most_recent_path(studio), class: (studio == @studio && @tag.nil? && @student.nil? ? 'active' : nil)
