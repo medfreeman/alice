@@ -8,8 +8,8 @@
 		%li studio(may be left empty)
 %p 
 	If the studio does not exist, it will be automatically created. If the user already exists, 
-	%em it will be updated to the values in the csv!
+	%em it will be updated to the values present in the csv!
 
 = form_tag users_upload_post_path(), multipart: true do
 	= file_field_tag :users_csv
-	= submit_tag "Submit"
+	= submit_tag "Submit", class: "ui button"

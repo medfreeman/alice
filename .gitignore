@@ -55,6 +55,7 @@ doc/
 rerun.txt
 pickle-email-*.html
 .zeus.sock
+*.dump
 
 # Ignore application configuration
 /config/application.yml
