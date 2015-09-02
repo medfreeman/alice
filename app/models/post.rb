@@ -4,7 +4,7 @@ class Post < ActiveRecord::Base
 	has_many :authors, through: :participations, class_name: "User"	
 	has_many :assets, as: :assetable
 
-	default_scope {order('created_at DESC')}
+	default_scope {order('created_at ASC')}
 
 	acts_as_taggable
 	acts_as_taggable_on :categories
@@ -14,8 +14,7 @@ class Post < ActiveRecord::Base
 			:medium => "500>",
 			:thumb => "150x90#"
 		},
-		:default_url => "/images/missing.jpg",
-		:use_timestamp => false
+		:default_url => "/images/missing.jpg"
 	validates_attachment_content_type :thumbnail, :content_type => /\Aimage\/.*\Z/
 
 	scope :featured, ->{where(featured: true)}

@@ -26,7 +26,7 @@
           = link_to "LOG OUT", destroy_user_session_path, method: 'DELETE', class: "item"
     - else
       #login-link.right.item
-        LOGIN
+        = link_to 'LOGIN', '#'
       #login-form.ui.basic.modal.small
         %i.close.icon
         .header Log In

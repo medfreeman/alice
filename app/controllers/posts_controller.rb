@@ -8,7 +8,9 @@ class PostsController < ApplicationController
 
   def index
     if @studio.nil?
-      @posts = Post.featured
+      @posts = Studio.all.map{|s| s.featured_posts.last}.compact
+      @title = "Home"
+      render :home
     else
       @title = @studio.name.titleize
       if params[:filter] == :most_recent

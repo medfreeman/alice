@@ -44,10 +44,21 @@ module Alice
 
     config.paperclip_defaults = {
       :storage => :fog,
-      :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public/paperclip"},
+      :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public"},
       :fog_directory => "",
-      :fog_host => ""
+      :fog_host => "localhost"
     }
 
+    config.paperclip_defaults = {
+    :storage => :ftp,
+    :path => "/public_html/alice/:attachment/:id/:style/:filename",
+    :url => "#{ENV['ASSET_HOST']}/alice/:attachment/:id/:style/:filename",
+    :ftp_servers => [{
+      :host     => ENV['FTP_SERVER'],
+      :user     => ENV['FTP_USERNAME'],
+      :password => ENV['FTP_PASSWORD'],
+      :passive  => true
+    }]
+  }
   end
 end

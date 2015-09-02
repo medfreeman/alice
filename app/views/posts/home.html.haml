@@ -1,0 +1,7 @@
+- content_for(:title, @title)
+%ul.ui.grid
+	- @posts.each do |post|
+		%li.item.four.wide.column
+			= link_to studio_posts_path(post.studio) do
+				.studio-thumb= image_tag(post.thumbnail.url)
+				.studio-name= post.studio.name
