@@ -69,6 +69,6 @@
 
 // List styles
 
-.post-list .item:not(:last-child){
+.post-list .post.item:not(:last-child){
 	margin-bottom: 25px;
 }

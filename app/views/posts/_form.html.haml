@@ -15,13 +15,13 @@
   .field
     = f.label :body
     = f.text_area :body, class: "froala"
-  - if can_edit_categories?
+  - if can_edit_categories? && @categories
     .field
-      = label_for :category_list
-      = f.text_field :category_list, value: @categories.nil? ? nil : @categories.join(', ')
-      =# f.select(:category_list, options_from_collection_for_select(@categories, 'name', 'name'), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})
+      = label :category_list, 'Categories'
+      =# f.text_field :category_list, value: @categories.nil? ? nil : @categories.join(', ')
+      = f.select(:category_list, options_from_collection_for_select(@categories, 'name', 'name'), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})
   .field
-    = label_for :tag_list
+    = label :tag_list, 'Tags'
     = f.select(:tag_list, options_from_collection_for_select(@tags, 'name', 'name'), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})
 
   .ui.checkbox.toggle.two-labels

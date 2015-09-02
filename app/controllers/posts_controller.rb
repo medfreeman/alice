@@ -29,6 +29,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @categories = Post.tags_on(:category)
   end
 
   def edit
