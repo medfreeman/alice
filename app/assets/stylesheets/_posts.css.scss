@@ -1,7 +1,3 @@
-// Place all the styles related to the Posts controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 .post-title{
 	margin-bottom: 5px;
 }
@@ -40,7 +36,10 @@
 		font-size: $larger;
 	}
 }
-
+.post-tags{
+	text-align: right;
+	color: #ACACAC;
+}
 .post, .post-form{
 	counter-reset: caption;
 }
@@ -48,10 +47,13 @@
 .image-wrapper{
 	position: relative;
 	text-align: center;
+	img{
+		float: none!important;
+	}
 }
 
 .link-to-original{
-
+	display: block;
 }
 .image-caption{
 	counter-increment: caption;
@@ -63,4 +65,10 @@
 	&:before{
 		content: counter(caption) " "
 	}
+}
+
+// List styles
+
+.post-list .item:not(:last-child){
+	margin-bottom: 25px;
 }

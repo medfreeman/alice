@@ -1,5 +1,5 @@
 - content_for(:title, @title)
-%ul.ui.list
+%ul.ui.list.post-list
   - @posts.each do |post|
     %li.item
       = render 'post', post: post

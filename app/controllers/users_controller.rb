@@ -63,8 +63,6 @@ class UsersController < ApplicationController
     if params_.keys.include?('studio')
       params_["studio"] = params_["studio"].blank? ? nil : Studio.find(params_["studio"])
     end
-    binding.pry
-    p params_
     params_
   end
 end
