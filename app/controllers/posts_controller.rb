@@ -41,6 +41,7 @@ class PostsController < ApplicationController
     if @studio 
       @title = "#{@studio.name.titleize} – #{@tag.titleize}"
       @posts = Post.tagged_with(@tag)
+      @page_title = "Studio #{@studio.name}"
     else
       @posts = Post.tagged_with(@tag, on: :category)
       @tag.titleize  
@@ -53,6 +54,7 @@ class PostsController < ApplicationController
     @title = @student.name
     @students = @studio.students
     @posts   = @student.posts
+    @page_title = "Studio #{@studio.name}"
     render :index
   end
 

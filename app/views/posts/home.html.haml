@@ -1,5 +1,5 @@
 - content_for(:title, @title)
-%ul.ui.grid
+%ul.ui.grid.stackable.home
 	- @posts.each do |post|
 		%li.item.four.wide.column
 			= link_to studio_posts_path(post.studio) do
