@@ -26,6 +26,19 @@ nav{
 a.active, a:hover{
 	color: $brand-color;
 }
+
+.category{
+	text-transform: uppercase;
+}
+
+.title{
+	display: inline-block;
+	float: right;
+	opacity: 0.5;
+	&.active, &:hover{
+		opacity: 1;
+	}
+}
 // /Header
 
 // Footer

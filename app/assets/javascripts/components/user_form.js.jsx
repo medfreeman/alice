@@ -53,8 +53,8 @@ var UserForm = React.createClass({
         name: this.state.name,
         sciper: this.state.sciper,
         role: this.state.role,
+        studio: this.state.studio,
       },
-      studio: this.state.studio,
     }, success, 'JSON').fail(error);
   },
   valid: function(){

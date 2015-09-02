@@ -10,9 +10,11 @@ class PostsController < ApplicationController
     if @studio.nil?
       @posts = Studio.all.map{|s| s.featured_posts.last}.compact
       @title = "Home"
+      @page_title = "Blog Homepage"
       render :home
     else
       @title = @studio.name.titleize
+      @page_title = "Studio #{@studio.name}"
       if params[:filter] == :most_recent
         @posts = @studio.posts
       else

@@ -4,13 +4,13 @@
     .item.blog-titles
       %div    
         .blog-title
-          Blog Review
+          = @page_title
         .ui.breadcrumb
           .section= link_to 'epfl'
           %i.right.angle.icon.divider
           .section= link_to 'alice'
           %i.right.angle.icon.divider
-          .section= link_to 'y1 inside Lausanne', root_path
+          .section= link_to 'y1 inside Paris 2015/16', root_path
     - if user_signed_in?
       #logout-link.right.item.ui.dropdown
         .text My Account

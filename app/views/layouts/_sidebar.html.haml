@@ -1,0 +1,27 @@
+.list-header Tous les blogs
+%ul.ui.list.accordion
+  - @studios.each do |studio|
+    -active = studio == @studio ? 'active' : nil
+    %li.item.studio
+      = link_to "studio #{studio.name.titleize}", studio_posts_path(studio), class: active
+      .ui.title{class: active}
+        %i.dropdown.icon
+      %ul.ui.list.content{class: studio == @studio ? 'active' : nil}
+        - studio.tag_list.each_with_index do |tag, i|
+          %li= link_to tag, studio_tag_path(studio, tag), class: tag == @tag ? 'active' : nil
+          - if i == studio.tag_list.count
+            %li
+              %hr/
+        %li.item= link_to 'MOST RECENT', studio_most_recent_path(studio), class: (studio == @studio && @tag.nil? && @student.nil? ? 'active' : nil)
+        %li
+          %hr/
+        - studio.students.each do |student|
+          %li.item.student= link_to(student.name, student_posts_path(studio, student), class: student == @student ? 'active' : nil)
+  - @all_categories.each do |cat|
+    %li.item.category= link_to cat.name, category_path(id: cat.name), class: cat == @category ? 'active' : nil
+.list-header +
+%ul.ui.list
+  %li.item= link_to "Home", root_path
+  %li.item= link_to "BLOG archives", "http://alice.epfl.ch/teaching/archives", target: '_blank'
+  %li.item= link_to "ALICE online", "http://alice.epfl.ch/", target: '_blank'
+  %li.item= link_to "EPFL online", "http://epfl.ch/", target: '_blank'
