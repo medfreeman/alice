@@ -1,4 +1,4 @@
-= form_for @post, html: {class: 'ui form', :multipart => true } do |f|
+= form_for @post, html: {class: 'ui form post', :multipart => true } do |f|
   - if @post.errors.any?
     #error_explanation
       %h2= "#{pluralize(@post.errors.count, "error")} prohibited this post from being saved:"
@@ -18,8 +18,8 @@
   - if can_edit_categories? && @categories
     .field
       = label :category_list, 'Categories'
-      =# f.text_field :category_list, value: @categories.nil? ? nil : @categories.join(', ')
-      = f.select(:category_list, options_from_collection_for_select(@categories, 'name', 'name'), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})
+      = f.text_field :category_list, value: @categories.nil? ? nil : @categories.join(', '), label: "comma separated values: 'white rabbit, summer workshop'"
+      =# f.select(:category_list, options_from_collection_for_select(@categories, 'name', 'name'), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})
   .field
     = label :tag_list, 'Tags'
     = f.select(:tag_list, options_from_collection_for_select(@tags, 'name', 'name'), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})

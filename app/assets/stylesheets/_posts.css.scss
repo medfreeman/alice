@@ -72,3 +72,9 @@
 .post-list .post.item:not(:last-child){
 	margin-bottom: 25px;
 }
+
+.post.form{
+	.thumbnail img{
+		max-height: 170px;
+	}
+}
