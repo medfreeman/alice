@@ -4,17 +4,19 @@
     Par #{post.authors.map{|u| link_to(u.name, student_posts_path(u.studio, u))}.join(', ').html_safe}, #{post.created_at.strftime("%d/%m/%y")}
   .post-body= post.body.html_safe
   .post-tags
-    = post.status
+    
     - post.tag_list.each do |tag|
       .ui.tag.label= tag
     - post.tag_list_on(:category) do |cat|
       .ui.tag.label= cat
-  .post-actions
-    - if can_feature_post? post
-      .action= react_component 'FeaturePost', post: post
-    - if can_edit_post? post
-      .ui.dropdown.action
-        %i.icon.setting
-        .menu.dropdown
-          = link_to 'Edit', edit_post_path(post), class: 'item'
-          = link_to 'Destroy', post, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "item"
+  .post-icons
+    .post-actions
+      - if can_feature_post? post
+        .action= react_component 'FeaturePost', post: post
+      - if can_edit_post? post
+        .ui.dropdown.action
+          %i.icon.setting
+          .menu.dropdown
+            = link_to 'Edit', edit_post_path(post), class: 'item'
+            = link_to 'Destroy', post, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "item"
+    %i.icon{class: post.status == 'processus' ? 'wrench' : 'ok'}

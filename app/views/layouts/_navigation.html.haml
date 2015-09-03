@@ -6,11 +6,11 @@
         .blog-title
           = @page_title
         .ui.breadcrumb
-          .section= link_to 'epfl'
+          .section= link_to 'epfl', 'http://www.epfl.ch/', target: '_blank'
           %i.right.angle.icon.divider
-          .section= link_to 'alice'
+          .section= link_to 'alice', 'http://alice.epfl.ch', target: '_blank'
           %i.right.angle.icon.divider
-          .section= link_to 'y1 inside Paris 2015/16', root_path
+          .section= link_to 'y1 inside Paris 2015/16', 'http://alice.epfl.ch/cms/site/alice/lang/fr/teaching/y1', target: '_blank'
     - if user_signed_in?
       #logout-link.right.item.ui.dropdown
         .text My Account
