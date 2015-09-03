@@ -27,7 +27,7 @@ $.Editable.prototype.processInsertImage = function(b, response, c) {
 	var f = '<p> \
 		<div class="image-wrapper"> \
 			<img data-responsive-src="' + response.mobile + '" data-src="' + response.xlarge + '" class="lightgallery" class="' + e + ' fr-just-inserted lightgallery" alt="' + this.options.defaultImageTitle + '" src="' + b + '"' + d + '"> \
-			<a class="link-to-original" href="' + response.original + '" target="_blank">See original</a> \
+			<a class="link-to-original" href="' + response.original + '" target="_blank" title="See original"><i class=" fa icon zoom"></i></a> \
 		</div> \
 	</p>',
 	g = this.getSelectionElements()[0],

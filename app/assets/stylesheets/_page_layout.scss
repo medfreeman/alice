@@ -25,6 +25,7 @@ nav{
 
 a.active, a:hover{
 	color: $brand-color;
+	text-decoration: none;
 }
 
 .category{
@@ -34,8 +35,8 @@ a.active, a:hover{
 .title{
 	display: inline-block;
 	float: right;
-	opacity: 0.5;
-	&.active, &:hover{
+	opacity: 0;
+	.studio:not(.active):hover &{
 		opacity: 1;
 	}
 }

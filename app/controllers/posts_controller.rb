@@ -17,6 +17,7 @@ class PostsController < ApplicationController
       @page_title = "Studio #{@studio.name}"
       if params[:filter] == :most_recent
         @posts = @studio.posts
+        @most_recent = true
       else
         @posts = @studio.featured_posts
       end

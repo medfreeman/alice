@@ -1,8 +1,12 @@
  - should directors be allowed to edit all users? easier if yes.
  - what is the purpose of 'pinned' again?
- - need favicon
  - what should epfl > alice link to?
 
  TODO:
 
-  - add labels to post forms
+  - left align images
+  - slideshow list at bottom is broken
+  - change category to dropdown for non-admin
+  - category don't list posts
+  - style caption
+  - margin-left: 10px; for ul.studio > ul
