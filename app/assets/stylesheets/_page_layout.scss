@@ -3,7 +3,7 @@ nav{
 	border-bottom: $brand-color 4px solid;
 	margin-bottom: 25px;
 	.logo{
-		min-width: 150px;
+		max-width: 150px;
 	}
 	.blog-title{
 		text-transform: uppercase;

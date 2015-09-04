@@ -25,9 +25,13 @@
     = f.select(:tag_list, options_from_collection_for_select(@tags, 'name', 'name'), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})
 
   .ui.checkbox.toggle.two-labels
-    %span Processus
+    %span 
+      Processus
+      %i.icon.post-status.wrench
     = f.check_box :status, checked: @post.status?
-    %label{:for => "post_status"} Formes
+    %label{:for => "post_status"} 
+      %i.icon.post-status.checkmark 
+      Formes
   - if !@students.empty?
     .field
       = f.label :authors

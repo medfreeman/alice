@@ -2,7 +2,7 @@
 	margin-bottom: 5px;
 }
 .post-details{
-	color: lighten($black, 60%);
+	color: $grey;
 	text-transform: uppercase;
 	margin-bottom: 15px;
 	font-size: $smaller;
@@ -32,6 +32,9 @@
 				opacity: 1;
 			}
 		}
+	}
+	.post-status{
+		color: $grey;
 	}
 	.action{
 		display: inline-block;
