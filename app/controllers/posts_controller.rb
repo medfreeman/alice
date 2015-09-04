@@ -32,23 +32,25 @@ class PostsController < ApplicationController
     @post = Post.new
     @categories = Post.tags_on(:categories)
     @selected_categories = []
+    @tags = current_user.studio.tags
   end
 
   def edit
     @categories = Post.tags_on(:categories)
     @selected_categories = @post.tags_on(:categories)
+    @tags = @post.studio.tags
     @selected_tags = @post.tags_on(:tags)
   end
 
   def tagged_posts
-    @tag = params[:id]
+    @tag = ActsAsTaggableOn::Tag.friendly.find(params[:slug])
     if @studio 
-      @title = "#{@studio.name.titleize} – #{@tag.titleize}"
+      @title = "#{@studio.name.titleize} – #{@tag.name.titleize}"
       @posts = Post.tagged_with(@tag)
       @page_title = "Studio #{@studio.name}"
     else
-      @posts = Post.tagged_with(@tag, on: :category)
-      @tag.titleize  
+      @posts = Post.tagged_with(@tag.name, on: :categories)
+      @title = @tag.name.titleize  
     end
     render :index
   end
@@ -143,9 +145,9 @@ class PostsController < ApplicationController
     def post_params
       _params = params
       if current_user.can_edit_categories?
-        _params = params.require(:post).permit(:thumbnail, :status, :body, :title, :category_list, category_list: [], tag_list: [], authors: [])
+        _params = params.require(:post).permit(:id, :thumbnail, :status, :body, :title, :category_list, category_list: [], tag_list: [], authors: [])
       else
-        _params = params.require(:post).permit(:thumbnail, :status, :body, :title, tag_list: [], authors: [])
+        _params = params.require(:post).permit(:id, :thumbnail, :status, :body, :title, tag_list: [], authors: [])
       end
       if !_params[:authors].blank?
         _params[:authors].delete("") 
@@ -157,11 +159,11 @@ class PostsController < ApplicationController
       end
       _params[:authors] << current_user
       _params.merge(studio: current_user.studio) unless _params[:category_list].nil?
+      _params
     end
 
     def prepare_form
       @students = current_user.studio.students.select{|u| u != current_user}
-      @tags = current_user.studio.tag_counts_on(:tags)
     end
 
     def check_studio

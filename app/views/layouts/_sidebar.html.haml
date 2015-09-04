@@ -8,15 +8,15 @@
         %i.dropdown.icon
       %ul.ui.list.content{class: studio == @studio ? 'active' : nil}
         %li.item= link_to 'MOST RECENT', studio_most_recent_path(studio), class: (studio == @studio && @most_recent ? 'active' : nil) 
-        - studio.tag_list.each_with_index do |tag, i|
-          %li= link_to tag, studio_tag_path(studio, tag), class: tag == @tag ? 'active' : nil
+        - studio.tags.each_with_index do |tag, i|
+          %li= link_to tag.name, studio_tag_path(studio, tag), class: tag == @tag ? 'active' : nil
           - if i == (studio.tag_list.count-1)
             %li
               %hr/
         - studio.students.each do |student|
           %li.item.student= link_to(student.name, student_posts_path(studio, student), class: student == @student ? 'active' : nil)
   - @all_categories.each do |cat|
-    %li.item.category= link_to cat.name, category_path(id: cat.name), class: cat == @category ? 'active' : nil
+    %li.item.category= link_to cat.name, category_path(cat), class: cat == @category ? 'active' : nil
 .list-header +
 %ul.ui.list
   %li.item= link_to "Home", root_path
