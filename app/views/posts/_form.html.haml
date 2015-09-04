@@ -15,14 +15,19 @@
   .field
     = f.label :body
     = f.text_area :body, class: "froala"
-  - if can_edit_categories? && @categories
-    .field
+  - if can_post_to_categories?
+    = check_box_tag :is_studio, nil, @selected_categories.empty?, class: "is_studio"
+    = label_tag :is_studio, 'Studio Post'
+  - if @categories && can_post_to_categories?
+    .field.categories
       = label :category_list, 'Categories'
-      = f.text_field :category_list, value: @categories.nil? ? nil : @categories.join(', '), label: "comma separated values: 'white rabbit, summer workshop'"
-      =# f.select(:category_list, options_from_collection_for_select(@categories, 'name', 'name'), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})
-  .field
+      - if can_edit_categories?
+        = f.text_field :category_list, value: @categories.nil? ? nil : @categories.join(', '), label: "Do not include commas"
+      - elsif can_post_to_categories?
+        = f.select(:category_list, options_from_collection_for_select(@categories, 'name', 'name', @selected_categories), {include_blank: true}, {class: 'ui fluid dropdown'})
+  .field.tags
     = label :tag_list, 'Tags'
-    = f.select(:tag_list, options_from_collection_for_select(@tags, 'name', 'name'), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})
+    = f.select(:tag_list, options_from_collection_for_select(@tags, 'name', 'name', @selected_tags), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})
 
   .ui.checkbox.toggle.two-labels
     %span 

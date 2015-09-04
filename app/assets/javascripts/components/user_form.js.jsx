@@ -3,13 +3,15 @@ var UserForm = React.createClass({
     sciper: React.PropTypes.string,
     name: React.PropTypes.string,
     role: React.PropTypes.string,
-    email: React.PropTypes.string
+    email: React.PropTypes.string,
+    super_student: React.PropTypes.boolean
   },
   getInitialState: function(){
     return {
       sciper: '',
       name: '',
       role: 'student',
+      super_student: false
       studio: '',
       email: '',
       roles: this.props.roles,

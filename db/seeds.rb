@@ -17,7 +17,7 @@ image = File.open("#{Rails.root}/public/red_sun.jpg")
 
 d = Fabricate(:user, role: :director, name: 'director', email: "director@epfl.ch")
 pellacani = Fabricate(:studio, name: "pellacani", director: d)
-pellacani.students << Fabricate(:user, email: "student@epfl.ch", name: 'pellacani')
+pellacani.students << Fabricate(:user, email: "student@epfl.ch", name: 'pellacani', super_student: true)
 rudi = Fabricate(:studio, name: "rudi")
 rudi.students << Fabricate(:user, name: 'rudi')
 

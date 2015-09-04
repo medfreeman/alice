@@ -30,11 +30,14 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @categories = Post.tags_on(:category)
+    @categories = Post.tags_on(:categories)
+    @selected_categories = []
   end
 
   def edit
-    @categories = @post.tags_on(:category)
+    @categories = Post.tags_on(:categories)
+    @selected_categories = @post.tags_on(:categories)
+    @selected_tags = @post.tags_on(:tags)
   end
 
   def tagged_posts
@@ -140,7 +143,7 @@ class PostsController < ApplicationController
     def post_params
       _params = params
       if current_user.can_edit_categories?
-        _params = params.require(:post).permit(:thumbnail, :status, :body, :title, :category_list, tag_list: [], authors: [])
+        _params = params.require(:post).permit(:thumbnail, :status, :body, :title, :category_list, category_list: [], tag_list: [], authors: [])
       else
         _params = params.require(:post).permit(:thumbnail, :status, :body, :title, tag_list: [], authors: [])
       end
@@ -153,7 +156,7 @@ class PostsController < ApplicationController
         _params[:authors] = []
       end
       _params[:authors] << current_user
-      _params.merge(studio: current_user.studio)
+      _params.merge(studio: current_user.studio) unless _params[:category_list].nil?
     end
 
     def prepare_form

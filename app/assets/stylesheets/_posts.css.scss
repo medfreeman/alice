@@ -90,6 +90,17 @@
 	}
 }
 
+
+// Form
+
+.post.form{
+	.is_studio:checked ~ .categories{
+		display: none;
+	}
+	.is_studio:not(:checked) ~ .tags{
+		display: none;
+	}
+}
 // List styles
 
 .post-list .post.item:not(:last-child){
