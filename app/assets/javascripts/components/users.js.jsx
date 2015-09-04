@@ -116,6 +116,7 @@ var Users = React.createClass({
 		var updateUser = function(property){
 			var userId = user.id;
 			return function(value){
+				value = typeof value != 'string' ? value.currentTarget.value : value
 				var user = _.find(that.state.users, function(user_){
 					return user_.id == userId;
 				});
@@ -145,7 +146,7 @@ var Users = React.createClass({
       that.updateUsersWith(users_);
 		};
 
-		var userEmail, userName, editButton;
+		var userEmail, userName, superStudent, editButton;
 		if(user.editable)
 		{
 			userName = <div className="field"><input type="text" defaultValue={user.name} name="user[name]"/></div>;
@@ -200,6 +201,17 @@ var Users = React.createClass({
 						searchable={false} 
 						clearable={false}
 					/>
+				</Reactable.Td>
+				<Reactable.Td column="super_student_">
+					<div>
+						<input 
+							id={user.id + 'super_student'} 
+							type="checkbox" 
+							name="user[super_student]" 
+							value={user.super_student} 
+							onChange={updateUser('super_student')}/>
+          	<label htmlFor={user.id + 'super_student'}>&nbsp;</label>
+          </div>
 				</Reactable.Td>
 				<Reactable.Td column="studio_">
 					<Select
@@ -275,6 +287,10 @@ var Users = React.createClass({
 						{
 							key: 'role_',
 							label: 'Role'
+						},
+						{
+							key: 'super_student_',
+							label: 'Super Student'
 						},
 						{
 							key: 'studio_',

@@ -4,14 +4,14 @@ var UserForm = React.createClass({
     name: React.PropTypes.string,
     role: React.PropTypes.string,
     email: React.PropTypes.string,
-    super_student: React.PropTypes.boolean
+    super_student: React.PropTypes.bool
   },
   getInitialState: function(){
     return {
       sciper: '',
       name: '',
       role: 'student',
-      super_student: false
+      super_student: false,
       studio: '',
       email: '',
       roles: this.props.roles,
@@ -56,6 +56,7 @@ var UserForm = React.createClass({
         sciper: this.state.sciper,
         role: this.state.role,
         studio: this.state.studio,
+        super_student: this.state.super_student,
       },
     }, success, 'JSON').fail(error);
   },
@@ -77,6 +78,10 @@ var UserForm = React.createClass({
           <div className="field">
             <input type="text" placeholder="Name" name="name" value={this.state.name} onChange={this.handleChange}/>
           </div>
+          <div className="field">
+            <input id="super_student" type="checkbox" name="super_student" value={this.state.super_student} onChange={this.handleChange}/>
+            <label htmlFor="super_student">Super Student</label>
+          </div>
         </div>
         <Select 
           className="not-field"
@@ -89,6 +94,7 @@ var UserForm = React.createClass({
           searchable={false}
           onChange={this.handleRoleChange}
         />
+        
         <Select 
           className="not-field"
           name="studio" 

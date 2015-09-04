@@ -59,9 +59,12 @@ class UsersController < ApplicationController
   end
 
   def permitted_params
-    params_ = params.require(:user).permit(:name, :email, :sciper, :studio, :role).to_h
+    params_ = params.require(:user).permit(:name, :email, :sciper, :studio, :role, :super_student).to_h
     if params_.keys.include?('studio')
       params_["studio"] = params_["studio"].blank? ? nil : Studio.find(params_["studio"])
+    end
+    if !params_[:super_student].blank?
+      params_[:super_student] = params_[:super_student] == 'true' ? true : false
     end
     params_
   end
