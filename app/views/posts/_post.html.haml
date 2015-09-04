@@ -5,10 +5,10 @@
   .post-body= post.body.html_safe
   .post-tags
     
-    - post.tag_list.each do |tag|
-      .ui.tag.label= tag
-    - post.tag_list_on(:category) do |cat|
-      .ui.tag.label= cat
+    - post.tags.each do |tag|
+      .ui.tag.label= link_to tag.name, studio_tag_path(post.studio, tag)
+    - post.tags_on(:category) do |cat|
+      .ui.tag.label= link_to cat.name, studio_tag_path(post.studio, cat)
   .post-icons
     .post-actions
       - if can_feature_post? post
