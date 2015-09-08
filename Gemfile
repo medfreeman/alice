@@ -53,7 +53,7 @@ group :development, :test do
   gem 'fabrication'
   gem 'figaro', '0.7.0'     # env variables
   gem 'rspec-rails', '3.1.0'
-  gem 'jazz_hands'
+  gem 'jazz_fingers'
   gem 'terminal-notifier-guard'
 end
 
