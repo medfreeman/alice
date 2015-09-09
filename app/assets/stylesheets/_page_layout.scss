@@ -35,12 +35,26 @@ a.active, a:hover{
 .title{
 	display: inline-block;
 	float: right;
-	opacity: 0;
-	.studio:not(.active):hover &{
-		opacity: 1;
+	@media #{$tablet}
+	{
+		opacity: 0;
+		.studio:not(.active):hover &{
+			opacity: 1;
+		}
 	}
 }
 // /Header
+
+// Sidebar
+
+.menus .list{
+	display: none;
+	@media #{$tablet}
+	{
+	  display: block;
+	}
+}
+// /Sidebar
 
 // Footer
 

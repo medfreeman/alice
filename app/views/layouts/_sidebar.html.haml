@@ -1,5 +1,5 @@
 .list-header Tous les blogs
-%ul.ui.list.accordion
+%ul.ui.list.content.accordion.menus.studios
   - @studios.each do |studio|
     -active = studio == @studio ? 'active' : nil
     %li.item.studio
@@ -18,7 +18,7 @@
   - @all_categories.each do |cat|
     %li.item.category= link_to cat.name, category_path(cat), class: cat == @category ? 'active' : nil
 .list-header +
-%ul.ui.list
+%ul.ui.list.content.menus
   %li.item= link_to "Home", root_path
   %li.item= link_to "BLOG archives", "http://alice.epfl.ch/teaching/archives", target: '_blank'
   %li.item= link_to "ALICE online", "http://alice.epfl.ch/", target: '_blank'

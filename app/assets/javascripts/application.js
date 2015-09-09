@@ -37,4 +37,10 @@ $(document).on('ready page:load',function(){
   });
 
   $('.ui.accordion').accordion();
+  if(window.innerWidth < 767)
+  {
+    $('.list-header').click(function(){
+      $(this).next().slideToggle();
+    });
+  }
 });
