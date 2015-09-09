@@ -11,9 +11,10 @@
   %body
     %header= render 'layouts/navigation'
     %main
-      .ui.container.text
-        = render 'layouts/messages'
       .ui.container.grid.stackable
         .three.wide.column= render 'layouts/sidebar'
-        .thirteen.wide.column= yield
+        .thirteen.wide.column
+          .ui.container.text
+            = render 'layouts/messages'
+          = yield
     = render 'layouts/footer'
