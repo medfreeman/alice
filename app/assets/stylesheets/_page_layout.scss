@@ -10,6 +10,9 @@ nav{
 		letter-spacing: 0.25em;
 		font-size: $x-large;
 	}
+	.menu{
+		flex-wrap: wrap;
+	}
 }
 
 #login-form label{
@@ -21,6 +24,11 @@ nav{
 	font-size: $smaller;
 	color: lighten($black, 50%);
 	border-bottom: 1px solid lighten($black, 80%);
+	min-height: 25px;
+	@media #{$tablet}
+	{
+	  min-height: auto;
+	}
 }
 
 a.active, a:hover{
@@ -35,8 +43,12 @@ a.active, a:hover{
 .title{
 	display: inline-block;
 	float: right;
+	min-height: 25px;
+	min-width: 25px;
 	@media #{$tablet}
 	{
+		min-height: auto;
+		min-width: auto;
 		opacity: 0;
 		.studio:not(.active):hover &{
 			opacity: 1;
