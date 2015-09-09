@@ -23,11 +23,12 @@ gem 'react-rails', '~> 1.0'
 gem 'acts-as-taggable-on', '~> 3.4'
 
 gem "paperclip"
+gem 'fog'
+
 gem 'kaminari', '0.16.1'
 gem 'colorbox-rails'
 
 group :development do 
-  gem 'fog'
   gem 'better_errors'
   gem 'awesome_print'
   #gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
