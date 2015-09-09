@@ -1,10 +1,10 @@
 class PostsController < ApplicationController
   before_filter :authenticate_user!, only: [:create, :edit, :new]
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :feature]
-  before_filter :set_studio, only: [:show, :index, :student_posts, :tagged_posts]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :feature, :new]
+  before_action :set_studio, only: [:show, :index, :student_posts, :tagged_posts]
   before_filter :check_permission, only: [:new, :edit, :create]
   before_filter :check_studio, only: [:new, :edit, :create]
-  before_filter :prepare_form, only: [:new, :edit]
+  before_action :prepare_form, only: [:new, :edit]
 
   def index
     if @studio.nil?
@@ -29,7 +29,6 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new
     @categories = Post.tags_on(:categories)
     @tags = current_user.studio.tags
   end
@@ -82,6 +81,8 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
+    prepare_form
+    @tags = current_user.studio.tags
     respond_to do |format|
       if @post.save
         format.html { redirect_to studio_post_path(@post.studio, @post), notice: 'Post was successfully created.' }
@@ -123,7 +124,7 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = params[:id].present? ? Post.find(params[:id]) : Post.new
     end
 
     def check_permission

@@ -19,7 +19,7 @@ class Post < ActiveRecord::Base
 
 	scope :featured, ->{where(featured: true)}
 	accepts_nested_attributes_for(:participations)	
-	validates_presence_of :body, :studio
+	validates_presence_of :body
 
 	def status
 		self[:status] ? "formes" : "processus"
