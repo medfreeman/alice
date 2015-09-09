@@ -117,7 +117,7 @@ GEM
     erubis (2.7.0)
     excon (0.45.4)
     execjs (2.6.0)
-    fabrication (2.14.0)
+    fabrication (2.14.1)
     ffi (1.9.10)
     figaro (0.7.0)
       bundler (~> 1.0)
@@ -199,7 +199,7 @@ GEM
       fog-core
       fog-json
       fog-xml
-    fog-sakuracloud (1.1.0)
+    fog-sakuracloud (1.1.1)
       fog-core
       fog-json
     fog-serverlove (0.1.2)
@@ -320,6 +320,7 @@ GEM
     minitest (5.8.0)
     multi_json (1.11.2)
     multi_test (0.1.2)
+    mysql2 (0.4.0)
     nenv (0.2.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -527,6 +528,7 @@ DEPENDENCIES
   launchy
   letter_opener
   memcachier
+  mysql2
   newrelic_rpm
   paperclip
   paperclip-storage-ftp

@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.1.5'
 gem 'rails', '4.1.6'
+
 gem 'sass-rails', '4.0.3'
 gem 'uglifier', '2.5.3'
 gem 'jquery-rails', '3.1.2'
@@ -21,11 +22,9 @@ gem "autoprefixer-rails"
 gem 'react-rails', '~> 1.0'
 gem 'acts-as-taggable-on', '~> 3.4'
 
-gem 'pg'
 gem "paperclip"
 gem 'kaminari', '0.16.1'
 gem 'colorbox-rails'
-
 
 group :development do 
   gem 'fog'
@@ -49,6 +48,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'pg'
   gem 'fuubar'
   gem 'fabrication'
   gem 'figaro', '0.7.0'     # env variables
@@ -59,7 +59,7 @@ end
 
 group :test do
   gem 'selenium-webdriver'
-	gem 'rspec-html-matchers'
+  gem 'rspec-html-matchers'
   gem 'capybara', '2.4.1'
   gem 'cucumber-rails', :require=>false
   gem 'database_cleaner', '1.0.1'
@@ -74,4 +74,5 @@ group :production do
   gem 'newrelic_rpm'
   gem 'dalli'
   gem 'memcachier'
+  gem 'mysql2'
 end
