@@ -31,15 +31,12 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
     @categories = Post.tags_on(:categories)
-    @selected_categories = []
     @tags = current_user.studio.tags
   end
 
   def edit
     @categories = Post.tags_on(:categories)
-    @selected_categories = @post.tags_on(:categories)
     @tags = @post.studio.tags
-    @selected_tags = @post.tags_on(:tags)
   end
 
   def tagged_posts
@@ -164,6 +161,8 @@ class PostsController < ApplicationController
 
     def prepare_form
       @students = current_user.studio.students.select{|u| u != current_user}
+      @selected_categories = @post.tags_on(:categories)
+      @selected_tags = @post.tags_on(:tags)
     end
 
     def check_studio
