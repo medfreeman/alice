@@ -21,6 +21,7 @@ test: &test
 production:
   adapter: mysql2
   database: alicenew
+  host:     <%= ENV['SQL_HOST'] %>
   password: <%= ENV['SQL_PASSWORD'] %>
   username: <%= ENV['SQL_USERNAME'] %>
   pool: 5

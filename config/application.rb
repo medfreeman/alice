@@ -36,7 +36,9 @@ module Alice
       g.view_specs false
       g.helper_specs false
     end
-    
+
+
+    config.action_mailer.default_url_options = { :host => ENV['HOST_NAME'] || 'aliceblogs.epfl.ch' }    
     config.assets.paths << Rails.root.join('bower_components')
     config.assets.paths << Rails.root.join('node_modules')
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
