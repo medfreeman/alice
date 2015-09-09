@@ -92,15 +92,4 @@ Alice::Application.configure do
     :enable_starttls_auto => true
   }
 
-  config.paperclip_defaults = {
-    :storage => :ftp,
-    :path => "/public_html/alice/:attachment/:id/:style/:filename",
-    :url => "#{ENV['ASSET_HOST']}/alice/:attachment/:id/:style/:filename",
-    :ftp_servers => [{
-      :host     => ENV['FTP_SERVER'],
-      :user     => ENV['FTP_USERNAME'],
-      :password => ENV['FTP_PASSWORD'],
-      :passive  => true
-    }]
-  }
   end

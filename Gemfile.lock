@@ -553,6 +553,3 @@ DEPENDENCIES
   terminal-notifier-guard
   turbolinks (= 2.3.0)
   uglifier (= 2.5.3)
-
-BUNDLED WITH
-   1.10.6
