@@ -42,7 +42,7 @@ class PostsController < ApplicationController
     @tag = ActsAsTaggableOn::Tag.friendly.find(params[:slug])
     if @studio 
       @title = "#{@studio.name.titleize} – #{@tag.name.titleize}"
-      @posts = Post.tagged_with(@tag)
+      @posts = @studio.tagged_with(@tag)
       @page_title = "Studio #{@studio.name}"
     else
       @posts = Post.tagged_with(@tag.name, on: :categories)
@@ -159,6 +159,7 @@ class PostsController < ApplicationController
         _params[:authors] = []
       end
       _params[:authors] << current_user
+      _params.delete(:tag_list) unless _params[:category_list].nil?
       _params.merge(studio: current_user.studio) unless _params[:category_list].nil?
       _params
     end
