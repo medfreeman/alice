@@ -3,5 +3,5 @@
 	- @posts.each do |post|
 		%li.item.four.wide.column
 			= link_to studio_posts_path(post.studio) do
-				.studio-thumb= image_tag(post.thumb.url)
+				.studio-thumb= image_tag(post.thumbnail.url(:thumb))
 				.studio-name= post.studio.name
