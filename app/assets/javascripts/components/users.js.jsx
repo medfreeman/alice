@@ -116,7 +116,8 @@ var Users = React.createClass({
 		var updateUser = function(property){
 			var userId = user.id;
 			return function(value){
-				value = typeof value != 'string' ? value.currentTarget.value : value
+				debugger;
+				value = typeof value != 'string' ? value.currentTarget.checked : value
 				var user = _.find(that.state.users, function(user_){
 					return user_.id == userId;
 				});
@@ -204,13 +205,14 @@ var Users = React.createClass({
 				</Reactable.Td>
 				<Reactable.Td column="super_student_">
 					<div>
+						{user.super_student}
 						<input 
-							id={user.id + 'super_student'} 
+							id={user.id + '-super_student'} 
 							type="checkbox" 
 							name="user[super_student]" 
-							value={user.super_student} 
+							checked={user.super_student}
 							onChange={updateUser('super_student')}/>
-          	<label htmlFor={user.id + 'super_student'}>&nbsp;</label>
+          	<label htmlFor={user.id + '-super_student'}>&nbsp;</label>
           </div>
 				</Reactable.Td>
 				<Reactable.Td column="studio_">

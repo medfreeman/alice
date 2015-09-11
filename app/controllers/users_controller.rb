@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
   def update
     @user.update(permitted_params)
+    p permitted_params
     render json: {user:@user.serialize}
   end
 
@@ -63,8 +64,8 @@ class UsersController < ApplicationController
     if params_.keys.include?('studio')
       params_["studio"] = params_["studio"].blank? ? nil : Studio.find(params_["studio"])
     end
-    if !params_[:super_student].blank?
-      params_[:super_student] = params_[:super_student] == 'true' ? true : false
+    if !params_["super_student"].blank?
+      params_["super_student"] = params_["super_student"] == 'true' ? true : false
     end
     params_
   end

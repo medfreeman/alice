@@ -46,7 +46,7 @@ class PostsController < ApplicationController
       @page_title = "Studio #{@studio.name}"
     else
       @posts = Post.tagged_with(@tag.name, on: :categories)
-      @title = @tag.name.titleize  
+      @title = @tag.name.titleize
     end
     render :index
   end
@@ -85,7 +85,10 @@ class PostsController < ApplicationController
     @tags = current_user.studio.tags
     respond_to do |format|
       if @post.save
-        format.html { redirect_to studio_post_path(@post.studio, @post), notice: 'Post was successfully created.' }
+        format.html { 
+          path = @post.studio.nil? ? category_post_path(@post.tag_list_on(:category).first, @post) : studio_post_path(@post.studio, @post)
+          redirect_to path, notice: 'Post was successfully created.' 
+        }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { 

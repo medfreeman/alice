@@ -62,7 +62,9 @@ class User < ActiveRecord::Base
   ################ Permissions #################
   
   def can_feature_post? post
-    post.studio.director == self || self.admin?
+    if !post.studio.nil? 
+      post.studio.director == self || self.admin?
+    end
   end
 
   def can_edit_post? post
