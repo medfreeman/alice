@@ -8,10 +8,9 @@
 	font-size: $smaller;
 }
 
-.post-body{
-	img:after{
-		content: attr('title')+'asd';
-	}
+.caption{
+  font-size: 0.8em;
+  color: $grey;
 }
 
 .post{
