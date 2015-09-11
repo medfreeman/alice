@@ -12,7 +12,7 @@ class Post < ActiveRecord::Base
 	has_attached_file :thumbnail,
 		:styles => {
 			:medium => "500>",
-			:thumb => "150x90#"
+			:thumb => "220x220#"
 		},
 		:default_url => "/images/missing.jpg"
 	validates_attachment_content_type :thumbnail, :content_type => /\Aimage\/.*\Z/
