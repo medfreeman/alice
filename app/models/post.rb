@@ -3,6 +3,9 @@ class Post < ActiveRecord::Base
 	has_many :participations
 	has_many :authors, through: :participations, class_name: "User"	
 	has_many :assets, as: :assetable
+  
+  extend FriendlyId
+  friendly_id :title, use: [:slugged, :finders]
 
 	default_scope {order('created_at DESC')}
 
@@ -19,7 +22,7 @@ class Post < ActiveRecord::Base
 
 	scope :featured, ->{where(featured: true)}
 	accepts_nested_attributes_for(:participations)	
-	validates_presence_of :body
+	validates_presence_of :title, :body
 
 	def status
 		self[:status] ? "formes" : "processus"

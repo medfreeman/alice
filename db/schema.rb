@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150904123005) do
+ActiveRecord::Schema.define(version: 20150911194931) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "assets", force: true do |t|
     t.string   "file_file_name"
@@ -41,7 +44,10 @@ ActiveRecord::Schema.define(version: 20150904123005) do
     t.integer  "thumbnail_file_size"
     t.datetime "thumbnail_updated_at"
     t.boolean  "status",                 default: false
+    t.string   "slug"
   end
+
+  add_index "posts", ["slug"], name: "index_posts_on_slug", using: :btree
 
   create_table "studios", force: true do |t|
     t.string   "name"
