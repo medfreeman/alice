@@ -42,7 +42,7 @@ class PostsController < ApplicationController
     @tag = ActsAsTaggableOn::Tag.friendly.find(params[:slug])
     if @studio 
       @title = "#{@studio.name.titleize} – #{@tag.name.titleize}"
-      @posts = @studio.tagged_with(@tag)
+      @posts = @studio.posts.tagged_with(@tag)
       @page_title = "Studio #{@studio.name}"
     else
       @posts = Post.tagged_with(@tag.name, on: :categories)
