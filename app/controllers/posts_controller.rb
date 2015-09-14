@@ -29,13 +29,17 @@ class PostsController < ApplicationController
   end
 
   def new
-    @categories = Post.tags_on(:categories)
+    @categories = Post.includes(:studio).tags_on(:categories)
     @tags = current_user.studio.tags
   end
 
   def edit
-    @categories = Post.tags_on(:categories)
-    @tags = @post.studio.tags
+    @categories = Post.includes(:studio).tags_on(:categories)
+    if @post.studio.nil?
+      @tags = current_user.studio.tags
+    else
+      @tags = @post.tags
+    end
   end
 
   def tagged_posts
@@ -47,6 +51,7 @@ class PostsController < ApplicationController
     else
       @posts = Post.tagged_with(@tag.name, on: :categories)
       @title = @tag.name.titleize
+      @page_title = @tag.name.titleize
     end
     render :index
   end
@@ -86,7 +91,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         format.html { 
-          path = @post.studio.nil? ? category_post_path(@post.tag_list_on(:category).first, @post) : studio_post_path(@post.studio, @post)
+          path = @post.studio.nil? ? category_post_path(@post.tags_on(:categories).first, @post) : studio_post_path(@post.studio, @post)
           redirect_to path, notice: 'Post was successfully created.' 
         }
         format.json { render :show, status: :created, location: @post }
@@ -105,7 +110,9 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to studio_post_path(@post.studio, @post), notice: 'Post was successfully updated.' }
+        format.html { 
+          path = @post.studio.nil? ? category_post_path(@post.tags_on(:categories).first, @post) : studio_post_path(@post.studio, @post)
+          redirect_to path, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }
@@ -159,8 +166,8 @@ class PostsController < ApplicationController
         _params[:authors] = []
       end
       _params[:authors] << current_user
-      _params.delete(:tag_list) unless _params[:category_list].nil?
-      _params.merge(studio: current_user.studio) unless _params[:category_list].nil?
+      _params.delete(:tag_list) unless _params[:category_list].blank?
+      _params.merge(studio: current_user.studio) unless _params[:category_list].blank?
       _params
     end
 

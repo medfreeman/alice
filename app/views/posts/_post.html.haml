@@ -2,7 +2,7 @@
   - if !post.studio.nil?
     %h2.post-title= link_to post.title, studio_post_path(post.studio, post)
   - else
-    %h2.post-title= link_to post.title, category_post_path(post.tags_on(:category), post)
+    %h2.post-title= link_to post.title, category_post_path(post.tags_on(:categories).first.slug, post)
   .post-details
     Par #{post.authors.map{|u| link_to(u.name, student_posts_path(u.studio, u))}.join(', ').html_safe}, #{post.created_at.strftime("%d/%m/%y")}
   .post-body= post.body.html_safe

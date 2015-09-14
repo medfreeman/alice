@@ -22,8 +22,8 @@
     .field.categories
       = label :category_list, 'Categories'
       - if can_edit_categories?
-        = f.text_field :category_list, value: @categories.nil? ? nil : @categories.join(', '), label: "Do not include commas"
-      - elsif can_post_to_categories?
+        = f.text_field :category_list, value: @categories.nil? ? nil : @selected_categories.join(', '), label: "Do not include commas"
+      - elsif can_post_to_categories?selected_categories
         = f.select(:category_list, options_from_collection_for_select(@categories, 'name', 'name', @selected_categories), {include_blank: true}, {class: 'ui fluid dropdown'})
   .field.tags
     = label :tag_list, 'Tags'

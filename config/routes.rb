@@ -11,6 +11,7 @@ Alice::Application.routes.draw do
 
   get "category/:slug/"              => "posts#tagged_posts", as: :category
   get "category/:slug/:id"           => "posts#show", as: :category_post
+  
   get "studios/(:studio_id)"         => "posts#index", as: :studio_posts
   get "studios/:studio_id/recent"    => "posts#index", as: :studio_most_recent, filter: :most_recent
   get "studios/:studio_id/posts/:id" => "posts#show", as: :studio_post
