@@ -6,6 +6,10 @@
 img{
   max-width: 100%;
 }
+.image-wrapper img.fr-fil{
+  float: none!important;
+  padding: 0;
+}
 li:before{
   content: none!important;
 }
