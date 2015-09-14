@@ -18,7 +18,10 @@
 //= require underscore/underscore-min
 //= require components
 //= require semantic-ui/dist/semantic.min.js
-//= require lightgallery/light-gallery/js/lightGallery.min
+//= require lightgallery/dist/js/lightgallery.min
+//= require lightgallery/dist/js/lg-thumbnail.min
+//= require lightgallery/dist/js/lg-fullscreen.min
+//= require lightgallery/dist/js/lg-zoom.min
 //= require_tree .
 
 
