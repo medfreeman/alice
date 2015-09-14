@@ -29,12 +29,12 @@ class PostsController < ApplicationController
   end
 
   def new
-    @categories = Post.includes(:studio).tags_on(:categories)
+    @categories = Post.tags_on(:categories)
     @tags = current_user.studio.tags
   end
 
   def edit
-    @categories = Post.includes(:studio).tags_on(:categories)
+    @categories = Post.tags_on(:categories)
     if @post.studio.nil?
       @tags = current_user.studio.tags
     else
@@ -134,7 +134,7 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = params[:id].present? ? Post.find(params[:id]) : Post.new
+      @post = params[:id].present? ? Post.includes(:studio).find(params[:id]) : Post.new
     end
 
     def check_permission
