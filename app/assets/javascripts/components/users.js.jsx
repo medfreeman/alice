@@ -274,10 +274,6 @@ var Users = React.createClass({
 					/>
 					<Table className="ui table striped compact "  columns={[
 						{
-							key: 'sciper',
-							label: 'SCIPER'
-						},
-						{
 							key: 'name_',
 							label: 'Name'
 						},
