@@ -84,12 +84,12 @@ Alice::Application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address        => ENV['SMTP_ADDRESS'],
-    :port           => '587',
+    :port           => 465,
     :authentication => :plain,
     :user_name      => ENV['SMTP_USERNAME'],
     :password       => ENV['SMTP_PASSWORD'],
     :domain         => ENV['DOMAIN'],
-    :enable_starttls_auto => true
+    :ssl            => true    
   }
 
     config.paperclip_defaults = {

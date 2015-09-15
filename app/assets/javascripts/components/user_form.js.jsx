@@ -61,7 +61,7 @@ var UserForm = React.createClass({
     }, success, 'JSON').fail(error);
   },
   valid: function(){
-    var emailValid = /^[\w\.-_\d]+@epfl\.ch$/.test(this.state.email);
+    var emailValid = /^[\w-–_\.\d]+@epfl\.ch$/.test(this.state.email);
     return emailValid;
   },
   render: function() {
