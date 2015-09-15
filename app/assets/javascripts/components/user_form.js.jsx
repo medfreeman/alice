@@ -62,7 +62,7 @@ var UserForm = React.createClass({
   },
   valid: function(){
     var emailValid = /^[\w-–_\.\d]+@epfl\.ch$/.test(this.state.email);
-    return emailValid;
+    return emailValid && this.state.name;
   },
   render: function() {
     return (
