@@ -6,9 +6,10 @@ $(document).on('ready page:load',function(){
 			lang: {
           allPhotos: 'All images'
       },
-      thumbnail: true,
       zoom: true,
       fullscreen: true,
+      thumbnail: true,
+      showThumbByDefault: false,
       exThumbImage: 'data-responsive-src'
 		});
 	});
