@@ -70,13 +70,10 @@ var UserForm = React.createClass({
         <FormErrors errors={this.state.errors}/>
         <div className="fields">
           <div className="field">
-            <input type="text" placeholder="sciper" name="sciper" value={this.state.sciper} onChange={this.handleChange}/>
+            <input type="text" placeholder="Email*" name="email" value={this.state.email} onChange={this.handleChange}/>
           </div>
           <div className="field">
-            <input type="text" placeholder="Email" name="email" value={this.state.email} onChange={this.handleChange}/>
-          </div>
-          <div className="field">
-            <input type="text" placeholder="Name" name="name" value={this.state.name} onChange={this.handleChange}/>
+            <input type="text" placeholder="Name*" name="name" value={this.state.name} onChange={this.handleChange}/>
           </div>
           <div className="field">
             <input id="super_student" type="checkbox" name="super_student" value={this.state.super_student} onChange={this.handleChange}/>
