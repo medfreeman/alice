@@ -166,7 +166,7 @@ class PostsController < ApplicationController
         _params[:authors] = []
       end
       _params[:authors] << current_user
-      _params.delete!(:tag_list) if !_params[:category_list].blank?
+      _params.delete(:tag_list) if !_params[:category_list].blank?
       _params.merge!(studio_id: current_user.studio.id) if _params[:category_list].blank?
       _params
     end
