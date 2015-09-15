@@ -49,6 +49,7 @@ class User < ActiveRecord::Base
   end
 
   def serialize
+    token_ = Devise.token_generator.digest(self, :confirmation_token, self.confirmation_token)
     {
       id:     self.id,
       name:   self.name,
@@ -57,7 +58,7 @@ class User < ActiveRecord::Base
       role:   self.role,
       studio: self.studio.nil? ? nil : self.studio,
       super_student: self.super_student,
-      confirmation_url: confirmed? ? nil : Rails.application.routes.url_helpers.user_confirmation_url(confirmation_token: self.confirmation_token, host: ENV['DOMAIN'])
+      confirmation_url: confirmed? ? nil : Rails.application.routes.url_helpers.user_confirmation_url(confirmation_token: token, host: ENV['DOMAIN'])
     }
   end
   ################ Permissions #################

@@ -86,8 +86,8 @@ Alice::Application.configure do
     :address        => ENV['SMTP_ADDRESS'],
     :port           => '587',
     :authentication => :plain,
-#    :user_name      => ENV['SMTP_USERNAME'],
-#    :password       => ENV['SMTP_PASSWORD'],
+    :user_name      => ENV['SMTP_USERNAME'],
+    :password       => ENV['SMTP_PASSWORD'],
     :domain         => ENV['DOMAIN'],
     :enable_starttls_auto => true
   }
