@@ -86,8 +86,6 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-    prepare_form
-    @tags = current_user.studio.tags
     respond_to do |format|
       if @post.save
         format.html { 
@@ -96,6 +94,8 @@ class PostsController < ApplicationController
         }
         format.json { render :show, status: :created, location: @post }
       else
+        prepare_form
+        @tags = current_user.studio.tags
         format.html { 
           prepare_form
           render :new 
@@ -166,8 +166,8 @@ class PostsController < ApplicationController
         _params[:authors] = []
       end
       _params[:authors] << current_user
-      _params.delete(:tag_list) unless _params[:category_list].blank?
-      _params.merge(studio: current_user.studio) unless _params[:category_list].blank?
+      _params.delete!(:tag_list) if !_params[:category_list].blank?
+      _params.merge!(studio_id: current_user.studio.id) if _params[:category_list].blank?
       _params
     end
 
