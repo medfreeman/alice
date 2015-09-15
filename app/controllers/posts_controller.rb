@@ -35,11 +35,8 @@ class PostsController < ApplicationController
 
   def edit
     @categories = Post.tags_on(:categories)
-    if @post.studio.nil?
-      @tags = current_user.studio.tags
-    else
-      @tags = @post.tags
-    end
+    @tags = current_user.studio.tags
+    prepare_form
   end
 
   def tagged_posts
