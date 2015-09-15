@@ -9,7 +9,6 @@ class UsersController < ApplicationController
 
   def update
     @user.update(permitted_params)
-    p permitted_params
     render json: {user:@user.serialize}
   end
 
