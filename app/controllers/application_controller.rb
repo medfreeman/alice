@@ -71,4 +71,15 @@ class ApplicationController < ActionController::Base
   def load_categories
     @all_categories = Post.tags_on :categories
   end
+
+  before_filter :disable_xss_protection
+
+  protected
+  def disable_xss_protection
+    # Disabling this is probably not a good idea,
+    # but the header causes Chrome to choke when being
+    # redirected back after a submit and the page contains an iframe.
+    # http://stackoverflow.com/questions/19106111/rails-4-redirects-to-data-in-chrome/21341180#21341180
+    response.headers['X-XSS-Protection'] = "0"
+  end
 end
