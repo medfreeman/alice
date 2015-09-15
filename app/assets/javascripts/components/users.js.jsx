@@ -176,14 +176,8 @@ var Users = React.createClass({
 				</button>
 			);
 		}
-		var subject = encodeURI('Please confirm your Alice blog account');
-		var body = encodeURI('Visit this url to confirm your account: \n'+user.confirmation_url);
-		console.log("body:", body);
-		var emailButton = <a className="ui button mini basic" href={'mailto:'+user.email+'?subject='+subject+'&body='+body}>Send confirmation email</a>;
-
 		var actions = (
 			<div className="actions">
-				{user.confirmation_url == null ? null : emailButton}
 				{editButton}
 				{deleteButton}
 			</div>
