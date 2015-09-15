@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 
   def index
     if @studio.nil?
-      @posts = Studio.all.map{|s| s.featured_posts.last}.compact
+      @posts = Studio.all.map{|s| s.featured_posts.order("created_at DESC").first}.compact
       @title = "Home"
       @page_title = "Blog Homepage"
       render :home
