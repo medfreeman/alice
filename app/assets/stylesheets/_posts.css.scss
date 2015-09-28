@@ -89,6 +89,9 @@
 	}
 }
 
+body .lg-outer .lg-thumb-item.active, body .lg-outer .lg-thumb-item:hover {
+  border-color: $brand-color;
+}
 
 // Form
 
