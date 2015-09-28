@@ -70,12 +70,15 @@
 		padding: 3px;
 		z-index: 1;
 		background-color: rgba(255,255,255, 0.7);
-		i.icon{
+		.icon{
 			margin: 0;
 		}
 	}
 }
 
+em.icon.zoom:before {
+    content: "\f00e";
+}
 
 .image-caption{
 	counter-increment: caption;
@@ -112,7 +115,7 @@ body .lg-outer .lg-thumb-item.active, body .lg-outer .lg-thumb-item:hover {
 .home {
 	.studio-name{
 		position: absolute;
-	  bottom: 18px;
+	  bottom: 10px;
 	  left: 14px;
 	  right: 14px;
 	  padding: 5px;
