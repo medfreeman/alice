@@ -1,6 +1,6 @@
 class StudiosController < ApplicationController
 	before_filter :authenticate_user!
-	before_filter :check_admin
+	before_filter :check_access
 
 	def new
 		@studio = Studio.new
@@ -63,6 +63,6 @@ class StudiosController < ApplicationController
 	end
 
 	def check_admin
-		redirect_to root_path if !current_user.admin?
+		redirect_to root_path if !current_user.director? || !current_user.admin?
 	end
 end
