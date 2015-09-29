@@ -28,4 +28,14 @@ class Post < ActiveRecord::Base
 		self[:status] ? "formes" : "processus"
 	end
 
+	validate :file_dimensions
+
+  def file_dimensions
+	  dimensions = Paperclip::Geometry.from_file(thumbnail.queued_for_write[:original].path)
+	  #self.width = dimensions.width
+	  #self.height = dimensions.height
+	  if dimensions.width > 3000 || dimensions.height > 3000
+	    errors.add(:file,'Width or height cannot be wider or higher than 3000px')
+	  end
+	end
 end

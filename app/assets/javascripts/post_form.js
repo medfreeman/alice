@@ -73,7 +73,7 @@ $(document).on('ready page:load',function(){
 	})
 	.on('editable.fileError editable.imageError', function (e, editor, error) {
 		console.log(error);
-		alert("Error uploading file... Please send along console log if you request support.");
+		alert("Error uploading file: "+error.message.file[0]+"\n Please send along console log if you request support.");
 	});
 
 	function readURL(input) {
