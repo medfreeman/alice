@@ -62,7 +62,7 @@ class StudiosController < ApplicationController
 		params.require(:studio).permit(:name, :tag_list, tag_list: [])
 	end
 
-	def check_admin
-		redirect_to root_path if !current_user.director? || !current_user.admin?
+	def check_access
+		redirect_to root_path if (!current_user.director? || !current_user.admin?)
 	end
 end
