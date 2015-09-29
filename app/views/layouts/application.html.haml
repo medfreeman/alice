@@ -11,8 +11,8 @@
   %body
     %header= render 'layouts/navigation'
     %main
-      .ui.container.grid.stackable.menus
-        .three.wide.column= render 'layouts/sidebar'
+      .ui.container.grid.stackable
+        .three.wide.column.ui.menus= render 'layouts/sidebar'
         .thirteen.wide.column
           .ui.container.text
             = render 'layouts/messages'
