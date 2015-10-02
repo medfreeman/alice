@@ -1,22 +1,26 @@
 .list-header Tous les blogs
 %ul.ui.list.content.accordion.menus.studios
-  - @studios.each do |studio|
-    -active = studio == @studio ? 'active' : nil
-    %li.item.studio
-      = link_to "studio #{studio.name}", studio_posts_path(studio, year: params[:year]), class: active
-      .ui.title{class: active}
-        %i.dropdown.icon
-      %ul.ui.list.content{class: studio == @studio ? 'active' : nil}
-        %li.item= link_to 'MOST RECENT', studio_most_recent_path(studio), class: (studio == @studio && @most_recent ? 'active' : nil) 
-        - studio.tags.each_with_index do |tag, i|
-          %li= link_to tag.name, studio_tag_path(studio, tag), class: tag == @tag ? 'active' : nil
-          - if i == (studio.tag_list.count-1)
-            %li
-              %hr/
-        - studio.students.each do |student|
-          %li.item.student= link_to(student.name, student_posts_path(studio, student), class: student == @student ? 'active' : nil)
-  - @all_categories.each do |cat|
-    %li.item.category= link_to cat.name, category_path(cat), class: cat == @category ? 'active' : nil
+  - if @year.display_by_users?
+    - @year.students.each do |student|
+      %li.item.student= link_to(student.name, _student_path(student), class: student == @student ? 'active' : nil)
+  - else
+    - @studios.each do |studio|
+      - active = studio == @studio ? 'active' : nil
+      %li.item.studio
+        = link_to "studio #{studio.name}", studio_posts_path(studio, year: params[:year]), class: active
+        .ui.title{class: active}
+          %i.dropdown.icon
+        %ul.ui.list.content{class: studio == @studio ? 'active' : nil}
+          %li.item= link_to 'MOST RECENT', studio_most_recent_path(studio), class: (studio == @studio && @most_recent ? 'active' : nil) 
+          - studio.tags.each_with_index do |tag, i|
+            %li= link_to tag.name, studio_tag_path(studio, tag), class: tag == @tag ? 'active' : nil
+            - if i == (studio.tag_list.count-1)
+              %li
+                %hr/
+          - studio.students.each do |student|
+            %li.item.student= link_to(student.name, _student_posts_path(student, studio: studio), class: student == @student ? 'active' : nil)
+    - @all_categories.each do |cat|
+      %li.item.category= link_to cat.name, category_path(cat), class: cat == @category ? 'active' : nil
 .list-header +
 %ul.ui.list.content.menus
   %li.item= link_to "Home", root_path

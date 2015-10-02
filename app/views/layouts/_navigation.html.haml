@@ -1,6 +1,6 @@
 %nav.ui.container
   .ui.text.menu
-    .item=link_to(image_tag("logo-alice.png", class: "logo"), root_path)
+    .item=link_to(image_tag(@year.logo.url(:header), class: "logo"), root_path)
     .item.blog-titles
       %div    
         .blog-title
@@ -10,7 +10,7 @@
           %i.right.angle.icon.divider
           .section= link_to 'alice', 'http://alice.epfl.ch', target: '_blank'
           %i.right.angle.icon.divider
-          .section= link_to 'y1 inside Paris 2015/16', 'http://alice.epfl.ch/cms/site/alice/lang/fr/teaching/y1', target: '_blank'
+          .section= link_to @year.name, @year.link, target: '_blank'
     - if user_signed_in?
       #logout-link.right.item.ui.dropdown
         .text My Account
@@ -18,7 +18,7 @@
         .menu
           = link_to "New Post", new_post_path, class: "item"
           - if !current_user.studio.nil?
-            = link_to "My Posts", student_posts_path(current_user.studio, current_user), class: "item"
+            = link_to "My Posts", studio_student_posts_path(current_user.studio, current_user), class: "item"
           - if current_user.director? && !current_user.studio.nil?
             = link_to "Edit my Studio", edit_studio_path(current_user.studio), class: 'item'
           - if current_user.admin? || current_user.director?

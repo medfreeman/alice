@@ -8,10 +8,22 @@ class PostsController < ApplicationController
 
   def index
     if @studio.nil?
-      @posts = Studio.year(@year).map{|s| s.featured_posts.order("created_at DESC").first}.compact
       @title = "Home"
       @page_title = "Blog Homepage"
-      render :home
+      if @year.display_by_users
+        if params[:slug].blank?
+          @posts = User.year(@year).map{|u| u.posts.where(featured:true).limit(1).first}.compact
+          render :home
+        else
+          @student = User.includes(:posts).find(params[:slug])
+          @posts = @student.posts
+          @page_title = @student.name
+          @title = @student.name
+        end
+      else
+        @posts = Studio.year(@year).map{|s| s.featured_posts.limit(1).order("created_at DESC").first}.compact
+        render :home
+      end
     else
       @title = @studio.name.titleize
       @page_title = "Studio #{@studio.name}"

@@ -1,5 +1,16 @@
 class Year < ActiveRecord::Base
-	validates_presence_of :slug
+	has_many :students, class_name: "User"
+	has_many :posts
+	has_many :featured_posts, ->{where(featured: true)}, class_name: 'Post'
+	validates :slug, presence: true, uniqueness: true
+
+
+	has_attached_file :logo,
+		:styles => {
+			:header => "300x100>"
+		},
+		:default_url => "/images/missing.jpg"
+	validates_attachment_content_type :logo, :content_type => /\Aimage\/.*\Z/
 
 	def to_param
 		slug

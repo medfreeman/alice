@@ -34,6 +34,7 @@ class Post < ActiveRecord::Base
 	validate :file_dimensions
 
   def file_dimensions
+  	return if thumbnail.queued_for_write[:original].nil?
 	  dimensions = Paperclip::Geometry.from_file(thumbnail.queued_for_write[:original].path)
 	  #self.width = dimensions.width
 	  #self.height = dimensions.height
