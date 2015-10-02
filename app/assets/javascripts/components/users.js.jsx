@@ -1,4 +1,6 @@
 var Table = Reactable.Table;
+var currentYear = $('meta[description="alice-year"]').attr('content');
+
 var Users = React.createClass({
 	componentDidMount: function(){
 		$('.tabular.menu .item').tab();
@@ -68,7 +70,7 @@ var Users = React.createClass({
 	deleteUser: function(user){
 		var that = this;
 		$.ajax({
-			url: "/admin/users/"+user.id,
+			url: "/"+currentYear+"/admin/users/"+user.id,
 			method: 'delete',
 			success: function(res){
 		    var index = that.state.users.indexOf(user);
@@ -107,7 +109,7 @@ var Users = React.createClass({
 	      that.updateUsersWith(users_);
 			};
 			$.ajax({
-				url: '/admin/users/'+userId,
+				url: '/"+currentYear+"/admin/users/'+userId,
 				method: 'PATCH',
 				data: data, 
 				success: success

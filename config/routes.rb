@@ -1,6 +1,14 @@
 Alice::Application.routes.draw do
   default_year = 'y1'
   match "/upload" => "assets#upload", via: :post
+  
+  resources :years, only: [:new, :create, :update]
+  
+  devise_for :users, :controllers => {:confirmations => 'confirmations'}, :path_names => {:sign_in => 'login', :sign_out => 'logout'}
+  devise_scope :user do
+    patch "/confirm" => "confirmations#confirm"
+  end
+
   scope ":year", defaults: {year: default_year} do
     resources :studios, only: [:new, :create, :update, :edit, :destroy] do 
       resources :students, only: [:index] do 
@@ -28,11 +36,6 @@ Alice::Application.routes.draw do
     root "posts#index", as: :root_with_year
   end
   root "posts#index", year: default_year
-  devise_for :users, :controllers => {:confirmations => 'confirmations'}, :path_names => {:sign_in => 'login', :sign_out => 'logout'}
-  devise_scope :user do
-    patch "/confirm" => "confirmations#confirm"
-  end
-
   
   
 end
