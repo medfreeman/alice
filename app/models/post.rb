@@ -31,6 +31,10 @@ class Post < ActiveRecord::Base
 		self[:status] ? "formes" : "processus"
 	end
 
+	def first_author
+		authors.first
+	end
+
 	validate :file_dimensions
 
   def file_dimensions

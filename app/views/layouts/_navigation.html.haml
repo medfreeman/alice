@@ -1,6 +1,6 @@
 %nav.ui.container
   .ui.text.menu
-    .item=link_to(image_tag(@year.logo.url(:header), class: "logo"), root_path)
+    .item=link_to(image_tag(!@year.persisted? ? image_url('logo-alice.png') : @year.logo.url(:header), class: "logo"), root_path)
     .item.blog-titles
       %div    
         .blog-title
@@ -9,20 +9,23 @@
           .section= link_to 'epfl', 'http://www.epfl.ch/', target: '_blank'
           %i.right.angle.icon.divider
           .section= link_to 'alice', 'http://alice.epfl.ch', target: '_blank'
-          %i.right.angle.icon.divider
-          .section= link_to @year.name, @year.link, target: '_blank'
+          - if @year.persisted?
+            %i.right.angle.icon.divider
+            .section= link_to @year.name, @year.link, target: '_blank'
     - if user_signed_in?
       #logout-link.right.item.ui.dropdown
         .text My Account
         %i.dropdown.icon
         .menu
-          = link_to "New Post", new_post_path, class: "item"
-          - if !current_user.studio.nil?
-            = link_to "My Posts", studio_student_posts_path(current_user.studio, current_user), class: "item"
-          - if current_user.director? && !current_user.studio.nil?
-            = link_to "Edit my Studio", edit_studio_path(current_user.studio), class: 'item'
-          - if current_user.admin? || current_user.director?
-            = link_to "Manage Users", users_path, class: "item"
+          = link_to "New Post", new_post_path(year: @year), class: "item"
+          - if !current_user.studio.nil? && @year.persisted?
+            = link_to "My Posts", _student_posts_path(current_user, studio: current_user.studio), class: "item"
+          - if @year.persisted? && current_user.director? && !current_user.studio.nil?
+            = link_to "Edit my Studio", edit_studio_path(current_user.studio, year: @year.slug), class: 'item'
+          - if @year.persisted? && (current_user.admin? || current_user.director?)
+            = link_to "Manage #{@year.slug}", users_path(year: @year), class: "item"
+          - if current_user.admin?
+            = link_to "Add new year", new_year_path, class: "item"
           = link_to "LOG OUT", destroy_user_session_path, method: 'DELETE', class: "item"
     - else
       #login-link.right.item

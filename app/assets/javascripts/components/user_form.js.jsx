@@ -16,7 +16,8 @@ var UserForm = React.createClass({
       email: '',
       roles: this.props.roles,
       studios: this.props.studios,
-      errors: {}
+      errors: {},
+      year: $('meta[description="alice-year-id"]').attr('content'),
     };
   },
   handleChange: function(e){
@@ -57,6 +58,7 @@ var UserForm = React.createClass({
         role: this.state.role,
         studio: this.state.studio,
         super_student: this.state.super_student,
+        year_id: this.state.year
       },
     }, success, 'JSON').fail(error);
   },

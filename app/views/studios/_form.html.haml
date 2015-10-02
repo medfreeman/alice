@@ -3,7 +3,7 @@
     #error_explanation
       %h2= "#{pluralize(@studio.errors.count, "error")} prohibited this studio from being saved:"
       %ul
-        - @post.errors.full_messages.each do |msg|
+        - @studio.errors.full_messages.each do |msg|
           %li= msg
   .field
     = f.label :name
@@ -12,5 +12,6 @@
     = label :tag_list, "Tags"
     = f.text_field :tag_list, value: @tags.nil? ? nil : @tags.join(', '), placeholder: "comma separated list of values: 'model, render'"
     =# f.select(:tag_list, options_from_collection_for_select(@tags, 'name', 'name'), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})
+  = f.hidden_field :year_id, value: @year.id
   .actions
     = f.submit 'Save', class: "ui button"

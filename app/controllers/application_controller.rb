@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :reject_locked!, if: :devise_controller?
   before_filter :load_year
-  before_filter :load_studios
   before_filter :load_categories
 
   # Devise permitted params
@@ -68,9 +67,6 @@ class ApplicationController < ActionController::Base
   def load_year
     @years = Year.all
     @year = @years.select{|y| y.slug == params[:year]}.first
-  end
-
-  def load_studios
     @studios = Studio.year(@year)
   end
 

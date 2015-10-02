@@ -10,7 +10,8 @@ var StudioForm = React.createClass({
 		return {
 			loading: true,
 			name:    '',
-			errors: {}
+			errors: {},
+			year: $('meta[description="alice-year-id"]').attr('content'),
 		}
 	},
 	newStudio: function(e){
@@ -24,11 +25,12 @@ var StudioForm = React.createClass({
 			that.setState(that.getInitialState());
 		};
 		$.ajax({
-			url: "/studios",
+			url: "/" + that.state.year + "/studios",
 			method: 'POST',
 			data: {
 				studio: {
-					name: that.state.name
+					name: that.state.name,
+					year_id: that.state.year
 				}
 			},
 			dataType: 'json',

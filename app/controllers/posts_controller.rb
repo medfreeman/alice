@@ -11,7 +11,9 @@ class PostsController < ApplicationController
       @title = "Home"
       @page_title = "Blog Homepage"
       if @year.display_by_users
-        if params[:slug].blank?
+        if params[:filter] == :most_recent
+          @posts = Post.year(@year)
+        elsif params[:slug].blank?
           @posts = User.year(@year).map{|u| u.posts.where(featured:true).limit(1).first}.compact
           render :home
         else
@@ -161,9 +163,9 @@ class PostsController < ApplicationController
     def post_params
       _params = params
       if current_user.can_edit_categories?
-        _params = params.require(:post).permit(:id, :thumbnail, :status, :body, :title, :category_list, category_list: [], tag_list: [], authors: [])
+        _params = params.require(:post).permit(:id, :year_id, :thumbnail, :status, :body, :title, :category_list, category_list: [], tag_list: [], authors: [])
       else
-        _params = params.require(:post).permit(:id, :thumbnail, :status, :body, :title, tag_list: [], authors: [])
+        _params = params.require(:post).permit(:id, :year_id, :thumbnail, :status, :body, :title, tag_list: [], authors: [])
       end
       if !_params[:authors].blank?
         _params[:authors].delete("") 

@@ -37,7 +37,8 @@ class UsersController < ApplicationController
   	require 'csv'
   	file = params[:users_csv].open
   	CSV.foreach(file, headers: true) do |row|
-  		studio = Studio.find_or_create_by!(name: row['studio']) unless row['studio'].blank?
+      year = Year.find(params[:year_id])
+  		studio = Studio.find_or_create_by!(name: row['studio'], year: year) unless row['studio'].blank?
 			user = User.find_or_create_by!(email: row['email']) do |u|
 				role = row['role'].nil? ? :student : row['role']
 				u.sciper = row['SCIPER']
@@ -46,6 +47,7 @@ class UsersController < ApplicationController
 				u.password = 'topsecret'
 				u.password_confirmation = 'topsecret'
 				u.role = role
+        u.year = year
 				u.studio = studio unless studio.nil?
 			end
   	end
@@ -59,7 +61,7 @@ class UsersController < ApplicationController
   end
 
   def permitted_params
-    params_ = params.require(:user).permit(:name, :email, :sciper, :studio, :role, :super_student).to_h
+    params_ = params.require(:user).permit(:name, :email, :sciper, :studio, :role, :super_student, :year_id).to_h
     if params_.keys.include?('studio')
       params_["studio"] = params_["studio"].blank? ? nil : Studio.find(params_["studio"])
     end

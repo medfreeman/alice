@@ -5,13 +5,14 @@
       %ul
         - @post.errors.full_messages.each do |msg|
           %li= msg
+  = f.hidden_field :year_id, value: @year.id
   .field
     = f.label :title
     = f.text_field :title
   .field
     = f.label :thumbnail
     = f.file_field :thumbnail, class: "image-input"
-    .thumbnail= image_tag (@post.thumbnail.blank? ? @post.thumbnail.url(:thumb) : @post.thumbnail.url(:thumb)), class: "form-image-thumb"
+    .thumbnail= image_tag @post.thumbnail.url(:thumb), class: "form-image-thumb"
   .field
     = f.label :body
     = f.text_area :body, class: "froala"

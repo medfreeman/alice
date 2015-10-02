@@ -11,13 +11,14 @@ Alice::Application.routes.draw do
 
   post 'posts/:id/feature'           => 'posts#feature', as: :post_feature
 
+  resources "year", only: [:new, :create, :update, :destroy]
+  resources :posts, except: [:show, :index]
   scope ":year", defaults: {year: default_year} do
     resources :studios, only: [:new, :create, :update, :edit, :destroy] do 
       resources :students, only: [:index] do 
         resources :posts, only: [:index]
       end
     end
-    resources :posts, except: [:show, :index]
 
     get "category/:slug/"              => "posts#tagged_posts", as: :category
     get "category/:slug/:id"           => "posts#show", as: :category_post
@@ -34,7 +35,7 @@ Alice::Application.routes.draw do
       post "users/create" => 'users#create', as: :users_create
       resources :users, controller: 'users'
     end
-
+    get 'recent' => 'posts#index', filter: :most_recent, as: :year_most_recent
     get ':slug' => 'posts#index', as: :student
 
     root "posts#index", as: :root_with_year

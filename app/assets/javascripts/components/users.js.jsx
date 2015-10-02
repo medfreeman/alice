@@ -1,5 +1,5 @@
 var Table = Reactable.Table;
-var currentYear = $('meta[description="alice-year"]').attr('content');
+
 
 var Users = React.createClass({
 	componentDidMount: function(){
@@ -12,7 +12,8 @@ var Users = React.createClass({
 				displayedUsers: this.props.users,
 				roles: this.props.roles,
 				studios: this.props.studios,
-				filteredByStudio: false
+				filteredByStudio: false,
+				year: $('meta[description="alice-year-id"]').attr('content'),
 			};
 	},
 	getDefaultProps: function(){
@@ -70,7 +71,7 @@ var Users = React.createClass({
 	deleteUser: function(user){
 		var that = this;
 		$.ajax({
-			url: "/"+currentYear+"/admin/users/"+user.id,
+			url: "/"+that.state.year+"/admin/users/"+user.id,
 			method: 'delete',
 			success: function(res){
 		    var index = that.state.users.indexOf(user);
@@ -86,7 +87,8 @@ var Users = React.createClass({
 		$.ajax({
 			href: 'studios',
 			data: {
-				name: studioName
+				name: studioName,
+				year_id: that.state.year
 			},
 			success: function(res){
 				var studios = that.state.studios.splice();
@@ -109,7 +111,7 @@ var Users = React.createClass({
 	      that.updateUsersWith(users_);
 			};
 			$.ajax({
-				url: '/"+currentYear+"/admin/users/'+userId,
+				url: '/'+that.state.year+'/admin/users/'+userId,
 				method: 'PATCH',
 				data: data, 
 				success: success
@@ -223,9 +225,7 @@ var Users = React.createClass({
 						className="not-field"
 						clearable={true}
 						name='studio' 
-						value={user.studio != undefined ? _.find(that.state.studios, function(s){
-							return user.studio.id == s.id;
-						}).name : null} 
+						value={user.studio != undefined ? user.studio.name : null} 
 						options={that.state.studios.map(function(s){
 							return {value:s.id, label:s.name};
 						})} 

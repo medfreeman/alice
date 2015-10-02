@@ -1,0 +1,25 @@
+= form_for @year, html: {class: 'ui form', :multipart => true } do |f|
+  - if @year.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@year.errors.count, "error")} prohibited this year from being saved:"
+      %ul
+        - @year.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :name
+    = f.text_field :name, placeholder: "y1 inside Paris 2015/2016"
+  .field
+    = f.label :slug
+    = f.text_field :slug, placeholder: "y1"
+  .field
+    = f.label :link
+    = f.text_field :link, placeholder: "http://alice.epfl.ch/cms/site/alice/lang/fr/teaching/y1"
+  .field
+    = f.label :logo
+    = f.file_field :logo, class: "image-input"
+    .logo= image_tag @year.logo.url(:thumb), class: "form-image-thumb"
+  .field
+    = f.check_box :display_by_users
+    = f.label :display_by_users
+  .actions
+    = f.submit 'Save', class: "ui button"

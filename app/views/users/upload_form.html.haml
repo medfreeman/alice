@@ -12,4 +12,5 @@
 
 = form_tag users_upload_post_path(), multipart: true do
 	= file_field_tag :users_csv
+	= hidden_tag :year_id, value: @year.id
 	= submit_tag "Submit", class: "ui button"
