@@ -1,5 +1,4 @@
-.post
-  
+.post.configurable
   %h2.post-title= link_to post.title, _post_path(post)
   .post-details
     Par #{post.authors.map{|u| u.studio.nil? ? u.name : link_to(u.name, _student_posts_path(u, studio: u.studio))}.join(', ').html_safe}, #{post.created_at.strftime("%d/%m/%y")}

@@ -33,7 +33,11 @@
 %ul.ui.list.content.menus
   %li.item= link_to "Home", root_path
   - @years.select{|y| y != @year}.each do |y|
-    %li.item= link_to y.slug, root_with_year_path(y)
+    %li.item.configurable
+      = link_to y.slug, root_with_year_path(y)
+      - if current_user.admin?
+        = link_to edit_year_path(y), class: 'action' do
+          %i.fa.write.icon
   %li.item= link_to "BLOG archives", "http://alice.epfl.ch/teaching/archives", target: '_blank'
   %li.item= link_to "ALICE online", "http://alice.epfl.ch/", target: '_blank'
   %li.item= link_to "EPFL online", "http://epfl.ch/", target: '_blank'

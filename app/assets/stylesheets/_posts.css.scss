@@ -22,15 +22,6 @@
 	right: 5px;
 	.post-actions{
 		display: inline-block;
-		transition: all 0.3s 0.2s ease-out;
-		@media #{$tablet}
-		{
-			opacity: 0.05;
-			.post:hover &{
-				transition: all 0.2s ease-out;
-				opacity: 1;
-			}
-		}
 	}
 	.post-status{
 		color: $grey;

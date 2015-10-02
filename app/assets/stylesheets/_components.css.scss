@@ -1,0 +1,14 @@
+.action{
+	opacity: 0.6;
+	@media #{$tablet}
+	{
+		opacity: 0.2;
+	}
+	transition: all 0.2s ease-in-out;
+}
+.configurable:hover{
+	.action{
+		transition: all 0.3s 0.2s ease-out;
+		opacity: 1;
+	}
+}
