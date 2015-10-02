@@ -186,8 +186,6 @@ var Users = React.createClass({
 				{deleteButton}
 			</div>
 		);
-		console.log("user:", user);
-		console.log("that:", that);
 		return (
 			<Reactable.Tr className={"user ui form " + user.role} key={user.id} data={user} data-user-id={user.id} onDoubleClick={editUserToggle}>
 				<Reactable.Td column="name_">

@@ -1,7 +1,8 @@
 var StudiosTable = React.createClass({
 	getInitialState: function(){
 		return {
-			studios: this.props.studios
+			studios: this.props.studios,
+			year: $('meta[description="alice-year"]').attr('content'),
 		}
 	},
 	updateParents: function(studios_){
@@ -13,7 +14,7 @@ var StudiosTable = React.createClass({
 		var studioRow = function(studio){
 			var destroyStudio = function(){
 				$.ajax({
-					url: "/studios/"+studio.id,
+					url: '/'+ that.state.year + '/studios/'+studio.id,
 					method: 'delete',
 					success: function(res){
 				    var index = that.state.studios.indexOf(studio);
@@ -57,7 +58,7 @@ var StudiosTable = React.createClass({
 
 			var submitChange = function(){
 				$.ajax({
-					url: '/studios/'+studio.id,
+					url: '/'+ that.state.year + '/studios/' + studio.id,
 					method: 'PUT',
 					data: {
 						studio:{

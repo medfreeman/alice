@@ -52,7 +52,7 @@ class StudiosController < ApplicationController
 			end
 		else
 			respond_to do |format|
-				format.json {head :unprocessable_entity}
+				format.json {render json: @studio}
 			end
 		end
 	end
@@ -63,6 +63,6 @@ class StudiosController < ApplicationController
 	end
 
 	def check_access
-		redirect_to root_path if (!current_user.director? || !current_user.admin?)
+		redirect_to root_path if (!current_user.director? && !current_user.admin?)
 	end
 end
