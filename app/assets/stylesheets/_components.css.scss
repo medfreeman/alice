@@ -4,11 +4,11 @@
 	{
 		opacity: 0.2;
 	}
-	transition: all 0.2s ease-in-out;
+	transition: all 0.3s 0.2s ease-out;
 }
 .configurable:hover{
 	.action{
-		transition: all 0.3s 0.2s ease-out;
+		transition: all 0.2s ease-in-out;
 		opacity: 1;
 	}
 }
