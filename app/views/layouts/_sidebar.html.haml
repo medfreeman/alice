@@ -3,7 +3,7 @@
   - @studios.each do |studio|
     -active = studio == @studio ? 'active' : nil
     %li.item.studio
-      = link_to "studio #{studio.name}", studio_posts_path(studio), class: active
+      = link_to "studio #{studio.name}", studio_posts_path(studio, year: params[:year]), class: active
       .ui.title{class: active}
         %i.dropdown.icon
       %ul.ui.list.content{class: studio == @studio ? 'active' : nil}

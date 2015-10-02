@@ -5,7 +5,11 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
   
+  belongs_to :year
+  validates_presence_of :year
+  scope :year, -> (year) { where(year: year) }
   belongs_to :studio
+
   has_many   :participations, foreign_key: :author_id
   has_many   :posts, through: :participations
   

@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 
   def index
     if @studio.nil?
-      @posts = Studio.all.map{|s| s.featured_posts.order("created_at DESC").first}.compact
+      @posts = Studio.year(@year).map{|s| s.featured_posts.order("created_at DESC").first}.compact
       @title = "Home"
       @page_title = "Blog Homepage"
       render :home
@@ -46,7 +46,7 @@ class PostsController < ApplicationController
       @posts = @studio.posts.tagged_with(@tag)
       @page_title = "Studio #{@studio.name}"
     else
-      @posts = Post.tagged_with(@tag.name, on: :categories)
+      @posts = Postyear(@year).tagged_with(@tag.name, on: :categories)
       @title = @tag.name.titleize
       @page_title = @tag.name.titleize
     end
@@ -129,7 +129,6 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = params[:id].present? ? Post.includes(:studio).find(params[:id]) : Post.new
     end

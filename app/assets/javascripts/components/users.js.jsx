@@ -182,6 +182,8 @@ var Users = React.createClass({
 				{deleteButton}
 			</div>
 		);
+		console.log("user:", user);
+		console.log("that:", that);
 		return (
 			<Reactable.Tr className={"user ui form " + user.role} key={user.id} data={user} data-user-id={user.id} onDoubleClick={editUserToggle}>
 				<Reactable.Td column="name_">
@@ -219,7 +221,9 @@ var Users = React.createClass({
 						className="not-field"
 						clearable={true}
 						name='studio' 
-						value={user.studio ? _.find(that.state.studios, function(s){return user.studio.id == s.id}).name : null} 
+						value={user.studio != undefined ? _.find(that.state.studios, function(s){
+							return user.studio.id == s.id;
+						}).name : null} 
 						options={that.state.studios.map(function(s){
 							return {value:s.id, label:s.name};
 						})} 

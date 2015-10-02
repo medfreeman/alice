@@ -3,7 +3,10 @@ class Post < ActiveRecord::Base
 	has_many :participations
 	has_many :authors, through: :participations, class_name: "User"	
 	has_many :assets, as: :assetable
-  
+  belongs_to :year
+  scope :year, -> (year) { where(year: year).order('created_at DESC') }
+  validates_presence_of :year
+
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
 
@@ -22,7 +25,7 @@ class Post < ActiveRecord::Base
 
 	scope :featured, ->{where(featured: true)}
 	accepts_nested_attributes_for(:participations)	
-	validates_presence_of :title, :body
+	validates_presence_of :title, :body, :thumbnail
 
 	def status
 		self[:status] ? "formes" : "processus"

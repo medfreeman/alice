@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :reject_locked!, if: :devise_controller?
+  before_filter :load_year
   before_filter :load_studios
   before_filter :load_categories
 
@@ -64,14 +65,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def load_year
+    @year = Year.find_by_slug(params[:year])
+  end
+
   def load_studios
-    @studios = Studio.all
+    @studios = Studio.year(@year)
   end
 
   def load_categories
-    @all_categories = Post.tags_on :categories
+    @all_categories = Post.year(@year).tags_on :categories
   end
 
+  def default_url_options(options = {})
+    options.merge(:year => @year)
+  end
   before_filter :disable_xss_protection
 
   protected

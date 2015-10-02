@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150911194931) do
+ActiveRecord::Schema.define(version: 20151001225939) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "assets", force: true do |t|
     t.string   "file_file_name"
@@ -42,6 +45,7 @@ ActiveRecord::Schema.define(version: 20150911194931) do
     t.datetime "thumbnail_updated_at"
     t.boolean  "status",                 default: false
     t.string   "slug"
+    t.integer  "year_id"
   end
 
   add_index "posts", ["slug"], name: "index_posts_on_slug", using: :btree
@@ -51,6 +55,7 @@ ActiveRecord::Schema.define(version: 20150911194931) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
+    t.integer  "year_id"
   end
 
   add_index "studios", ["slug"], name: "index_studios_on_slug", using: :btree
@@ -102,6 +107,7 @@ ActiveRecord::Schema.define(version: 20150911194931) do
     t.string   "slug"
     t.integer  "sciper"
     t.boolean  "super_student",          default: false
+    t.integer  "year_id"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
@@ -109,5 +115,12 @@ ActiveRecord::Schema.define(version: 20150911194931) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", using: :btree
   add_index "users", ["studio_id"], name: "index_users_on_studio_id", using: :btree
+
+  create_table "years", force: true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
