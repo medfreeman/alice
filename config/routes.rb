@@ -2,7 +2,7 @@ Alice::Application.routes.draw do
   default_year = 'y1'
   match "/upload" => "assets#upload", via: :post
   
-  resources :years, only: [:new, :create, :update]
+  resources :years, only: [:new, :create, :update, :edit, :destroy]
   
   devise_for :users, :controllers => {:confirmations => 'confirmations'}, :path_names => {:sign_in => 'login', :sign_out => 'logout'}
   devise_scope :user do

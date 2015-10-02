@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
 
   def load_year
     @years = Year.all
-    @year = @years.select{|y| y.slug == params[:year]}.first
+    @year = @years.select{|y| y.slug == params[:year]}.first || Year.new
     @studios = Studio.year(@year)
   end
 

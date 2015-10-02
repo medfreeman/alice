@@ -6,6 +6,9 @@ class YearsController < ApplicationController
 
 	end
 
+	def edit
+	end
+
 	def create
 		@year = Year.new(permitted_params)
 		if @year.save
@@ -28,10 +31,16 @@ class YearsController < ApplicationController
 			render json: {errors: @year.errors}, status: :unprocessable_entity
 		end
 	end
+
+	def destroy
+		@year.delete
+		redirect_to root_path, alert: "You have successfully deleted #{@year.name}"
+	end
+
 	private
 
 	def load_year_
-		@year = params[:id].blank? ? Year.new : Year.find(params[:id])
+		@year = params[:id].blank? ? Year.new : Year.find_by_slug(params[:id])
 	end
 
 	def permitted_params
