@@ -3,9 +3,9 @@
   %ul.ui.list.content.accordion.menus.studios
     - if @year.display_by_users?
       - @studios.each do |studio|
-        %li.item= link_to 'MOST RECENT', year_most_recent_path(year: @year), class: (studio == @studio && @most_recent ? 'active' : nil) 
+        %li.item= link_to 'MOST RECENT', year_most_recent_path(current_year: @year), class: (studio == @studio && @most_recent ? 'active' : nil) 
         - studio.tags.each_with_index do |tag, i|
-          %li= link_to tag.name, studio_tag_path(studio, tag, year: @year), class: tag == @tag ? 'active' : nil
+          %li= link_to tag.name, studio_tag_path(studio, tag, current_year: @year), class: tag == @tag ? 'active' : nil
           - if i == (studio.tag_list.count-1)
             %li
               %hr/
@@ -15,7 +15,7 @@
       - @studios.each do |studio|
         - active = studio == @studio ? 'active' : nil
         %li.item.studio
-          = link_to "studio #{studio.name}", studio_posts_path(studio, year: params[:year]), class: active
+          = link_to "studio #{studio.name}", studio_posts_path(studio, current_year: @year), class: active
           .ui.title{class: active}
             %i.dropdown.icon
           %ul.ui.list.content{class: studio == @studio ? 'active' : nil}

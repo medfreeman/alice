@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 	before_filter :require_director!
+  before_filter :require_same_year!
   before_filter :set_user, only: [:destroy, :update]
+
   def index
   	@users = User.year(@year).includes(:studio)
     @users_data = @users.map(&:serialize)

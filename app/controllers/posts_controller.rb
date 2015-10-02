@@ -10,7 +10,7 @@ class PostsController < ApplicationController
     if @studio.nil?
       @title = "Home"
       @page_title = "Blog Homepage"
-      if @year.display_by_users
+      if @year.display_by_users?
         if params[:filter] == :most_recent
           @posts = Post.year(@year)
         elsif params[:slug].blank?
@@ -60,7 +60,7 @@ class PostsController < ApplicationController
       @posts = @studio.posts.tagged_with(@tag)
       @page_title = "Studio #{@studio.name}"
     else
-      @posts = Postyear(@year).tagged_with(@tag.name, on: :categories)
+      @posts = Post.year(@year).tagged_with(@tag.name, on: :categories)
       @title = @tag.name.titleize
       @page_title = @tag.name.titleize
     end
@@ -100,7 +100,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         format.html { 
-          path = @post.studio.nil? ? category_post_path(@post.tags_on(:categories).first, @post) : studio_post_path(@post.studio, @post)
+          path = after_save_post_path(@post)
           redirect_to path, notice: 'Post was successfully created.' 
         }
         format.json { render :show, status: :created, location: @post }
@@ -190,4 +190,11 @@ class PostsController < ApplicationController
     def check_studio
       redirect_to root_path, notice: "You are not assigned to any studio yet" if current_user.studio.nil?
     end
+    
+    def after_save_post_path(post)
+    post.studio.nil? ? 
+      category_post_path(post.tags_on(:categories).first, post, current_year: @year) : 
+      studio_post_path(post.studio, post, current_year: @year)
+  end
 end
+

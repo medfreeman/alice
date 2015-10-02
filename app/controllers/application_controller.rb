@@ -64,9 +64,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_same_year!
+    authenticate_user!
+    redirect_to(users_path(current_year: current_user.year), alert: "You cannot manage other years") if current_user.year_id != @year.id && !current_user.admin?
+  end
+
   def load_year
     @years = Year.all
-    @year = @years.select{|y| y.slug == params[:year]}.first || Year.new
+    @year = @years.select{|y| y.slug == params[:current_year]}.first || Year.new
     @studios = Studio.year(@year)
   end
 
@@ -75,7 +80,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options(options = {})
-    options.merge(:year => @year)
+    options.merge(:current_year => @year)
   end
   before_filter :disable_xss_protection
 

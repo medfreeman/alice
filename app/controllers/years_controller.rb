@@ -13,7 +13,7 @@ class YearsController < ApplicationController
 		@year = Year.new(permitted_params)
 		if @year.save
 			respond_to do |format|
-				format.html {redirect_to new_year_path(@year), notice: "Studio was successfully created."}
+				format.html {redirect_to root_path(current_year: @year), notice: "Year was successfully created."}
 				format.json {render json: @year}
 			end
 		else
@@ -24,7 +24,7 @@ class YearsController < ApplicationController
 	def update
 		if @year.update!(permitted_params)
 			respond_to do |format|
-				format.html {redirect_to new_year_path(@year), notice: "Studio was successfully created."}
+				format.html {redirect_to root_path(current_year: @year), notice: "Year was successfully updated."}
 				format.json {render json: @year}
 			end
 		else
