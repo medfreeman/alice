@@ -12,7 +12,7 @@ class PostsController < ApplicationController
       @page_title = "Blog Homepage"
       if @year.display_by_users?
         if params[:filter] == :most_recent
-          @posts = Post.year(@year)
+          @posts = Post.year(@year).page(params[:page]).per(5)
         elsif params[:slug].blank?
           @posts = User.year(@year).map{|u| u.posts.where(featured:true).limit(1).first}.compact
           render :home
@@ -30,10 +30,10 @@ class PostsController < ApplicationController
       @title = @studio.name.titleize
       @page_title = "Studio #{@studio.name}"
       if params[:filter] == :most_recent
-        @posts = @studio.posts
+        @posts = @studio.posts.page(params[:page]).per(5)
         @most_recent = true
       else
-        @posts = @studio.featured_posts
+        @posts = @studio.featured_posts.page(params[:page]).per(5)
       end
       @students = @studio.students
     end

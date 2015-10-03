@@ -36,3 +36,7 @@ end
 Fabricate(:post, body: "student's first post", authors: [pellacani.students.first], studio: pellacani, featured: true, thumbnail: image, year: y1)
 Fabricate(:post, body: "student's first post", authors: [rudi.students.first], studio: rudi, thumbnail: image, year: y2)
 Fabricate(:post, body: "student's featured post", authors: [rudi.students.first], studio: rudi, featured: true, thumbnail: image, year: y2)
+
+23.times do |i|
+	Fabricate(:post, body: "student's #{i}th post", authors: [pellacani.students.first], studio: pellacani, featured: true, thumbnail: image, year: y1)
+end

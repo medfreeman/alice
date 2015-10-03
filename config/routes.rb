@@ -13,7 +13,9 @@ Alice::Application.routes.draw do
 
   resources "year", only: [:new, :create, :update, :destroy]
   resources :posts, except: [:show, :index]
+
   scope ":current_year", defaults: {current_year: default_year} do
+
     resources :studios, only: [:new, :create, :update, :edit, :destroy] do 
       resources :students, only: [:index] do 
         resources :posts, only: [:index]
