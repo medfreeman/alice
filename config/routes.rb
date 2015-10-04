@@ -46,7 +46,7 @@ Alice::Application.routes.draw do
 
     root "posts#index", as: :root_with_year
   end
-  root "posts#index", year: default_year
+  root "posts#index", current_year: default_year
   
   
 end

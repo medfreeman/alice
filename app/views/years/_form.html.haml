@@ -17,7 +17,7 @@
   .field
     = f.label :logo
     = f.file_field :logo, class: "image-input"
-    .logo= image_tag @year.logo.url(:thumb), class: "form-image-thumb"
+    .logo= image_tag @year.logo.url(:header), class: "form-image-thumb"
   .field
     = f.check_box :display_by_users
     = f.label :display_by_users

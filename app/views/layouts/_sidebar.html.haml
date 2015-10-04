@@ -32,7 +32,7 @@
 .list-header +
 %ul.ui.list.content.menus
   %li.item= link_to "Home", root_path
-  - @years.select{|y| y != @year}.each do |y|
+  - @years.each do |y|
     %li.item.configurable
       = link_to y.slug, root_with_year_path(y)
       - if admin_signed_in?

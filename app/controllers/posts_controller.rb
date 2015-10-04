@@ -40,17 +40,23 @@ class PostsController < ApplicationController
   end
 
   def show
+    @page_title = "Studio #{@post.studio.name}"
+    @title = @post.studio.name.titleize
   end
 
   def new
     @categories = Post.tags_on(:categories)
     @tags = current_user.studio.tags
+    @page_title = 'New Post'
+    @title = "New Post"
   end
 
   def edit
     @categories = Post.tags_on(:categories)
     @tags = current_user.studio.tags
     prepare_form
+    @page_title = 'Edit'
+    @title = "Edit Post"
   end
 
   def tagged_posts
