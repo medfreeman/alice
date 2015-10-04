@@ -1,8 +1,6 @@
 - content_for(:title, @title)
-%ul.ui.list.post-list
+%ul.ui.list.post-list.main
   - @posts.each do |post|
     %li.item.post
       = render 'post', post: post
-= link_to_next_page @posts, 'next'
-= link_to_previous_page @posts, 'previous'
-= paginate @posts
+  = paginate @posts
