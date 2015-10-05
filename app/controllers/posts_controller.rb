@@ -18,7 +18,7 @@ class PostsController < ApplicationController
           render :home
         else
           @student = User.includes(:posts).find(params[:slug])
-          @posts = @student.posts
+          @posts = @student.posts.page(params[:page]).per(5)
           @page_title = @student.name
           @title = @student.name
         end
@@ -57,10 +57,10 @@ class PostsController < ApplicationController
     @tag = ActsAsTaggableOn::Tag.friendly.find(params[:slug])
     if @studio 
       @title = "#{@studio.name.titleize} – #{@tag.name.titleize}"
-      @posts = @studio.posts.tagged_with(@tag)
+      @posts = @studio.posts.page(params[:page]).per(5).tagged_with(@tag)
       @page_title = "Studio #{@studio.name}"
     else
-      @posts = Post.year(@year).tagged_with(@tag.name, on: :categories)
+      @posts = Post.year(@year).page(params[:page]).per(5).tagged_with(@tag.name, on: :categories)
       @title = @tag.name.titleize
       @page_title = @tag.name.titleize
     end
@@ -71,7 +71,7 @@ class PostsController < ApplicationController
     @student = User.includes(:posts).find(params[:id])
     @title = @student.name
     @students = @studio.students
-    @posts   = @student.posts
+    @posts   = @student.posts.page(params[:page]).per(5)
     @page_title = "Studio #{@studio.name}"
     render :index
   end
