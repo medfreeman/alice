@@ -73,7 +73,7 @@ class User < ActiveRecord::Base
   end
 
   def can_edit_post? post
-    post.nil? || !post.persisted? || post.authors.include?(self)
+    post.nil? || !post.persisted? || post.authors.include?(self) || post.studio.director == self
   end
 
   def can_edit_categories?
