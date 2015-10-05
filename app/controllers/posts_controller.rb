@@ -14,11 +14,11 @@ class PostsController < ApplicationController
         if params[:filter] == :most_recent
           @posts = Post.year(@year).page(params[:page]).per(5)
         elsif params[:slug].blank?
-          @posts = User.year(@year).map{|u| u.posts.where(featured:true).limit(1).first}.compact
+          @posts = User.year(@year).map{|u| u.posts.year(@year).where(featured:true).limit(1).first}.compact
           render :home
         else
           @student = User.includes(:posts).find(params[:slug])
-          @posts = @student.posts.page(params[:page]).per(5)
+          @posts = @student.posts.year(@year).page(params[:page]).per(5)
           @page_title = @student.name
           @title = @student.name
         end
