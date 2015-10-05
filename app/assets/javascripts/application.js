@@ -27,7 +27,7 @@
 
 $(document).on('ready page:load',function(){
 	$('.ui.modal').modal('attach events', '#login-link');
-	$('.ui.dropdown').dropdown({
+	$('.ui.dropdown:not(.custom)').dropdown({
 		on: 'click hover'
 	});
 

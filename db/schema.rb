@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151002133016) do
+ActiveRecord::Schema.define(version: 20151005084041) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "assets", force: true do |t|
     t.string   "file_file_name"
@@ -105,6 +108,7 @@ ActiveRecord::Schema.define(version: 20151002133016) do
     t.integer  "sciper"
     t.boolean  "super_student",          default: false
     t.integer  "year_id"
+    t.boolean  "super_director",         default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

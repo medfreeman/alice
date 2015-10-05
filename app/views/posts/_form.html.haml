@@ -5,7 +5,16 @@
       %ul
         - @post.errors.full_messages.each do |msg|
           %li= msg
-  = f.hidden_field :year_id, value: @year.id
+  - if current_user.super_director?
+    .field.post-year
+      = f.label :year
+      = f.select(:year_id, options_from_collection_for_select(@years, :id, :slug, @post.year_id), {include_blank: true}, {class: 'ui fluid dropdown custom'})
+    - @years.each do |y|
+      .field.post-studio{id: "year-#{y.id}"}
+        = f.label :studio_id
+        = f.select(:studio_id, options_from_collection_for_select(y.studios, :id, :name, @post.studio_id), {include_blank: true}, {class: 'ui fluid dropdown'})
+  - else
+    = f.hidden_field :year_id, value: @year.id
   .field
     = f.label :title
     = f.text_field :title
@@ -29,7 +38,6 @@
   .field.tags
     = label :tag_list, 'Tags'
     = f.select(:tag_list, options_from_collection_for_select(@tags, 'name', 'name', @selected_tags), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})
-
   .ui.checkbox.toggle.two-labels
     %span 
       Processus

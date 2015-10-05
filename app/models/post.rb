@@ -35,6 +35,10 @@ class Post < ActiveRecord::Base
 		authors.first
 	end
 
+	def to_parm
+		slug
+	end
+
 	validate :file_dimensions
 
   def file_dimensions

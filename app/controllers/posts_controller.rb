@@ -40,8 +40,8 @@ class PostsController < ApplicationController
   end
 
   def show
-    @page_title = "Studio #{@post.studio.name}"
-    @title = @post.studio.name.titleize
+    @page_title = @post.year.display_by_users? ? "BLOG #{@post.year.slug}" : "Studio #{@post.studio.name}"
+    @title = @post.year.display_by_users? ? "BLOG #{@post.year.slug}" :@post.studio.name.titleize
   end
 
   def new
@@ -77,7 +77,7 @@ class PostsController < ApplicationController
     @student = User.includes(:posts).find(params[:id])
     @title = @student.name
     @students = @studio.students
-    @posts   = @student.posts.page(params[:page]).per(5)
+    @posts   = @student.posts.year(@year).page(params[:page]).per(5)
     @page_title = "Studio #{@studio.name}"
     render :index
   end
@@ -150,7 +150,7 @@ class PostsController < ApplicationController
 
   private
     def set_post
-      @post = params[:id].present? ? Post.includes(:studio).find(params[:id]) : Post.new
+      @post = params[:slug].present? || params[:id].present? ? Post.includes(:studio).find(params[:slug] || params[:id]) : Post.new
     end
 
     def check_permission
@@ -169,9 +169,9 @@ class PostsController < ApplicationController
     def post_params
       _params = params
       if current_user.can_edit_categories?
-        _params = params.require(:post).permit(:id, :year_id, :thumbnail, :status, :body, :title, :category_list, category_list: [], tag_list: [], authors: [])
+        _params = params.require(:post).permit(:id, :year_id, :studio_id, :thumbnail, :status, :body, :title, :category_list, category_list: [], tag_list: [], authors: [])
       else
-        _params = params.require(:post).permit(:id, :year_id, :thumbnail, :status, :body, :title, tag_list: [], authors: [])
+        _params = params.require(:post).permit(:id, :year_id, :studio_id, :thumbnail, :status, :body, :title, tag_list: [], authors: [])
       end
       if !_params[:authors].blank?
         _params[:authors].delete("") 
@@ -183,7 +183,7 @@ class PostsController < ApplicationController
       end
       _params[:authors] << current_user
       _params.delete(:tag_list) if !_params[:category_list].blank?
-      _params.merge!(studio_id: current_user.studio.id) if _params[:category_list].blank?
+      _params.merge!(studio_id: current_user.studio.id) if _params[:category_list].blank? && _params[:studio_id].blank?
       _params
     end
 
@@ -198,9 +198,11 @@ class PostsController < ApplicationController
     end
     
     def after_save_post_path(post)
-    post.studio.nil? ? 
-      category_post_path(post.tags_on(:categories).first, post, current_year: @year) : 
-      studio_post_path(post.studio, post, current_year: @year)
-  end
+      @year.display_by_users? ? 
+        student_post_path(post.first_author, post, current_year: post.year) :
+        post.studio.nil? ? 
+          category_post_path(post.tags_on(:categories).first.slug, post, current_year: post.year) :
+          studio_post_path(post.studio, post, current_year: post.year)
+    end
 end
 

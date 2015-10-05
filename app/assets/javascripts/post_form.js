@@ -77,19 +77,31 @@ $(document).on('ready page:load',function(){
 	});
 
 	function readURL(input) {
-
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-
         reader.onload = function (e) {
             $('.form-image-thumb').attr('src', e.target.result);
         }
-
         reader.readAsDataURL(input.files[0]);
     }
 	}
-
 	$(".image-input").change(function(){
 	    readURL(this);
+	});
+
+	// Prepare form for studio selection
+	$('.post-year .dropdown').dropdown({
+		action: 'activate',
+		onChange: displayStudioInput,
+	});
+	$('.post-studio').hide()
+	function displayStudioInput(value, text, $selectedItem){
+		$('.post-studio').hide();
+		$('#year-'+value).show();
+	}
+	$('form.post').one('submit', function(e){
+		e.preventDefault();
+		$('.post-studio:not(:visible)').remove();
+		$(this).submit();
 	});
 });
