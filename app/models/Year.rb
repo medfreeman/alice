@@ -3,7 +3,7 @@ class Year < ActiveRecord::Base
 	has_many :posts
 	has_many :studios
 	has_many :featured_posts, ->{where(featured: true)}, class_name: 'Post'
-	validates :slug, presence: true, uniqueness: true
+	validates :slug, presence: true, uniqueness: true, format: { without: /[! #?]/}
 
 
 	has_attached_file :logo,
