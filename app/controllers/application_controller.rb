@@ -11,14 +11,15 @@ class ApplicationController < ActionController::Base
 
   def masquerade
     if ((current_user && current_user.admin?) || session[:maskerading]) && !params[:mask].blank?
-      session[:maskerading] = current_user.id
+      oldId = current_user.id
       if params[:mask] == 'reset'
         user = User.find(session[:maskerading])
       else
-        user = User.find(params[:mask])
+        user = User.find_by_email(params[:mask])
       end
-        sign_out
-        sign_in :user, user
+      sign_out
+      sign_in :user, user
+      session[:maskerading] = oldId
     end
   end
   # Devise permitted params
