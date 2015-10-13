@@ -86,8 +86,12 @@ class ApplicationController < ActionController::Base
 
   def require_same_year!
     authenticate_user!
+<<<<<<< HEAD
     redirect_to(users_path(current_year: current_user.year), alert: "You cannot manage other years") if (current_user.year_id != @year.id && !current_user.admin?)
+=======
+	p "#{current_user.year.id}, #{@year.id}"
     redirect_to(users_path(current_year: current_user.year), alert: "You cannot manage other years") if current_user.year_id != @year.id && !current_user.admin?
+>>>>>>> removes same year check for directors
   end
 
   def load_year
