@@ -106,10 +106,12 @@ var Users = React.createClass({
 		var ajaxUpdateUser = function(userId, data){
 			var success = function(res){
 	      var index = that.state.users.indexOf(user);
-	      debugger;
 	      var users_ = React.addons.update(that.state.users, { $splice: [[index, 1, res.user]] });
 	      that.updateUsersWith(users_);
 			};
+			that.setState({
+        	errors: {}
+      });
 			var error = function(res){
  				that.setState({
         	errors: res.responseJSON
