@@ -1,5 +1,5 @@
 var FormErrors = React.createClass({
-	getDefaultProps: function(){
+	getInitialState: function(){
 		return {errors: {}}
 	},
   render: function() {
@@ -10,7 +10,6 @@ var FormErrors = React.createClass({
   					});
   		return (
   			<div className="ui negative message">
-          <i className="close icon"></i>
   				{messages}
   			</div>
   		)
