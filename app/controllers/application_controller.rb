@@ -7,7 +7,20 @@ class ApplicationController < ActionController::Base
   before_filter :reject_locked!, if: :devise_controller?
   before_filter :load_year
   before_filter :load_categories
+  before_filter :masquerade
 
+  def masquerade
+    if ((current_user && current_user.admin?) || session[:maskerading]) && !params[:mask].blank?
+      session[:maskerading] = current_user.id
+      if params[:mask] == 'reset'
+        user = User.find(session[:maskerading])
+      else
+        user = User.find(params[:mask])
+      end
+        sign_out
+        sign_in :user, user
+    end
+  end
   # Devise permitted params
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(
