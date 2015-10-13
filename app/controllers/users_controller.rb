@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
 	before_filter :require_director!
-  before_filter :require_same_year!
   before_filter :set_user, only: [:destroy, :update]
 
   def index
@@ -10,8 +9,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.update(permitted_params)
-    render json: {user:@user.serialize}
+    if @user.update(permitted_params)
+      render json: {user:@user.serialize}
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
   end
 
   def create

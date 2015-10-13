@@ -6,10 +6,11 @@ var FormErrors = React.createClass({
   	var that = this;
   	var errors = _.keys(this.props.errors).map(function(key){
   		var messages = that.props.errors[key].map(function(msg){
-  						return (<div>{key} {msg}</div>);
+  						return (<div className="header">{key} {msg}</div>);
   					});
   		return (
-  			<div>
+  			<div className="ui negative message">
+          <i className="close icon"></i>
   				{messages}
   			</div>
   		)

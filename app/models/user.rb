@@ -10,6 +10,13 @@ class User < ActiveRecord::Base
   scope :year, -> (year) { where(year: year) }
   belongs_to :studio
 
+  validate :single_director
+  def single_director
+    if !self.studio.nil? && self.director? && !self.studio.director.nil? && self.studio.director != self
+      errors.add(:studios, "cannot have multiple directors")
+    end
+  end
+
   has_many   :participations, foreign_key: :author_id
   has_many   :posts, through: :participations
   

@@ -106,15 +106,22 @@ var Users = React.createClass({
 		var ajaxUpdateUser = function(userId, data){
 			var success = function(res){
 	      var index = that.state.users.indexOf(user);
-
+	      debugger;
 	      var users_ = React.addons.update(that.state.users, { $splice: [[index, 1, res.user]] });
 	      that.updateUsersWith(users_);
+			};
+			var error = function(res){
+ 				that.setState({
+        	errors: res.responseJSON
+      });
+      console.log("data:", that.state.errors);
 			};
 			$.ajax({
 				url: '/'+that.state.year+'/admin/users/'+userId,
 				method: 'PATCH',
 				data: data, 
-				success: success
+				success: success,
+				error: error
 			});
 		};
 		var updateUser = function(property){
@@ -269,6 +276,7 @@ var Users = React.createClass({
 					<StudioForm handleNewStudio={this.addStudio}/>
 				</div>
 				<div className="ui tab active" data-tab="users-list">
+					<FormErrors errors={this.state.errors}/>
 					<Select 
 						name='filterStudio'
 						value={this.state.currentFilterStudio}
