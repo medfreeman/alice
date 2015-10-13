@@ -68,6 +68,7 @@ class User < ActiveRecord::Base
   
   def can_feature_post? post
     if !post.studio.nil? 
+	p "myself #{self.inspect}"
       post.studio.director == self || self.admin?
     end
   end

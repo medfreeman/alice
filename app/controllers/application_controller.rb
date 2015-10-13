@@ -11,15 +11,21 @@ class ApplicationController < ActionController::Base
 
   def masquerade
     if ((current_user && current_user.admin?) || session[:maskerading]) && !params[:mask].blank?
-      oldId = current_user.id
+      original_user =  session[:maskerading] || current_user.id
+      user = nil
       if params[:mask] == 'reset'
-        user = User.find(session[:maskerading])
+        user = User.find session[:maskerading]
+        session[:marketing] = nil
       else
         user = User.find_by_email(params[:mask])
       end
+      if user.nil?
+        redirect_to(root_path, alert: 'This user does not exist') 
+        return
+      end
       sign_out
       sign_in :user, user
-      session[:maskerading] = oldId
+      session[:maskerading] = original_user
     end
   end
   # Devise permitted params
