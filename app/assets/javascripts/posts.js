@@ -1,5 +1,5 @@
-$(document).on('ready page:load',function(){
-	$('.post-body').each(function(){
+ALICE.attach(function(context){
+	$('.post-body', context).each(function(){
 		var $this = $(this);
 		$this.lightGallery({
 			selector: $this.find('.lightgallery'),

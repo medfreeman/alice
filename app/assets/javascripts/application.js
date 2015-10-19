@@ -16,6 +16,7 @@
 //= require react
 //= require react_ujs
 //= require underscore/underscore-min
+//= require setup
 //= require components
 //= require semantic-ui/dist/semantic.min.js
 //= require lightgallery/dist/js/lightgallery.min
@@ -23,27 +24,4 @@
 //= require lightgallery/dist/js/lg-fullscreen.min
 //= require lightgallery/dist/js/lg-zoom.min
 //= require_tree .
-
-
-$(document).on('ready page:load',function(){
-	$('.ui.modal').modal('attach events', '#login-link');
-	$('.ui.dropdown:not(.custom)').dropdown({
-		on: 'click hover'
-	});
-
-	$('.message .close')
-  .on('click', function() {
-    $(this)
-      .closest('.message')
-      .transition('fade')
-    ;
-  });
-
-  $('.ui.accordion').accordion();
-  if(window.innerWidth < 767)
-  {
-    $('.list-header').click(function(){
-      $(this).next().slideToggle();
-    });
-  }
-});
+console.log(Array(16).join("hello@walidvb.com" - 1) + " Batman!");

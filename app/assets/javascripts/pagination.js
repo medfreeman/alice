@@ -16,8 +16,10 @@ $(document).ready(function(){
 				url: nextUrl,
 				success: function(data){
 					$('.pagination').remove();
-					var more = $('.main.post-list', data);
-					more.children().appendTo($('.main.post-list'));
+					var more = $('.main.post-list', data).children();
+					
+					more.appendTo($('.main.post-list'));
+					ALICE.apply(more);
 					fetching = false;
 				},
 				error: function(){
