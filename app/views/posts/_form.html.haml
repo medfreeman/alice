@@ -1,10 +1,10 @@
 = form_for @post, html: {class: 'ui form post', :multipart => true } do |f|
   - if @post.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@post.errors.count, "error")} prohibited this post from being saved:"
+    #error_explanation.ui.negative.message
+      %h2.header= "#{pluralize(@post.errors.count, "error")} prohibited this post from being saved:"
       %ul
         - @post.errors.full_messages.each do |msg|
-          %li= msg
+          %li.errors= msg
   - if current_user.super_director?
     .field.post-year
       = f.label :year
