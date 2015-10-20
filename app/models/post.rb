@@ -54,7 +54,7 @@ class Post < ActiveRecord::Base
 
 	private
   def transliterate_name
-  	self.file_file_name = self.file_file_name.downcase.gsub(/[àäèüéö!ç]/i, 
+  	self.thumbnail_file_name = self.thumbnail_file_name.downcase.gsub(/[àäèüéö!ç]/i, 
   		'ä' => 'a', 
   		'à' => 'a', 
   		'â' => 'a',
