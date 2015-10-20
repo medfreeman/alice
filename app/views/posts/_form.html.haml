@@ -19,7 +19,7 @@
     = f.label :title
     = f.text_field :title
   .field
-    = f.label :thumbnail
+    = f.label "Extract Thumbnail", for: :thumbnail
     = f.file_field :thumbnail, class: "image-input"
     .thumbnail= image_tag @post.thumbnail.url(:thumb), class: "form-image-thumb"
   .field

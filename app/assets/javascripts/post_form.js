@@ -62,6 +62,7 @@ $(document).on('ready page:load',function(){
 		spellcheck: true,
 		pasteImage:true ,
 		imageMove: true,
+		imageButtons: ['display', 'linkImage', 'replaceImage', 'removeImage'],
 		paragraphy: true,
 		defaultImageTitle: "Image " + new Date(),
 		defaultImageWidth: "80%",
@@ -73,7 +74,12 @@ $(document).on('ready page:load',function(){
 	})
 	.on('editable.fileError editable.imageError', function (e, editor, error) {
 		console.log(error);
-		alert("Error uploading file: "+error.message.file[0]+"\n Please send along console log if you request support.");
+		if(error.message.file){
+			alert("Error uploading file: "+error.message.file[0]+"\n Please send along console log if you request support.");
+		}
+		else{
+						alert("Error uploading file: "+error.message+"\n Please send along console log if you request support.");
+		}
 	});
 
 	function readURL(input) {

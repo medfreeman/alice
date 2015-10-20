@@ -21,6 +21,7 @@ class Post < ActiveRecord::Base
 			:thumb => "220x220#"
 		},
 		:default_url => "/images/missing.jpg"
+	before_post_process :transliterate_name
 	validates_attachment_content_type :thumbnail, :content_type => /\Aimage\/.*\Z/
 
 	scope :featured, ->{where(featured: true)}
@@ -50,4 +51,25 @@ class Post < ActiveRecord::Base
 	    errors.add(:file,'Width or height cannot be wider or higher than 3000px')
 	  end
 	end
+
+	private
+  def transliterate_name
+  	self.file_file_name = self.file_file_name.downcase.gsub(/[àäèüéö!ç]/i, 
+  		'ä' => 'a', 
+  		'à' => 'a', 
+  		'â' => 'a',
+  		'è' => 'e',
+  		'é' => 'e',
+  		'ê' => 'e',
+  		'ö' => 'o',
+  		'ô' => 'o',
+  		'î' => 'i',
+  		'ï' => 'i',
+  		'ü' => 'u',
+  		'û' => 'u',
+  		'ù' => 'u',
+  		'ç' => 'c',
+  		'!' => ''
+  		)
+  end
 end
