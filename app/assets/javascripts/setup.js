@@ -5,6 +5,7 @@ ALICE.attach = function(callback){
 };
 ALICE.apply = function(context){
   for(var i = 0; i < this.attachedCallbacks.length; i++){
+    $(document).trigger('page:change');
     this.attachedCallbacks[i](context, i);
   }
 };
