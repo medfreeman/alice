@@ -181,14 +181,16 @@ class PostsController < ApplicationController
       else 
         _params[:authors] = []
       end
-      _params[:authors] << current_user
+      if _params[:id].present?
+        _params[:authors] << current_user
+      end
       _params.delete(:tag_list) if !_params[:category_list].blank?
       _params.merge!(studio_id: current_user.studio.id) if _params[:category_list].blank? && _params[:studio_id].blank?
       _params
     end
 
     def prepare_form
-      @students = current_user.studio.students.select{|u| u != current_user}
+      @students = current_user.studio.students.order(:name)
       @selected_categories = @post.tags_on(:categories)
       @selected_tags = @post.tags_on(:tags)
     end
