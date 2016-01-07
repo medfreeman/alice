@@ -23,6 +23,7 @@ It expects mysql to be installed, too.
 
 ## Installation instructions:
 ```
+app_location="EDIT_ME"
 sudo apt-get install ruby
 sudo apt-get install git git-core
 
@@ -45,6 +46,7 @@ sudo apt-get install curl build-essential zlibc zlib1g-dev zlib1g libcurl4-opens
 
 rbenv install 2.1.5
 
+cd $app_location
 git clone https://github.com/walidvb/alice.git
 cd alice/
 
@@ -65,7 +67,7 @@ sudo apt-get update
 # Install Passenger + Nginx
 sudo apt-get install nginx nginx-extras passenger
 
-sudo ln -s /home/aliceblogs/alice/nginx/production.conf /etc/nginx/sites-available/alice-prod
+sudo ln -s $app_location/nginx/production.conf /etc/nginx/sites-available/alice-prod
 cd /etc/nginx/sites-enabled/
 sudo ln -s ../sites-available/alice-prod ./
 sudo rm -f /etc/nginx/sites-enabled/default
