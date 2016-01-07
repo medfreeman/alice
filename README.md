@@ -1,5 +1,6 @@
-== README
+# README
 
+## Requirements
 The app expects the following file to exist:
 
 ```
@@ -20,7 +21,7 @@ DOMAIN:       aliceblogs.epfl.ch:8080
 
 It expects mysql to be installed, too.
 
-Installation instructions:
+## Installation instructions:
 ```
 sudo apt-get install ruby
 sudo apt-get install git git-core
