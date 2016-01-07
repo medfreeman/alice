@@ -1,22 +1,22 @@
 # README
 
 ## Requirements
-The app expects the following file to exist:
+The app expects the following file to exist(replace with the real values):
 
 ```
 # /config/local_env.yml
-SECRET:       a4c7741b15a5e23a249c7390cbf3a8b853d8721c4b7b6be8bbe37ef96ec96cae9b04fb634b0b384390de9949cbdeddc3e51044ca531432ff0c7dc202763ff6dc
+SECRET:       some-randomly-generated-string
 
-ASSET_HOST:   http://arpc167.epfl.ch:8080
-FTP_SERVER:   arpc167.epfl.ch
+ASSET_HOST:   http://host.com
+FTP_SERVER:   host.com
 FTP_USERNAME: username
 FTP_PASSWORD: password
-SQL_HOST:     arpc167.epfl.ch
+SQL_HOST:     sql_host.com
 SQL_USERNAME: sql_username
 SQL_PASSWORD: sql_password
 
-SMTP_ADDRESS: mail.epfl.ch
-DOMAIN:       aliceblogs.epfl.ch:8080
+SMTP_ADDRESS: smtp_address
+DOMAIN:       smtp_domain
 ```
 
 It expects mysql to be installed, too.
@@ -52,6 +52,7 @@ cd alice/
 
 gem install bundler
 source ~/.bashrc
+# don't install docs
 echo -e 'gem: --no-ri --no-rdoc\n' >> ~/.gemrc
 bundle install
 
@@ -85,7 +86,9 @@ TO INSERT in /etc/nginx/nginx.conf
         ##
 
         passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
-        passenger_ruby /home/aliceblogs/.rbenv/shims/ruby;
+
+				# EDIT ME
+        passenger_ruby $app_location/.rbenv/shims/ruby;
         # passenger_ruby /usr/bin/passenger_free_ruby;
 
 
