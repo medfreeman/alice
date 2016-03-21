@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   before_save :set_role_if_nil
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
-  
+
   belongs_to :year
   validates_presence_of :year
   scope :year, -> (year) { where(year: year) }
@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
 
   has_many   :participations, foreign_key: :author_id
   has_many   :posts, through: :participations
-  
+
   scope :unassigned, ->{ where(studio_id: nil)}
 
   devise :database_authenticatable,
@@ -27,15 +27,15 @@ class User < ActiveRecord::Base
   enum role: [:student, :director]
 
   paginates_per 100
-  
+
   # Validations
   # :email
   #validates_format_of :email, with: /\A([^@\s]+)@epfl.ch/i, if: Proc.new {|u| !u.admin?}
-  
+
   def self.paged(page_number)
     order(admin: :desc, email: :asc).page page_number
   end
-  
+
   def self.search_and_order(search, page_number)
     if search
       where("email LIKE ?", "%#{search.downcase}%").order(
@@ -45,16 +45,16 @@ class User < ActiveRecord::Base
       order(admin: :desc, email: :asc).page page_number
     end
   end
-  
+
   def self.last_signups(count)
     order(created_at: :desc).limit(count).select("id","email","created_at")
   end
-  
+
   def self.last_signins(count)
-    order(last_sign_in_at: 
+    order(last_sign_in_at:
       :desc).limit(count).select("id","email","last_sign_in_at")
   end
-  
+
   def self.users_count
     where("admin = ? AND locked = ?",false,false).count
   end
@@ -72,16 +72,16 @@ class User < ActiveRecord::Base
     }
   end
   ################ Permissions #################
-  
+
   def can_feature_post? post
-    if !post.studio.nil? 
+    if !post.studio.nil?
 	p "myself #{self.inspect}"
       post.studio.director == self || self.admin?
     end
   end
 
   def can_edit_post? post
-    post.nil? || !post.persisted? || post.authors.include?(self) || post.studio.director == self
+    post.nil? || !post.persisted? || post.authors.include?(self) || post.studio.try(:director) == self
   end
 
   def can_edit_categories?
@@ -110,5 +110,5 @@ class User < ActiveRecord::Base
 
   def nil_if_blank
     NULL_ATTRS.each { |attr| self[attr] = nil if self[attr].blank? }
-  end  
+  end
 end
