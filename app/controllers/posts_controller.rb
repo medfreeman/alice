@@ -40,8 +40,16 @@ class PostsController < ApplicationController
   end
 
   def show
-    @page_title = @post.year.display_by_users? ? "BLOG #{@post.year.slug}" : "Studio #{@post.studio.name}"
-    @title = @post.year.display_by_users? ? "BLOG #{@post.year.slug}" :@post.studio.name.titleize
+    if !@post.category_list.empty?
+      @page_title = @post.category_list[0]
+      @title = @post.category_list[0]
+    elsif @post.year.display_by_users?
+      @page_title = "BLOG #{@post.year.slug}"
+      @title = "BLOG #{@post.year.slug}"
+    else
+      @page_title =  "Studio #{@post.studio.name}"
+      @title = @post.studio.name.titleize
+    end
   end
 
   def new
@@ -61,7 +69,7 @@ class PostsController < ApplicationController
 
   def tagged_posts
     @tag = ActsAsTaggableOn::Tag.friendly.find(params[:slug])
-    if @studio 
+    if @studio
       @title = "#{@studio.name.titleize} – #{@tag.name.titleize}"
       @posts = @studio.posts.page(params[:page]).per(5).tagged_with(@tag)
       @page_title = "Studio #{@studio.name}"
@@ -97,7 +105,7 @@ class PostsController < ApplicationController
         format.html {redirect_to request.referrer, alert: "You do not have permission to feature this post"}
       end
     end
-  end 
+  end
 
   # POST /posts
   # POST /posts.json
@@ -105,17 +113,17 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     respond_to do |format|
       if @post.save
-        format.html { 
+        format.html {
           path = after_save_post_path(@post)
-          redirect_to path, notice: 'Post was successfully created.' 
+          redirect_to path, notice: 'Post was successfully created.'
         }
         format.json { render :show, status: :created, location: @post }
       else
         prepare_form
         @tags = current_user.studio.tags
-        format.html { 
+        format.html {
           prepare_form
-          render :new 
+          render :new
         }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
@@ -127,7 +135,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { 
+        format.html {
           path = @post.studio.nil? ? category_post_path(@post.tags_on(:categories).first, @post) : studio_post_path(@post.studio, @post)
           redirect_to path, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
@@ -150,18 +158,18 @@ class PostsController < ApplicationController
 
   private
     def set_post
-      @post = params[:slug].present? || params[:id].present? ? Post.includes(:studio).find(params[:slug] || params[:id]) : Post.new
+      @post = params[:slug].present? || params[:id].present? ? Post.includes(:studio).find(params[:id] || params[:slug]) : Post.new
     end
 
     def check_permission
       return if current_user.admin? || current_user.super_director?
       if current_user.studio.nil? || !current_user.can_edit_post?(@post)
-        redirect_to root_path, alert: "You must be assigned to a studio to write a new post" 
+        redirect_to root_path, alert: "You must be assigned to a studio to write a new post"
       end
     end
 
     def set_studio
-      if params[:studio_id].present? 
+      if params[:studio_id].present?
         @studio = Studio.find(params[:studio_id])
       end
     end
@@ -174,15 +182,12 @@ class PostsController < ApplicationController
         _params = params.require(:post).permit(:id, :year_id, :studio_id, :thumbnail, :status, :body, :title, tag_list: [], authors: [])
       end
       if !_params[:authors].blank?
-        _params[:authors].delete("") 
+        _params[:authors].delete("")
         _params[:authors].each_with_index do |author, i|
           _params[:authors][i] = User.find(author.to_i)
         end
-      else 
+      else
         _params[:authors] = []
-      end
-      if _params[:id].present?
-        _params[:authors] << current_user
       end
       _params.delete(:tag_list) if !_params[:category_list].blank?
       _params.merge!(studio_id: current_user.studio.id) if _params[:category_list].blank? && _params[:studio_id].blank?
@@ -190,7 +195,7 @@ class PostsController < ApplicationController
     end
 
     def prepare_form
-      @students = current_user.studio.students.order(:name)
+      @students = current_user.studio.users.order(:name)
       @selected_categories = @post.tags_on(:categories)
       @selected_tags = @post.tags_on(:tags)
     end
@@ -198,13 +203,12 @@ class PostsController < ApplicationController
     def check_studio
       redirect_to root_path, notice: "You are not assigned to any studio yet" if current_user.studio.nil?
     end
-    
+
     def after_save_post_path(post)
-      @year.display_by_users? ? 
+      @year.display_by_users? ?
         student_post_path(post.first_author, post, current_year: post.year) :
-        post.studio.nil? ? 
+        post.studio.nil? ?
           category_post_path(post.tags_on(:categories).first.slug, post, current_year: post.year) :
           studio_post_path(post.studio, post, current_year: post.year)
     end
 end
-
