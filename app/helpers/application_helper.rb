@@ -22,7 +22,7 @@ module ApplicationHelper
   end
 
   def _post_path post
-    post.studio.nil? ?
+    !post.category_list.empty? ?
       category_post_path(post.tags_on(:categories).first.slug, post, current_year: @year) :
 				@year.display_by_users? ? student_post_path(post.first_author, post, current_year: @year) :
 				studio_post_path(post.studio, post, current_year: @year)
