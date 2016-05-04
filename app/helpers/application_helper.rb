@@ -5,7 +5,7 @@ module ApplicationHelper
 
   def title(value)
     unless value.nil?
-      @title = "#{value} | Alice"      
+      @title = "#{value} | Alice"
     end
   end
 
@@ -22,16 +22,15 @@ module ApplicationHelper
   end
 
   def _post_path post
-    @year.display_by_users? ? 
-      student_post_path(post.first_author, post, current_year: @year) :
-      post.studio.nil? ? 
-        category_post_path(post.tags_on(:categories).first.slug, post, current_year: @year) :
-        studio_post_path(post.studio, post, current_year: @year)
+    post.studio.nil? ?
+      category_post_path(post.tags_on(:categories).first.slug, post, current_year: @year) :
+				@year.display_by_users? ? student_post_path(post.first_author, post, current_year: @year) :
+				studio_post_path(post.studio, post, current_year: @year)
   end
 
   def _tag_path post
     @year.display_as_users? ?
-      studio_tag_path(post.studio, tag, current_year: @year) : 
+      studio_tag_path(post.studio, tag, current_year: @year) :
       year_tag_path(tag, current_year: @year)
   end
 end
