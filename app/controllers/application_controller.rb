@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_locked!
-    redirect_to users_path(current_year: current_user.year), alert: 'You cannot make changes to this site anymore'
+    redirect_to(users_path(current_year: current_user.year), alert: 'You cannot make changes to this site anymore') if current_user && current_user.locked?
   end
 
   def load_year
