@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_filter :authenticate_user!, only: [:create, :edit, :new]
+  before_filter :check_locked!, only: [:create, :edit, :new]
   before_action :set_post, only: [:show, :edit, :update, :destroy, :feature, :new]
   before_action :set_studio, only: [:show, :index, :student_posts, :tagged_posts]
   before_filter :check_permission, only: [:new, :edit, :create]

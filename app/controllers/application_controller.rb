@@ -77,6 +77,10 @@ class ApplicationController < ActionController::Base
     redirect_to(users_path(current_year: current_user.year), alert: "You cannot manage other years") if current_user.year_id != @year.id && !current_user.admin?
   end
 
+  def check_locked!
+    redirect_to users_path(current_year: current_user.year), alert: 'You cannot make changes to this site anymore'
+  end
+
   def load_year
     @years = Year.all
     @year = @years.select{|y| y.slug == params[:current_year]}.first || Year.new
