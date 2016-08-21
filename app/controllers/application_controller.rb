@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  before_filter :reject_locked!, if: :devise_controller?
+  before_filter :reject_locked!
   before_filter :load_year
   before_filter :load_categories
   before_filter :masquerade
@@ -104,4 +104,18 @@ class ApplicationController < ActionController::Base
     # http://stackoverflow.com/questions/19106111/rails-4-redirects-to-data-in-chrome/21341180#21341180
     response.headers['X-XSS-Protection'] = "0"
   end
+
+
+  # Auto-sign out locked users
+  def reject_locked!
+    if current_user && current_user.locked?
+      sign_out current_user
+      user_session = nil
+      current_user = nil
+      flash[:alert] = "Your account is locked."
+      flash[:notice] = nil
+      redirect_to root_url
+    end
+  end
+  helper_method :reject_locked!
 end
