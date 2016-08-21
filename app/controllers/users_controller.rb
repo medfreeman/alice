@@ -40,8 +40,8 @@ class UsersController < ApplicationController
   def upload_post
   	require 'csv'
   	file = params[:users_csv].open
+		year = Year.find(params[:year_id])
   	CSV.foreach(file, headers: true) do |row|
-      year = Year.find(params[:year_id])
   		studio = Studio.find_or_create_by!(name: row['studio'], year: year) unless row['studio'].blank?
 			user = User.find_or_create_by!(email: row['email']) do |u|
 				role = row['role'].nil? ? :student : row['role']
