@@ -5,12 +5,14 @@
 		%li name
 		%li email
 		%li role
-		%li studio(may be left empty)
-%p 
-	If the studio does not exist, it will be automatically created. If the user already exists, 
+		%li
+			studio
+			%i [may be left empty]
+%p
+	If the studio does not exist, it will be automatically created. If the user already exists,
 	%em it will be updated to the values present in the csv!
 
 = form_tag users_upload_post_path(), multipart: true do
 	= file_field_tag :users_csv
-	= hidden_tag :year_id, value: @year.id
+	= hidden_field :year_id, value: @year.id
 	= submit_tag "Submit", class: "ui button"
