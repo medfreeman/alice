@@ -3,7 +3,7 @@
   %ul.ui.list.content.accordion.menus.studios
     - if @year.display_by_users?
       - @studios.each do |studio|
-        %li.item= link_to 'MOST RECENT', year_most_recent_path(current_year: @year), class: (studio == @studio && @most_recent ? 'active' : nil) 
+        %li.item= link_to 'MOST RECENT', year_most_recent_path(current_year: @year), class: (studio == @studio && @most_recent ? 'active' : nil)
         - studio.tags.each_with_index do |tag, i|
           %li= link_to tag.name, studio_tag_path(studio, tag, current_year: @year), class: tag == @tag ? 'active' : nil
           - if i == (studio.tag_list.count-1)
@@ -19,7 +19,7 @@
           .ui.title{class: active}
             %i.dropdown.icon
           %ul.ui.list.content{class: studio == @studio ? 'active' : nil}
-            %li.item= link_to 'MOST RECENT', studio_most_recent_path(studio), class: (studio == @studio && @most_recent ? 'active' : nil) 
+            %li.item= link_to 'MOST RECENT', studio_most_recent_path(studio), class: (studio == @studio && @most_recent ? 'active' : nil)
             - studio.tags.each_with_index do |tag, i|
               %li= link_to tag.name, studio_tag_path(studio, tag), class: tag == @tag ? 'active' : nil
               - if i == (studio.tag_list.count-1)
@@ -36,7 +36,9 @@
     %li.item.configurable
       = link_to "BLOG #{y.slug}", root_with_year_path(y)
       - if admin_signed_in?
-        = link_to edit_year_path(y, current_year: nil), class: 'action' do
+        = link_to users_path(current_year: y), class: 'action', "data-tooltip" => "Manage #{y.name} users" do
+          %i.fa.list.icon{style: 'padding: 0;'}
+        = link_to edit_year_path(y, current_year: nil), class: 'action', "data-tooltip" => "Edit #{y.name}" do
           %i.fa.write.icon
   %li.item= link_to "BLOG archives", "http://alice.epfl.ch/teaching/archives", target: '_blank'
   %li.item= link_to "ALICE online", "http://alice.epfl.ch/", target: '_blank'
