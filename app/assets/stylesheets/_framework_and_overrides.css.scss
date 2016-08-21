@@ -85,13 +85,14 @@ i.icon{
 }
 
 input[type="checkbox"]{
-  display: none;
+  adisplay: none;
+  float: left;
   & + label:before{
-    @extend .icon;
-    content: "\f096";
+    @extend .fa;
+    @extend .check-square-o;
   }
   &:checked + label:before{
     @extend .icon;
-    content: "\f046";
+    @extend .square-o;
   }
 }
