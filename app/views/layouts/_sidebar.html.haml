@@ -32,6 +32,11 @@
 .list-header +
 %ul.ui.list.content.menus
   %li.item= link_to "Home", root_path
+  - if admin_signed_in?
+    %li.item
+      = link_to new_year_path, class: 'action' do
+        Add new year
+        %i.fa.plus.icon
   - @years.each do |y|
     %li.item.configurable
       = link_to "BLOG #{y.slug}", root_with_year_path(y)
