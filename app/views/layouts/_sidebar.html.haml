@@ -36,7 +36,7 @@
     %li.item.configurable
       = link_to "BLOG #{y.slug}", root_with_year_path(y)
       - if admin_signed_in?
-        = link_to users_path(current_year: y), class: 'action', "data-tooltip" => "Manage #{y.name} users" do
+        = link_to users_path(current_year: y), class: 'action', "data-tooltip" => "Manage #{y.id} users" do
           %i.fa.list.icon{style: 'padding: 0;'}
         = link_to edit_year_path(y, current_year: nil), class: 'action', "data-tooltip" => "Edit #{y.name}" do
           %i.fa.write.icon
