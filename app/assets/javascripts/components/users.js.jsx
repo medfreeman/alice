@@ -121,7 +121,7 @@ var Users = React.createClass({
 			$.ajax({
 				url: '/'+that.state.year+'/admin/users/'+userId,
 				method: 'PATCH',
-				data: data, 
+				data: data,
 				success: success,
 				error: error
 			});
@@ -204,24 +204,24 @@ var Users = React.createClass({
 					{userEmail}
 				</Reactable.Td>
 				<Reactable.Td column="role_">
-					<Select 
-						name='role' 
-						value={user.role} 
+					<Select
+						name='role'
+						value={user.role}
 						options={that.state.roles.map(function(role){
 							return {value: role, label: role};
-						})} 
+						})}
 						onChange={updateUser('role')}
-						searchable={false} 
+						searchable={false}
 						clearable={false}
 					/>
 				</Reactable.Td>
 				<Reactable.Td column="super_student_">
 					<div>
 						{user.super_student}
-						<input 
-							id={user.id + '-super_student'} 
-							type="checkbox" 
-							name="user[super_student]" 
+						<input
+							id={user.id + '-super_student'}
+							type="checkbox"
+							name="user[super_student]"
 							checked={user.super_student}
 							onChange={updateUser('super_student')}/>
           	<label htmlFor={user.id + '-super_student'}>&nbsp;</label>
@@ -231,11 +231,11 @@ var Users = React.createClass({
 					<Select
 						className="not-field"
 						clearable={true}
-						name='studio' 
-						value={user.studio != undefined ? user.studio.name : null} 
+						name='studio'
+						value={user.studio != undefined ? user.studio.name : null}
 						options={that.state.studios.map(function(s){
 							return {value:s.id, label:s.name};
-						})} 
+						})}
 						onChange={updateUser('studio')}
 						placeholder="Select studio..."
 					/>
@@ -262,8 +262,8 @@ var Users = React.createClass({
 				  <div className="item" data-tab="add-user">Add user</div>
 				  <div className="item" data-tab="add-studio">Add studio</div>
 				  <div className="item right">
-				  	<a href="/admin/users/upload">
-				  		upload csv file 
+				  	<a href={'/'+that.props.year + "/admin/users/upload"}>
+				  		upload csv file
 				  		<i className="icon external"></i>
 				  	</a>
 				  </div>
@@ -279,10 +279,10 @@ var Users = React.createClass({
 				</div>
 				<div className="ui tab active" data-tab="users-list">
 					<FormErrors errors={this.state.errors}/>
-					<Select 
+					<Select
 						name='filterStudio'
 						value={this.state.currentFilterStudio}
-						options={[{value: 'unassigned', label: 'unassigned'}].concat(that.state.studios.map(function(s){return {value:s.name, label:s.name};}))} 
+						options={[{value: 'unassigned', label: 'unassigned'}].concat(that.state.studios.map(function(s){return {value:s.name, label:s.name};}))}
 						onChange={this.filterByStudio}
 						placeholder="Filter by studio..."
 					/>
@@ -308,11 +308,11 @@ var Users = React.createClass({
 							label: 'Studio'
 						},
 						{
-							key: 'actions', 
+							key: 'actions',
 							label: 'Actions'
 						}
 						]} sortable={['name_', 'email_', 'role_', 'studio_']} filterable={['email', 'name', 'sciper']} filterPlaceholder="Filter by user...">
-						{ 
+						{
 							this.state.displayedUsers.map(function(user, index){
 								return that.userTr(user);
 							})
