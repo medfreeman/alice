@@ -1,18 +1,27 @@
+%h1.ui.header Upload csv file for #{@year.name}
+
+.ui.icon.message
+	%i.announcement.icon
+	.content
+		%p This form will synchronise the existing users list with the one uploaded. If the studio is non-existant, one will be created. Existing users and studios are not be affected.
+
+
 %p
-	CSV should contain the following columns, named exactly as follows(order is not important):
+	Please upload a CSV file containing the following columns, named exactly as follows:
 	%ul
 		%li SCIPER
 		%li name
 		%li email
-		%li role
+		%li
+			role
+			%i [student by default]
 		%li
 			studio
 			%i [may be left empty]
-%p
-	If the studio does not exist, it will be automatically created. If the user already exists,
-	%em it will be updated to the values present in the csv!
 
 = form_tag users_upload_post_path(), multipart: true do
 	= file_field_tag :users_csv
+	-# = check_box_tag :notify_by_email
+	-# = label_tag :notify_by_email, 'Notify the users per email'
 	= hidden_field :year_id, value: @year.id
 	= submit_tag "Submit", class: "ui button"
