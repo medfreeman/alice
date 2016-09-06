@@ -82,10 +82,10 @@ var UserForm = React.createClass({
             <label htmlFor="super_student">Super Student</label>
           </div>
         </div>
-        <Select 
+        <Select
           className="not-field"
-          name="role" 
-          value={this.state.role} 
+          name="role"
+          value={this.state.role}
           options={this.props.roles.map(function(r){
             return {value: r, label: r};
           })}
@@ -93,11 +93,11 @@ var UserForm = React.createClass({
           searchable={false}
           onChange={this.handleRoleChange}
         />
-        
-        <Select 
+
+        <Select
           className="not-field"
-          name="studio" 
-          value={this.state.studio} 
+          name="studio"
+          value={this.state.studio}
           options={this.props.studios.map(function(s){
             return {value: s.name, label: s.name};
           })}

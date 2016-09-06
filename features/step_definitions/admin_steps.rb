@@ -6,8 +6,6 @@ Given(/^I am logged in as (?:a|an) (\w+)$/) do |role|
     @user = Fabricate(:user, role: role.to_sym)
   end
   visit new_user_session_path()
-  binding.pry
-  expect(page).to have_content('Sign in')
   within '#new_user' do
     fill_in :user_email, with: @user.email
     fill_in :user_password, with: @user.password
@@ -16,10 +14,10 @@ Given(/^I am logged in as (?:a|an) (\w+)$/) do |role|
 end
 
 When(/^I create a studio named (\w+)$/) do |studio|
-  visit users_path
+  visit year_users_path @year
+  first('[data-tab="add-studio"]').click
+  fill_in :name, with: studio
   click_on 'Add Studio'
-  fill_in :studio_name, with: studio
-  click_on 'Save'
 end
 
 Then(/^there is a studio named (\w+)$/) do |studio|

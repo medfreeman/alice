@@ -260,7 +260,6 @@ var Users = React.createClass({
 					<div className="item active" data-tab="users-list">Users</div>
 					<div className="item" data-tab="studios-list">Studios</div>
 				  <div className="item" data-tab="add-user">Add user</div>
-				  <div className="item" data-tab="add-studio">Add studio</div>
 				  <div className="item right">
 				  	<a href={'/'+ that.props.year + "/admin/users/upload"}>
 				  		upload csv file for {that.props.year}
@@ -269,13 +268,14 @@ var Users = React.createClass({
 				  </div>
 				</div>
 				<div className="ui tab" data-tab="studios-list">
-					<StudiosTable studios={this.state.studios} handleStudios={this.handleStudios} />
+					<StudiosTable
+						studios={this.state.studios}
+						handleStudios={this.handleStudios}
+						handleNewStudio={this.addStudio}
+					/>
 				</div>
 				<div className="ui tab" data-tab="add-user">
 					<UserForm handleNewUser={this.addUser} roles={this.state.roles} studios={this.state.studios}/>
-				</div>
-				<div className="ui tab" data-tab="add-studio">
-					<StudioForm handleNewStudio={this.addStudio}/>
 				</div>
 				<div className="ui tab active" data-tab="users-list">
 					<FormErrors errors={this.state.errors}/>

@@ -1,3 +1,3 @@
 Before do
-  @default_year = Fabricate :year, slug: 'y1'
+  @year = Fabricate :year, slug: 'y1'
 end

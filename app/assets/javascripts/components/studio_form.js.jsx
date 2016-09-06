@@ -11,7 +11,7 @@ var StudioForm = React.createClass({
 			loading: true,
 			name:    '',
 			errors: {},
-			year: $('meta[description="alice-year-id"]').attr('content'),
+			year: $('meta[description="alice-year"]').attr('content'),
 		}
 	},
 	newStudio: function(e){
@@ -25,7 +25,7 @@ var StudioForm = React.createClass({
 			that.setState(that.getInitialState());
 		};
 		$.ajax({
-			url: "/" + that.state.year + "/studios",
+			url: "/years/" + that.state.year + "/studios",
 			method: 'POST',
 			data: {
 				studio: {
@@ -51,13 +51,17 @@ var StudioForm = React.createClass({
 	},
   render: function() {
     return (
-    	<div className="ui form fields">
-    		<FormErrors errors={this.state.errors}/>
-	    	<input clasName="field" name="name" placeholder="studio name" onChange={this.handleChange} value={this.state.name} />
-	    	<button className="ui button" onClick={this.newStudio} disabled={this.loading}>
-	    		<i className="add icon"></i>Add Studio
-	    	</button>
-	    </div>
+			<tr>
+	    	<td className="ui form fields">
+	    		<FormErrors errors={this.state.errors}/>
+		    	<input clasName="field" name="name" placeholder="studio name" onChange={this.handleChange} value={this.state.name} />
+				</td>
+				<td>
+		    	<button className="ui button" onClick={this.newStudio} disabled={this.loading}>
+		    		<i className="add icon" />Add Studio
+		    	</button>
+		    </td>
+			</tr>
     );
   }
 });

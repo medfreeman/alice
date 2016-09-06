@@ -14,7 +14,7 @@ var StudiosTable = React.createClass({
 		var studioRow = function(studio){
 			var destroyStudio = function(){
 				$.ajax({
-					url: '/'+ that.state.year + '/studios/'+studio.id,
+					url: '/years/'+ that.state.year + '/studios/'+studio.id,
 					method: 'delete',
 					success: function(res){
 				    var index = that.state.studios.indexOf(studio);
@@ -31,7 +31,7 @@ var StudiosTable = React.createClass({
 				}
 				else{
 					studio.name = studio.originalName;
-				} 
+				}
 				var studios_ = that.state.studios.map(function(s){
 					s.editable = s === studio ? !s.editabe : false;
 					return s;
@@ -98,9 +98,10 @@ var StudiosTable = React.createClass({
 		return <div>
 				<table className="ui table compact striped ">
 					<tbody>
-						{this.state.studios.map(function(s){
+						{this.props.studios.map(function(s){
 							return studioRow(s);
 						})}
+						<StudioForm handleNewStudio={this.props.handleNewStudio} />
 					</tbody>
 				</table>
 			</div>;

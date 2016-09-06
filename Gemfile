@@ -28,7 +28,7 @@ gem 'fog'
 gem 'kaminari', '0.16.1'
 gem 'colorbox-rails'
 
-group :development do 
+group :development do
   gem 'better_errors'
   gem 'awesome_print'
   gem 'binding_of_caller'
