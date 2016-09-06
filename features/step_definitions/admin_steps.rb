@@ -6,7 +6,9 @@ Given(/^I am logged in as (?:a|an) (\w+)$/) do |role|
     @user = Fabricate(:user, role: role.to_sym)
   end
   visit new_user_session_path()
-  within '#new_user' do 
+  binding.pry
+  expect(page).to have_content('Sign in')
+  within '#new_user' do
     fill_in :user_email, with: @user.email
     fill_in :user_password, with: @user.password
     click_on 'Sign in'
@@ -21,7 +23,7 @@ end
 
 Then(/^there is a studio named (\w+)$/) do |studio|
   expect(Studio.find(studio)).not_to be_nil
-  
+
 end
 
 Then(/^the studio (\w+) has a director$/) do |studio|
@@ -62,7 +64,7 @@ When(/^I assign the users as:$/) do |table|
   visit assign_users_path
   table.hashes.each do |row|
     name = row[:name]
-    within(".#{name}") do 
+    within(".#{name}") do
       select(row['role'], from: '.roles')
     end
   end

@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
   friendly_id :name, use: [:slugged, :finders]
 
   belongs_to :year
-  validates_presence_of :year
   scope :year, -> (year) { where(year: year) }
   belongs_to :studio
 
