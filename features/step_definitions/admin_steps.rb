@@ -36,7 +36,7 @@ Given(/^there is a director$/) do
 end
 
 When(/^I upload a csv of users$/) do
-  visit users_upload_path
+  visit year_users_upload_path @year
   @csv_path = "#{Rails.root}/db/users.csv"
   attach_file('users_csv', @csv_path)
   click_on 'Submit'

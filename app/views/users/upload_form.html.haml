@@ -19,7 +19,7 @@
 			studio
 			%i [may be left empty]
 
-= form_tag users_upload_post_path(), multipart: true do
+= form_tag year_users_upload_post_path(@year), multipart: true do
 	= file_field_tag :users_csv
 	-# = check_box_tag :notify_by_email
 	-# = label_tag :notify_by_email, 'Notify the users per email'
