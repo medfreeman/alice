@@ -1,9 +1,9 @@
 Alice::Application.routes.draw do
   default_year = 'y1'
   match "/upload" => "assets#upload", via: :post
-  
+
   resources :years, only: [:new, :create, :update, :edit, :destroy, :index]
-  
+
   devise_for :users, :controllers => {:confirmations => 'confirmations'}, :path_names => {:sign_in => 'login', :sign_out => 'logout'}
   devise_scope :user do
     patch "/confirm" => "confirmations#confirm"
@@ -14,17 +14,17 @@ Alice::Application.routes.draw do
   resources "year", only: [:new, :create, :update, :destroy]
   resources :posts, except: [:show, :index]
 
-  scope ":current_year", defaults: {current_year: default_year} do
+  scope ":current_year", defaults: {current_year: default_year}, constraints: { pattern: /y1|master/ } do
 
-    resources :studios, only: [:new, :create, :update, :edit, :destroy] do 
-      resources :students, only: [:index] do 
+    resources :studios, only: [:new, :create, :update, :edit, :destroy] do
+      resources :students, only: [:index] do
         resources :posts, only: [:index]
       end
     end
 
     get "category/:slug/"              => "posts#tagged_posts", as: :category
     get "category/:slug/:id"           => "posts#show", as: :category_post
-    
+
     get "studios/(:studio_id)"         => "posts#index", as: :studio_posts
     get "studios/:studio_id/recent"    => "posts#index", as: :studio_most_recent, filter: :most_recent
     get "studios/:studio_id/posts/:id" => "posts#show", as: :studio_post
@@ -47,6 +47,6 @@ Alice::Application.routes.draw do
     root "posts#index", as: :root_with_year
   end
   root "posts#index", current_year: default_year
-  
-  
+
+
 end

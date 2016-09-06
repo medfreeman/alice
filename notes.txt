@@ -1,2 +1,2 @@
- - image upload with special characters
- - image positioning
+ - turbolinks breaks switching btw years(meta tag doesn't update to manage users)
+ - update studios list once studio is added

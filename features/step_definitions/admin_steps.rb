@@ -16,7 +16,8 @@ Given(/^I am logged in as (?:a|an) (\w+)$/) do |role|
 end
 
 When(/^I create a studio named (\w+)$/) do |studio|
-  visit new_studio_path()
+  visit users_path
+  click_on 'Add Studio'
   fill_in :studio_name, with: studio
   click_on 'Save'
 end

@@ -5,7 +5,9 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :reject_locked!
-  before_filter :load_year
+  before_filter :load_years
+  before_filter :load_current_year
+  before_filter :load_current_studios
   before_filter :load_categories
   before_filter :masquerade
 
@@ -81,9 +83,16 @@ class ApplicationController < ActionController::Base
     redirect_to(users_path(current_year: current_user.year), alert: 'You cannot make changes to this site anymore') if current_user && current_user.locked?
   end
 
-  def load_year
+  def load_years
     @years = Year.all
-    @year = @years.select{|y| y.slug == params[:current_year]}.first || Year.new
+  end
+
+  def load_current_year
+    @year = @years.find{|y| y.slug == params[:current_year]} || Year.new
+    load_current_studios
+  end
+
+  def load_current_studios
     @studios = Studio.year(@year)
   end
 
