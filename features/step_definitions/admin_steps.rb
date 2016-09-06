@@ -15,7 +15,7 @@ end
 
 When(/^I create a studio named (\w+)$/) do |studio|
   visit year_users_path @year
-  first('[data-tab="add-studio"]').click
+  binding.pry
   fill_in :name, with: studio
   click_on 'Add Studio'
 end
