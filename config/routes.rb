@@ -11,10 +11,9 @@ Alice::Application.routes.draw do
 
   post 'posts/:id/feature'           => 'posts#feature', as: :post_feature
 
-  resources "year", only: [:new, :create, :update, :destroy]
   resources :posts, except: [:show, :index]
 
-  scope ":current_year", defaults: {current_year: default_year}, constraints: { pattern: /y1|master/ } do
+  resources :years do
 
     resources :studios, only: [:new, :create, :update, :edit, :destroy] do
       resources :students, only: [:index] do
@@ -32,21 +31,20 @@ Alice::Application.routes.draw do
     get "studios/:studio_id/tag/:slug" => "posts#tagged_posts", as: :studio_tag
     get "studios/:studio_id/:id"       => "posts#student_posts", as: :student_posts
 
-    scope :admin do
-      get "users/upload" => 'users#upload_form', as: :users_upload
-      post "users/upload" => 'users#upload_post', as: :users_upload_post
-      post "users/create" => 'users#create', as: :users_create
-      resources :users, controller: 'users'
-    end
-
     get 'tags'   => 'posts#tagged_posts', as: :year_tag_path
     get 'recent' => 'posts#index', filter: :most_recent, as: :year_most_recent
     get ':slug' => 'posts#index', as: :student
     get ':student/:slug' => 'posts#show', as: :student_post
 
     root "posts#index", as: :root_with_year
-  end
-  root "posts#index", current_year: default_year
 
+    scope :admin do
+      get "users/upload" => 'users#upload_form', as: :users_upload
+      post "users/upload" => 'users#upload_post', as: :users_upload_post
+      post "users/create" => 'users#create', as: :users_create
+      resources :users, controller: 'users'
+    end
+  end
+  root "posts#index"
 
 end

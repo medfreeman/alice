@@ -14,18 +14,18 @@ module ApplicationHelper
   end
 
   def _student_posts_path(student, options = {})
-  	@year.display_by_users? ? _student_path(student) : student_posts_path(options[:studio], student, current_year: @year)
+  	@year.display_by_users? ? _student_path(student) : year_student_posts_path(@year, options[:studio], student)
   end
 
-  def _studio_most_recent_path(studio)
-  	studio_most_recent_path(studio, current_year: @year)
+  def _year_studio_most_recent_path(year, studio)
+  	year_studio_most_recent_path(@year, studio, current_year: @year)
   end
 
   def _post_path post
     !post.category_list.empty? ?
       category_post_path(post.tags_on(:categories).first.slug, post, current_year: @year) :
 				@year.display_by_users? ? student_post_path(post.first_author, post, current_year: @year) :
-				studio_post_path(post.studio, post, current_year: @year)
+				year_studio_post_path(@year, post.studio, post)
   end
 
   def _tag_path post

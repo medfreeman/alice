@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_current_year
-    @year = @years.find{|y| y.slug == params[:current_year]} || Year.new
+    @year = @years.find{|y| y.slug == params[:current_year]} || Year.first
     load_current_studios
   end
 

@@ -6,7 +6,7 @@ Given(/^there is a post$/) do
 end
 
 When(/^I visit the post$/) do
-  visit studio_path(studio_id: @studio, id: @post)
+  visit year_studio_path(@year, studio_id: @studio, id: @post)
 end
 
 Then(/^I should see the post$/) do
