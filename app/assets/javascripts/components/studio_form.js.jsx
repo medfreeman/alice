@@ -30,7 +30,6 @@ var StudioForm = React.createClass({
 			data: {
 				studio: {
 					name: that.state.name,
-					year_id: that.state.year
 				}
 			},
 			dataType: 'json',

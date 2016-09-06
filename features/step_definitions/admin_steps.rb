@@ -15,14 +15,15 @@ end
 
 When(/^I create a studio named (\w+)$/) do |studio|
   visit year_users_path @year
-  binding.pry
+  first('[data-tab="studios-list"]').click
+  expect(page).to have_content('Add Studio')
   fill_in :name, with: studio
   click_on 'Add Studio'
 end
 
 Then(/^there is a studio named (\w+)$/) do |studio|
+  wait_for_ajax
   expect(Studio.find(studio)).not_to be_nil
-
 end
 
 Then(/^the studio (\w+) has a director$/) do |studio|
