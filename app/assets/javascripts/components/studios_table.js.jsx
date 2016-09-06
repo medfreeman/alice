@@ -87,7 +87,7 @@ var StudiosTable = React.createClass({
 				action = <button className="ui button basic mini" onClick={toggleEditable}> Edit </button>
 			}
 
-			return <tr className="ui fields form">
+			return <tr key={studio.name} className="ui fields form">
 						{name}
 						<td>
 							{action}

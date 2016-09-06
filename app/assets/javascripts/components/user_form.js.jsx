@@ -1,3 +1,7 @@
+var Table = Reactable.Table;
+var Tr = Reactable.Tr;
+var Td = Reactable.Td;
+
 var UserForm = React.createClass({
   propTypes: {
     sciper: React.PropTypes.string,
@@ -69,47 +73,57 @@ var UserForm = React.createClass({
   render: function() {
     return (
       <form action="" className="ui form" onSubmit={this.handleSubmit}>
-        <FormErrors errors={this.state.errors}/>
-        <div className="fields">
-          <div className="field">
-            <input type="text" placeholder="Email*" name="email" value={this.state.email} onChange={this.handleChange}/>
-          </div>
-          <div className="field">
-            <input type="text" placeholder="Name*" name="name" value={this.state.name} onChange={this.handleChange}/>
-          </div>
-          <div className="field">
-            <input id="super_student" type="checkbox" name="super_student" value={this.state.super_student} onChange={this.handleChange}/>
-            <label htmlFor="super_student">Super Student</label>
-          </div>
-        </div>
-        <Select
-          className="not-field"
-          name="role"
-          value={this.state.role}
-          options={this.props.roles.map(function(r){
-            return {value: r, label: r};
-          })}
-          clearable={false}
-          searchable={false}
-          onChange={this.handleRoleChange}
-        />
+      <table>
+        <tbody>
+          <tr>
+            <FormErrors errors={this.state.errors}/>
 
-        <Select
-          className="not-field"
-          name="studio"
-          value={this.state.studio}
-          options={this.props.studios.map(function(s){
-            return {value: s.name, label: s.name};
-          })}
-          clearable={false}
-          onChange={this.handleStudioChange}
-        />
-        <button className="ui button" type="submit" disabled={!this.valid()}>
-          <i className="add icon"></i>
-          Add User
-          </button>
+              <td className="field">
+                <input type="text" placeholder="Name*" name="name" value={this.state.name} onChange={this.handleChange}/>
+              </td>
+              <td className="field">
+                <input type="text" placeholder="Email*" name="email" value={this.state.email} onChange={this.handleChange}/>
+              </td>
+              <td>
+                <Select
+                  className="not-field"
+                  name="role"
+                  value={this.state.role}
+                  options={this.props.roles.map(function(r){
+                    return {value: r, label: r};
+                  })}
+                  clearable={false}
+                  searchable={false}
+                  onChange={this.handleRoleChange}
+                />
+              </td>
+              <td className="field">
+                <input id="super_student" type="checkbox" name="super_student" value={this.state.super_student} onChange={this.handleChange}/>
+                <label htmlFor="super_student">Super Student</label>
+              </td>
+              <td>
+                <Select
+                  className="not-field"
+                  name="studio"
+                  value={this.state.studio}
+                  options={this.props.studios.map(function(s){
+                    return {value: s.name, label: s.name};
+                  })}
+                  clearable={false}
+                  onChange={this.handleStudioChange}
+                />
+              </td>
+              <td>
+                <button className="ui button" type="submit" disabled={!this.valid()}>
+                  <i className="add icon"></i>
+                  Add User
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <div>
-          The user will receive an email from which he can select his password.
+        The user will receive an email from which he can select his password.
         </div>
       </form>
     );

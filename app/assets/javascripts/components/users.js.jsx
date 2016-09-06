@@ -13,7 +13,7 @@ var Users = React.createClass({
 				roles: this.props.roles,
 				studios: this.props.studios,
 				filteredByStudio: false,
-				year: $('meta[description="alice-year-id"]').attr('content'),
+				year: $('meta[description="alice-year"]').attr('content'),
 			};
 	},
 	getDefaultProps: function(){
@@ -119,7 +119,7 @@ var Users = React.createClass({
       console.log("data:", that.state.errors);
 			};
 			$.ajax({
-				url: '/'+that.state.year+'/admin/users/'+userId,
+				url: '/admin/years/'+that.state.year+'/users/'+userId,
 				method: 'PATCH',
 				data: data,
 				success: success,
@@ -259,7 +259,6 @@ var Users = React.createClass({
 				<div className="ui tabular menu">
 					<div className="item active" data-tab="users-list">Users</div>
 					<div className="item" data-tab="studios-list">Studios</div>
-				  <div className="item" data-tab="add-user">Add user</div>
 				  <div className="item right">
 				  	<a href={'/'+ that.props.year + "/admin/users/upload"}>
 				  		upload csv file for {that.props.year}
@@ -311,13 +310,13 @@ var Users = React.createClass({
 							key: 'actions',
 							label: 'Actions'
 						}
-						]} sortable={['name_', 'email_', 'role_', 'studio_']} filterable={['email', 'name', 'sciper']} filterPlaceholder="Filter by user...">
-						{
-							this.state.displayedUsers.map(function(user, index){
-								return that.userTr(user);
-							})
-						}
+						]} sortable={['name_', 'email_', 'role_', 'studio_']} filterable={['email', 'name', 'sciper']} filterPlaceholder="Filter by user..."
+					>
+						{this.state.displayedUsers.map(function(user, index){
+							return that.userTr(user);
+						})}
 					</Table>
+					<UserForm roles={this.state.roles} studios={this.state.studios} handleNewUser={this.addUser}/>
 				</div>
 			</div>
 		);
