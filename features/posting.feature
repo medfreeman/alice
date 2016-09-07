@@ -6,11 +6,10 @@ Feature:
 		Given I am logged in
 		And I belong to studio Pellacani
 		And the studio has a student named walid
-		When I add a post
+		When I add a post with walid
 		Then there should be a post
-		When I visit the posts from Pellacani
-		Then I should see the post
-		And I should be an author of the post
+		When I visit the post
+		Then walid should be an author of the post
 
 	@javascript
 	Scenario: Director features a post

@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
 	belongs_to :studio
 	has_many :participations
-	has_many :authors, through: :participations, class_name: "User"	
+	has_many :authors, through: :participations, class_name: "User"
 	has_many :assets, as: :assetable
   belongs_to :year
   scope :year, -> (year) { where(year: year).order('created_at DESC') }
@@ -25,8 +25,8 @@ class Post < ActiveRecord::Base
 	validates_attachment_content_type :thumbnail, :content_type => /\Aimage\/.*\Z/
 
 	scope :featured, ->{where(featured: true)}
-	accepts_nested_attributes_for(:participations)	
-	validates_presence_of :title, :body, :thumbnail
+	accepts_nested_attributes_for(:participations)
+	validates_presence_of :title, :body#, :thumbnail
 
 	def status
 		self[:status] ? "formes" : "processus"
@@ -54,9 +54,9 @@ class Post < ActiveRecord::Base
 
 	private
   def transliterate_name
-  	self.thumbnail_file_name = self.thumbnail_file_name.downcase.gsub(/[àäèüéö!ç]/i, 
-  		'ä' => 'a', 
-  		'à' => 'a', 
+  	self.thumbnail_file_name = self.thumbnail_file_name.downcase.gsub(/[àäèüéö!ç]/i,
+  		'ä' => 'a',
+  		'à' => 'a',
   		'â' => 'a',
   		'è' => 'e',
   		'é' => 'e',

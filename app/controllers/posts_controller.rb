@@ -207,9 +207,9 @@ class PostsController < ApplicationController
 
     def after_save_post_path(post)
       @year.display_by_users? ?
-        student_post_path(post.first_author, post, current_year: post.year) :
+        year_student_post_path(post.year, post.first_author, post) :
         post.studio.nil? ?
-          category_post_path(post.tags_on(:categories).first.slug, post, current_year: post.year) :
-          studio_post_path(post.studio, post, current_year: post.year)
+          year_category_post_path(year, post.tags_on(:categories).first.slug, post) :
+          year_studio_post_path(post.year, post.studio, post)
     end
 end

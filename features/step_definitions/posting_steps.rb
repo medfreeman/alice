@@ -1,16 +1,15 @@
 Given(/^I am logged in$/) do
 	@current_user = Fabricate(:user)
-  visit new_user_session_path
+  visit root_path
+	click_on 'LOGIN'
   fill_in "Email", with: @current_user.email
   fill_in "Password", with: @current_user.password
-  within ".new_user" do 
-    click_on "Sign in"
-  end
-  expect(page).not_to have_content(/sign in/i)
+  click_on "Log in"
+  expect(page).not_to have_content(/Log in/i)
 end
 
 Given(/^I belong to studio (\w+)$/) do |studio|
-	@studio ||= Studio.find_by_name(studio.downcase) || Fabricate(:studio, name: studio)
+	@studio ||= Studio.find_by_name(studio.downcase) || Fabricate(:studio, name: studio, year: @year)
   @current_user.studio = @studio
   @current_user.save!
 end
@@ -22,11 +21,21 @@ end
 
 When(/^I add a post$/) do
   visit new_post_path
-  @post = Post.new(body: "Some content")
-  fill_in :post_body, with: @post.body
-  check 'walid'
+  post = Post.new(body: "Some content", title: 'some title')
+	fill_in :post_title, with: post.title
+  fill_in :post_body, with: post.body
   click_on "Save"
   @post = Post.last
+end
+
+When(/^I add a post with (\w+)$/) do |coauthor|
+	visit new_post_path
+	post = Post.new(body: "Some content", title: 'some title')
+	fill_in :post_title, with: post.title
+	fill_in :post_body, with: post.body
+	check coauthor
+	click_on "Save"
+	@post = Post.last
 end
 
 Then(/^there should be a post$/) do
@@ -39,13 +48,13 @@ Then(/^studio (\w+) should have a post$/) do |studio_name|
   expect(studio.posts).to include(@post)
 end
 
-Then(/^I should be an author of the post$/) do
-  expect(@post.authors).to include(@current_user)
+Then(/^(\w+) should be an author of the post$/) do |coauthor|
+  expect(@post.authors.map(&:name)).to include(coauthor)
 end
 
 Given(/^I have a studio with (\d+) student(?:s)$/) do |students|
   @studio = Fabricate(:studio)
-  students.to_i.times do 
+  students.to_i.times do
     @studio.students << Fabricate(:user)
   end
   @students = @studio.students

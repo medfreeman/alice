@@ -59,7 +59,6 @@ class User < ActiveRecord::Base
   end
 
   def serialize
-    token_ = Devise.token_generator.digest(self, :confirmation_token, self.confirmation_token)
     {
       id:     self.id,
       name:   self.name,
@@ -74,7 +73,6 @@ class User < ActiveRecord::Base
 
   def can_feature_post? post
     if !post.studio.nil?
-	p "myself #{self.inspect}"
       post.studio.director == self || self.admin?
     end
   end
