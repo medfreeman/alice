@@ -18,7 +18,7 @@ Feature:
 		And there are posts in my studio
 		Then there should be no post on the front page
 		When I feature a post
-		Then it should be in the front page
+		Then it should be on my studio page
 
 	Scenario: User has posts
 		Given the following students:

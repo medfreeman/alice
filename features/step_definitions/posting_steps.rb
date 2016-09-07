@@ -53,9 +53,9 @@ Then(/^(\w+) should be an author of the post$/) do |coauthor|
 end
 
 Given(/^I have a studio with (\d+) student(?:s)$/) do |students|
-  @studio = Fabricate(:studio)
+  @studio = Fabricate(:studio, year: @year)
   students.to_i.times do
-    @studio.students << Fabricate(:user)
+    @studio.students << Fabricate(:user, year: @year)
   end
   @students = @studio.students
   @user.studio = @studio
@@ -63,7 +63,7 @@ Given(/^I have a studio with (\d+) student(?:s)$/) do |students|
 end
 
 Given(/^there are posts in my studio$/) do
-  Fabricate(:post, authors: @studio.students, studio: @studio)
+  Fabricate(:post, authors: @studio.students, studio: @studio, year: @year)
 end
 
 Then(/^there should be no post on the front page$/) do
@@ -74,34 +74,35 @@ end
 When(/^I feature a post$/) do
   @post ||= Post.first
   expect(@post).not_to be_featured
-  visit studio_post_path(@studio, @post)
+  visit year_studio_post_path(@year, @studio, @post)
   expect(page).to have_selector('.unfeatured')
   find('.unfeatured').click
+	wait_for_ajax
   expect(@post.reload).to be_featured
 end
 
-Then(/^it should be in the front page$/) do
-  visit root_path
+Then(/^it should be on my studio page$/) do
+  visit year_studio_path(@year, @studio)
   expect(page).to have_content(@post.body)
 end
 
 Given(/^the following students:$/) do |table|
   table.hashes.each do |row|
-    studio = Studio.find_by_name(row['studio']) || Fabricate(:studio, name: row['studio'])
-    studio.students << Fabricate(:user, name: row['name'])
+    studio = Studio.find_by_name(row['studio']) || Fabricate(:studio, name: row['studio'], year: @year)
+    studio.students << Fabricate(:user, name: row['name'], year: @year)
   end
 end
 
 Given(/^the following posts:$/) do |table|
   table.hashes.each do |row|
     user = User.find(row['authors'])
-    user.posts << Fabricate(:post, body: row['post_body'], studio: user.studio)
+    user.posts << Fabricate(:post, body: row['post_body'], studio: user.studio, year: @year)
   end
 end
 
 When(/^I visit student (\w+)$/) do |student|
   user = User.find(student)
-  visit student_posts_path(user.studio, user)
+  visit year_student_posts_path(@year, user.studio, user)
 end
 
 Then(/^I should see the following posts$/) do |table|
