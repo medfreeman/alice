@@ -69,3 +69,5 @@ end
 
 Capybara.javascript_driver = ENV['BROWSER'] ? :selenium : :poltergeist
 Capybara.current_driver = ENV['BROWSER'] ? :selenium : :poltergeist
+
+include ApplicationHelper

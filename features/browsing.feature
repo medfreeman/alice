@@ -10,6 +10,6 @@ Feature: Browsing the site
 	Scenario: Posts are sorted by studios
 		Given there is an studio named Pellacani
 		And the studio has 1 student
-		And there is a post that belongs to Pellacani
+		And there is a featured post that belongs to Pellacani
 		When I visit the posts from Pellacani
 		Then I should see the post
