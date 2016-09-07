@@ -137,7 +137,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.update(post_params)
         format.html {
-          path = @post.studio.nil? ? category_post_path(@post.tags_on(:categories).first, @post) : studio_post_path(@post.studio, @post)
+          path = @post.studio.nil? ? year_category_post_path(@year, @post.tags_on(:categories).first, @post) : year_studio_post_path(@year, @post.studio, @post)
           redirect_to path, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else

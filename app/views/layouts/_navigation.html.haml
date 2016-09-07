@@ -17,11 +17,11 @@
         .text My Account
         %i.dropdown.icon
         .menu
-          = link_to "New Post", new_post_path(current_year: @year), class: "item"
+          = link_to "New Post", new_year_post_path(@year), class: "item"
           - if !current_user.studio.nil? && @year.nil?
             = link_to "My Posts", _student_posts_path(current_user, studio: current_user.studio), class: "item"
           - if @year.nil? && current_user.director? && !current_user.studio.nil?
-            = link_to "Edit my Studio", edit_studio_path(current_user.studio, current_year: @year.slug), class: 'item'
+            = link_to "Edit my Studio", edit_studio_path(current_user.studio ), class: 'item'
           - if @year.nil? && (current_user.admin? || current_user.director?)
             = link_to "Manage #{@year.slug}", users_path(current_year: @year), class: "item"
           - if current_user.admin?

@@ -9,6 +9,13 @@ class YearsController < ApplicationController
 	def edit
 	end
 
+	def show
+    @title = "Home"
+    @page_title = "Blog Homepage"
+		@posts = Studio.year(@year).map{|s| s.featured_posts.limit(1).order("created_at DESC").first}.compact
+		render :home
+	end
+
 	def create
 		@year = Year.new(permitted_params)
 		if @year.save

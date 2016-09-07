@@ -1,8 +1,6 @@
 Alice::Application.routes.draw do
   match "/upload" => "assets#upload", via: :post
 
-  resources :years, only: [:new, :create, :update, :edit, :destroy, :index]
-
   devise_for :users, :controllers => {:confirmations => 'confirmations'}, :path_names => {:sign_in => 'login', :sign_out => 'logout'}
   devise_scope :user do
     patch "/confirm" => "confirmations#confirm"
@@ -10,10 +8,10 @@ Alice::Application.routes.draw do
 
   post 'posts/:id/feature'           => 'posts#feature', as: :post_feature
 
-  resources :posts, except: [:show, :index]
 
   resources :years do
-
+    resources :posts, except: [:show, :index]
+    
     resources :studios, only: [:new, :create, :update, :edit, :destroy] do
       resources :students, only: [:index] do
         resources :posts, only: [:index]
@@ -31,7 +29,7 @@ Alice::Application.routes.draw do
     get "studios/:studio_id/:id"       => "posts#student_posts", as: :student_posts
 
     get 'tags'   => 'posts#tagged_posts', as: :year_tag_path
-    get 'recent' => 'posts#index', filter: :most_recent, as: :year_most_recent
+    get 'recent' => 'posts#index', filter: :most_recent, as: :most_recent
     get ':slug' => 'posts#index', as: :student
     get ':student/:slug' => 'posts#show', as: :student_post
 
@@ -44,6 +42,6 @@ Alice::Application.routes.draw do
       resources :users, controller: 'users'
     end
   end
-  root "posts#index"
+  root "years#show"
 
 end

@@ -6,10 +6,10 @@
   .post-tags
     - if !post.studio.nil?
       - post.tags.each do |tag|
-        .ui.tag.label= link_to tag.name, studio_tag_path(post.studio, tag)
+        .ui.tag.label= link_to tag.name, year_studio_tag_path(@year, post.studio, tag)
     - else
       - post.tags_on(:category) do |cat|
-        .ui.tag.label= link_to cat.name, category_path(cat)
+        .ui.tag.label= link_to cat.name, year_category_path(@year, cat)
   .post-icons
     .post-actions
       - if can_feature_post? post
@@ -18,6 +18,6 @@
         .ui.dropdown.action
           %i.icon.setting
           .menu.dropdown
-            = link_to 'Edit', edit_post_path(post), class: 'item'
-            = link_to 'Destroy', post, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "item"
+            = link_to 'Edit', edit_year_post_path(@year, post), class: 'item'
+            = link_to 'Destroy', year_post_path(@year, post), :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "item"
     %i.icon.post-status{class: post.status == 'processus' ? 'wrench' : 'checkmark'}

@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_current_year
-    @year = @years.find{|y| y.slug == params[:current_year]} || Year.first
+    @year = @years.find{|y| y.slug == params[:year_id] || y.slug == params[:id]} || Year.first
     load_current_studios
   end
 
@@ -100,9 +100,6 @@ class ApplicationController < ActionController::Base
     @all_categories = Post.year(@year).tags_on :categories
   end
 
-  def default_url_options(options = {})
-    options.merge(:current_year => @year)
-  end
   before_filter :disable_xss_protection
 
   protected
