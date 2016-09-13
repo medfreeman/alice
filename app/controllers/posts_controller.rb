@@ -25,6 +25,7 @@ class PostsController < ApplicationController
         end
       else
         @posts = Studio.year(@year).map{|s| s.featured_posts.limit(1).order("created_at DESC").first}.compact
+        binding.pry
         render :home
       end
     else

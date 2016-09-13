@@ -1,11 +1,15 @@
 var UsersTable = React.createClass({
-	getInitialState: function(){
+	getInitiaslState: function(){
+		var users_ = _.filter(this.state.users, function(user){
+			return user.studio || user.studio.name == this.props.currentUser.studio.name;
+		});
 		return {
 			users: this.props.users,
-			displayedUsers: this.props.users,
+			displayedUsers: users_,
 			studios: this.props.studios,
 			currentUser: this.props.currentUser,
-			currentFilterStudio: null,
+			currentFilterStudio: this.props.currentUser.studio.name,
+			filteredByStudio: true
 		}
 	},
 	filterByStudio: function(value){
@@ -56,7 +60,7 @@ var UsersTable = React.createClass({
 			$.ajax({
 				url: '/admin/users/'+userId,
 				method: 'PATCH',
-				data: data, 
+				data: data,
 				success: success
 			});
 		};
@@ -137,14 +141,14 @@ var UsersTable = React.createClass({
 					{userEmail}
 				</Reactable.Td>
 				<Reactable.Td column="role_">
-					<Select 
-						name='role' 
-						value={user.role} 
+					<Select
+						name='role'
+						value={user.role}
 						options={that.props.roles.map(function(role){
 							return {value: role, label: role};
-						})} 
+						})}
 						onChange={updateUser('role')}
-						searchable={false} 
+						searchable={false}
 						clearable={false}
 					/>
 				</Reactable.Td>
@@ -152,9 +156,9 @@ var UsersTable = React.createClass({
 					<Select
 						className="not-field"
 						clearable={true}
-						name='studio' 
-						value={user.studio ? user.studio.name : null} 
-						options={that.state.studios.map(function(s){return {value:s.id, label:s.name};})} 
+						name='studio'
+						value={user.studio ? user.studio.name : null}
+						options={that.state.studios.map(function(s){return {value:s.id, label:s.name};})}
 						onChange={updateUser('studio')}
 						placeholder="Select studio..."
 					/>
@@ -174,10 +178,10 @@ var UsersTable = React.createClass({
   render: function() {
   	var that = this;
     return <div>
-    		<Select 
+    		<Select
 						name='filterStudio'
 						value={this.state.currentFilterStudio}
-						options={[{value: 'unassigned', label: 'unassigned'}].concat(that.state.studios.map(function(s){return {value:s.name, label:s.name};}))} 
+						options={[{value: 'unassigned', label: 'unassigned'}].concat(that.state.studios.map(function(s){return {value:s.name, label:s.name};}))}
 						onChange={this.filterByStudio}
 						placeholder="Filter by studio..."
 					/>
@@ -203,14 +207,14 @@ var UsersTable = React.createClass({
 							label: 'Studio'
 						},
 						{
-							key: 'actions', 
+							key: 'actions',
 							label: 'Actions'
 						}
-						]} 
-						sortable={['name_', 'email_', 'role_', 'studio_']} 
-						filterable={['email', 'name', 'sciper']} 
+						]}
+						sortable={['name_', 'email_', 'role_', 'studio_']}
+						filterable={['email', 'name', 'sciper']}
 						filterPlaceholder="Filter by user...">
-						{ 
+						{
 							this.state.displayedUsers.map(function(user, index){
 								return that.userTr(user);
 							})

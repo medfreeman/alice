@@ -1,6 +1,5 @@
 class YearsController < ApplicationController
 	before_filter :require_admin!
-	before_filter :load_year_, except: [:create]
 
 	def new
 
@@ -45,10 +44,6 @@ class YearsController < ApplicationController
 	end
 
 	private
-
-	def load_year_
-		@year = params[:id].blank? ? Year.new : Year.find_by_slug(params[:id])
-	end
 
 	def permitted_params
 		params.require(:year).permit(:name, :slug, :logo, :link, :display_by_users)

@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   belongs_to :year
   scope :year, -> (year) { where(year: year) }
   belongs_to :studio
+  scope :studio, -> (studio) { where(studio_id: studio.id.to_s) }
 
   validate :single_director
   def single_director

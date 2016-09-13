@@ -93,7 +93,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_current_studios
-    @studios = Studio.year(@year)
+    @studios = Studio.year(@year).includes(:students, :tags)
   end
 
   def load_categories

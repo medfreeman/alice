@@ -16,7 +16,7 @@ var UserForm = React.createClass({
       name: '',
       role: 'student',
       super_student: false,
-      studio: '',
+      studio: this.props.currentStudio,
       email: '',
       roles: this.props.roles,
       studios: this.props.studios,
