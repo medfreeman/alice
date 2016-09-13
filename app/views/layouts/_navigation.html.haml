@@ -1,6 +1,6 @@
 %nav.ui.container
   .ui.text.menu
-    .item=link_to(image_tag(!@year.nil? ? image_url('logo-alice.png') : @year.logo.url(:header), class: "logo"), root_path())
+    .item=link_to(image_tag(@year.nil? ? image_url('logo-alice.png') : @year.logo.url(:header), class: "logo"), root_path())
     .item.blog-titles
       %div
         .blog-title
