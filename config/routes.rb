@@ -28,7 +28,7 @@ Alice::Application.routes.draw do
     get "studios/:studio_id/tag/:slug" => "posts#tagged_posts", as: :studio_tag
     get "studios/:studio_id/:id"       => "posts#student_posts", as: :student_posts
 
-    get 'tags'   => 'posts#tagged_posts', as: :year_tag_path
+    get 'tags'   => 'posts#tagged_posts', as: :tag_path
     get 'recent' => 'posts#index', filter: :most_recent, as: :most_recent
     get ':slug' => 'posts#index', as: :student
     get ':student/:slug' => 'posts#show', as: :student_post
