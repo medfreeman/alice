@@ -58,7 +58,7 @@ var StudiosTable = React.createClass({
 
 			var submitChange = function(){
 				$.ajax({
-					url: '/'+ that.state.year + '/studios/' + studio.id,
+					url: '/years/'+ that.state.year + '/studios/' + studio.id,
 					method: 'PUT',
 					data: {
 						studio:{

@@ -5,3 +5,4 @@
  - same studio slug, same users
  - not assigned to a studio error
  - categories dropdown disappear when form has errors
+ - wrong logo
