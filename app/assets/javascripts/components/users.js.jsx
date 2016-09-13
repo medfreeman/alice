@@ -6,21 +6,23 @@ var Users = React.createClass({
 		$('.tabular.menu .item').tab();
 	},
 	getInitialState: function(){
-		console.log(this.props);
 		var currentStudio = this.props.current_user.studio;
-			var users_ = _.filter(this.props.users, function(user){
-				return !user.studio || user.studio.name == currentStudio.name;
-			});
-			return {
-				currentUser: this.props.current_user,
-				users: this.props.users,
-				displayedUsers: users_,
-				roles: this.props.roles,
-				studios: this.props.studios,
-				filteredByStudio: true,
-				currentFilterStudio: currentStudio.name,
-				year: $('meta[description="alice-year"]').attr('content'),
-			};
+		function studioUsers(studio){
+			return _.filter(this.props.users, function(user){
+				return !user.studio || user.studio.name == studio.name;
+			})
+		};
+		var users_ = currentStudio ? studioUsers() : this.props.users;
+		return {
+			currentUser: this.props.current_user,
+			users: this.props.users,
+			displayedUsers: users_,
+			roles: this.props.roles,
+			studios: this.props.studios,
+			filteredByStudio: true,
+			currentFilterStudio: currentStudio.name,
+			year: $('meta[description="alice-year"]').attr('content'),
+		};
 	},
 	getDefaultProps: function(){
 		return {
