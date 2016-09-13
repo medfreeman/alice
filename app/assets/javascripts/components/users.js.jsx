@@ -7,12 +7,19 @@ var Users = React.createClass({
 	},
 	getInitialState: function(){
 		var currentStudio = this.props.current_user.studio;
-		function studioUsers(studio){
-			return _.filter(this.props.users, function(user){
-				return !user.studio || user.studio.name == studio.name;
+		function studioUsers(studio, users){
+			return _.filter(users, function(user){
+				return user.studio.name == studio.name;
 			})
 		};
-		var users_ = currentStudio ? studioUsers() : this.props.users;
+		var users_, currentFilterStudio;
+		if(currentStudio){
+			users_ = studioUsers(currentStudio, this.props.users);
+			currentFilterStudio = currentStudio.name;
+		}
+		else{
+			users_ = this.props.users;
+		}
 		return {
 			currentUser: this.props.current_user,
 			users: this.props.users,
@@ -20,7 +27,7 @@ var Users = React.createClass({
 			roles: this.props.roles,
 			studios: this.props.studios,
 			filteredByStudio: true,
-			currentFilterStudio: currentStudio.name,
+			currentFilterStudio: currentFilterStudio,
 			year: $('meta[description="alice-year"]').attr('content'),
 		};
 	},
