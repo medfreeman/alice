@@ -266,7 +266,7 @@ var Users = React.createClass({
 					<div className="item active" data-tab="users-list">Users</div>
 					<div className="item" data-tab="studios-list">Studios</div>
 				  <div className="item right">
-				  	<a href={'/'+ that.props.year + "/admin/users/upload"}>
+				  	<a href={'/admin/years/'+ that.props.year + "/users/upload"}>
 				  		upload csv file for {that.props.year}
 				  		<i className="icon external"></i>
 				  	</a>
