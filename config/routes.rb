@@ -9,7 +9,7 @@ Alice::Application.routes.draw do
   post 'posts/:id/feature'           => 'posts#feature', as: :post_feature
 
 
-  resources :years, only: [:show] do
+  resources :years, only: [:show, :update] do
     resources :posts, except: [:show, :index]
 
     resources :studios, only: [:new, :create, :update, :edit, :destroy] do
@@ -37,7 +37,7 @@ Alice::Application.routes.draw do
 
   end
   scope :admin do
-    resources :years, only: [:new, :edit, :create] do
+    resources :years, only: [:new, :edit, :create, :update] do
       get "users/upload" => 'users#upload_form', as: :users_upload
       post "users/upload" => 'users#upload_post', as: :users_upload_post
       post "users/create" => 'users#create', as: :users_create

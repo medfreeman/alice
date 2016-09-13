@@ -3,11 +3,13 @@
 .ui.icon.message
 	%i.announcement.icon
 	.content
-		%p This form will synchronise the existing users list with the one uploaded. If the studio doesn't exist yet, one will be created. Existing users and studios are not be affected.
+		%p This form will synchronise the existing users list with the one uploaded. If the studio doesn't exist yet, one will be created. Existing users and studios that are not present in that list will not be affected.
 
 
 %p
-	Please upload a CSV file containing the following columns, named exactly as follows:
+	Please upload a CSV file(
+	= link_to 'template', image_path('users.csv')
+	) containing the following columns, named exactly as follows:
 	%ul
 		%li SCIPER
 		%li name
@@ -18,7 +20,6 @@
 		%li
 			studio
 			%i [may be left empty]
-
 = form_tag year_users_upload_post_path(@year), multipart: true do
 	= file_field_tag :users_csv
 	-# = check_box_tag :notify_by_email

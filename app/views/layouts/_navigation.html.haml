@@ -9,7 +9,7 @@
           .section= link_to 'epfl', 'http://www.epfl.ch/', target: '_blank'
           %i.right.angle.icon.divider
           .section= link_to 'alice', 'http://alice.epfl.ch', target: '_blank'
-          - if @year.nil?
+          - if !@year.link.blank?
             %i.right.angle.icon.divider
             .section= link_to @year.name, @year.link, target: '_blank'
     - if user_signed_in?

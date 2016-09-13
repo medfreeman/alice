@@ -1,7 +1,7 @@
 class Studio < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :name, use: [:slugged, :finders]
-	validates :name, uniqueness: true, presence: true
+	validates :name, presence: true
 	default_scope {order('name ASC')}
 
 	belongs_to :year

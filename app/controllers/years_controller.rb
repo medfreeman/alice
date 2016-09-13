@@ -24,14 +24,17 @@ class YearsController < ApplicationController
 				format.json {render json: @year}
 			end
 		else
-			render json: {errors: @year.errors}, status: :unprocessable_entity
+			respond_to do |format|
+				format.html {render :edit}
+				format.json {render json: {errors: @year.errors}, status: :unprocessable_entity}
+			end
 		end
 	end
 
 	def update
 		if @year.update!(permitted_params)
 			respond_to do |format|
-				format.html {redirect_to root_path(current_year: @year), notice: "Year was successfully updated."}
+				format.html {redirect_to year_path(@year), notice: "Year was successfully updated."}
 				format.json {render json: @year}
 			end
 		else

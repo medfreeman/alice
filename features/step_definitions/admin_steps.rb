@@ -43,7 +43,7 @@ When(/^I upload a csv of users$/) do
 end
 
 Then(/^there should be all users from the csv$/) do
-  expect(page.current_path).to eq(root_path)
+
   require('csv')
   CSV.foreach(@csv_path, headers: true) do |row|
     role = row['role'].nil? ? 'student' : row['role']

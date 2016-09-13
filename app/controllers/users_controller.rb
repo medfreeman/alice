@@ -41,21 +41,24 @@ class UsersController < ApplicationController
   	require 'csv'
   	file = params[:users_csv].open
 		year = @year
+		user_count = 0
   	CSV.foreach(file, headers: true) do |row|
   		studio = Studio.find_or_create_by!(name: row['studio'], year: year) unless row['studio'].blank?
-			User.find_or_create_by!(email: row['email']) do |u|
-				role = row['role'].nil? ? :student : row['role']
-				u.sciper = row['SCIPER']
-				u.name = row['name']
-				u.email = row['email']
-				u.password = 'topsecret'
-				u.password_confirmation = 'topsecret'
-				u.role = role
-        u.year = year
-				u.studio = studio unless studio.nil?
-			end
+			u = User.find_by(email: row['email'])
+			u = User.new if u.nil?
+			role = row['role'].nil? ? :student : row['role']
+			u.sciper = row['SCIPER']
+			u.name = row['name']
+			u.email = row['email']
+			u.password = 'topsecret'
+			u.password_confirmation = 'topsecret'
+			u.role = role
+      u.year = year
+			u.studio = studio unless studio.nil?
+			user_count += 1
+			u.save! if !u.persisted? || u.changed?
   	end
-  	redirect_to root_path
+  	redirect_to year_users_path(@year), notice: "#{user_count} successfully created"
   end
 
   private
