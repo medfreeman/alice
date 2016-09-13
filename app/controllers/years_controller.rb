@@ -1,8 +1,9 @@
 class YearsController < ApplicationController
 	before_filter :require_admin!
+	skip_before_filter :load_current_year, only: [:create]
 
 	def new
-
+		@new_year = Year.new
 	end
 
 	def edit
@@ -19,7 +20,7 @@ class YearsController < ApplicationController
 		@year = Year.new(permitted_params)
 		if @year.save
 			respond_to do |format|
-				format.html {redirect_to root_path(current_year: @year), notice: "Year was successfully created."}
+				format.html {redirect_to year_users_path(@year), notice: "Year was successfully created."}
 				format.json {render json: @year}
 			end
 		else
