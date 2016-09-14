@@ -1,5 +1,5 @@
 class YearsController < ApplicationController
-	before_filter :require_admin!
+	before_filter :require_admin!, only: [:create, :new, :update, :destroy]
 	skip_before_filter :load_current_year, only: [:create]
 
 	def new

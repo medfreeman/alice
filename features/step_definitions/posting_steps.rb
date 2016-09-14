@@ -20,7 +20,7 @@ Given(/^the studio has a student named (\w+)$/) do |student|
 end
 
 When(/^I add a post$/) do
-  visit new_post_path
+  visit new_year_post_path @year
   post = Post.new(body: "Some content", title: 'some title')
 	fill_in :post_title, with: post.title
   fill_in :post_body, with: post.body
@@ -29,7 +29,7 @@ When(/^I add a post$/) do
 end
 
 When(/^I add a post with (\w+)$/) do |coauthor|
-	visit new_post_path
+	visit new_year_post_path @year
 	post = Post.new(body: "Some content", title: 'some title')
 	fill_in :post_title, with: post.title
 	fill_in :post_body, with: post.body

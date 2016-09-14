@@ -33,9 +33,9 @@ Alice::Application.routes.draw do
     get ':slug' => 'posts#index', as: :student
     get ':student/:slug' => 'posts#show', as: :student_post
 
-    root "posts#index", as: :root_with_year
 
   end
+  root "posts#index"
   scope :admin do
     resources :years, only: [:new, :edit, :create, :update] do
       get "users/upload" => 'users#upload_form', as: :users_upload
@@ -44,6 +44,5 @@ Alice::Application.routes.draw do
       resources :users, controller: 'users'
     end
   end
-  root "years#show"
 
 end
