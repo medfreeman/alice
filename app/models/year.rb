@@ -10,7 +10,7 @@ class Year < ActiveRecord::Base
 		:styles => {
 			:header => "300x100>"
 		},
-		:default_url => "/images/missing.jpg"
+		:default_url => "logo-alice.png"
 	validates_attachment_content_type :logo, :content_type => /\Aimage\/.*\Z/
 
 	def to_param
