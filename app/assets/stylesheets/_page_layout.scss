@@ -50,6 +50,15 @@ a.active, a:hover{
 		min-height: auto;
 		min-width: auto;
 		opacity: 0;
+		position: absolute;
+    right: 0;
+    top: 0.2rem;
+    box-shadow: white -8px 0px 12px 0px;
+    background: white;
+		// first item has no padding
+		.item.studio:first-child &{
+			top: 0;
+		}
 		.studio:not(.active):hover &{
 			opacity: 1;
 		}
