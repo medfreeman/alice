@@ -2,11 +2,12 @@ Feature:
 	As an assistant
 	I can manage the users
 
-	@javascript
+	@javascript @wip
 	Scenario: I create a studio
 		Given I am logged in as an admin
-		When I create a studio named pellacani
+		When I create a studio named pellacani with the tag maquette
 		Then there is a studio named pellacani
+		And the studio should have the tag maquette
 
 	Scenario: I upload a csv file
 		Given I am logged in as an admin

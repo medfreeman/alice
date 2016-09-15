@@ -40,7 +40,14 @@ a.active, a:hover{
 	text-transform: uppercase;
 }
 
-.title{
+.configurable{
+	.item-actions{
+		right: -100px;
+		transition: opacity .2s ease-in-out, right .15s ease-out;
+	}
+}
+
+.item-actions{
 	display: inline-block;
 	float: right;
 	min-height: 25px;
@@ -51,16 +58,17 @@ a.active, a:hover{
 		min-width: auto;
 		opacity: 0;
 		position: absolute;
-    right: 0;
+    right: -100%;
     top: 0.2rem;
     box-shadow: white -8px 0px 12px 0px;
     background: white;
 		// first item has no padding
-		.item.studio:first-child &{
+		.item:first-child &{
 			top: 0;
 		}
-		.studio:not(.active):hover &{
+		.item:not(.active):hover &{
 			opacity: 1;
+			right: 0;
 		}
 	}
 }

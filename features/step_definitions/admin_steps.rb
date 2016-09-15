@@ -13,17 +13,19 @@ Given(/^I am logged in as (?:a|an) (\w+)$/) do |role|
   end
 end
 
-When(/^I create a studio named (\w+)$/) do |studio|
+When(/^I create a studio named (\w+) with the tag (\w+)$/) do |studio, tags|
   visit year_users_path @year
   first('[data-tab="studios-list"]').click
   expect(page).to have_content('Add Studio')
   fill_in :name, with: studio
+  fill_in :tag_list, with: tags
   click_on 'Add Studio'
 end
 
 Then(/^there is a studio named (\w+)$/) do |studio|
   wait_for_ajax
-  expect(Studio.find(studio)).not_to be_nil
+  @studio = Studio.find(studio)
+  expect(@studio).not_to be_nil
 end
 
 Then(/^the studio (\w+) has a director$/) do |studio|
@@ -76,4 +78,8 @@ Then(/^the users should be the following:$/) do |table|
     expect(user.studio.name).to eq(row['studio'])
     expect(user.role).to eq(row['role'].to_sym)
   end
+end
+
+Then(/^the studio should have the tag (\w+)$/) do |tag|
+  expect(@studio.tag_list.join(', ')).to eq(tag)
 end

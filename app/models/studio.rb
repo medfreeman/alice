@@ -15,6 +15,13 @@ class Studio < ActiveRecord::Base
 	has_many :featured_posts, ->{where(featured: true).order('created_at')}, class_name: 'Post'
 	acts_as_taggable
 
+	def as_json options = nil
+		{
+			id: id,
+			name: name,
+			tag_list: tag_list.join(', '),
+		}
+	end
 	def deletable?
 		self.posts.empty? && self.students.empty?
 	end
