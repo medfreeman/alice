@@ -103,10 +103,10 @@ var StudiosTable = React.createClass({
 		return <div>
 				<table className="ui table compact striped ">
 					<tbody>
-						<tr>
-							<th>Name</th>
-							<th>Tags</th>
-							<th></th>
+						<tr className="ui">
+							<td>Name</td>
+							<td>Tags</td>
+							<td></td>
 						</tr>
 						{this.props.studios.map(function(s){
 							return studioRow(s);
