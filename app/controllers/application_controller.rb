@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
       flash[:notice] = "You are not assigned to any studio yet" unless resource.sign_in_count == 1
       root_path
     else
-      studio_student_posts_path(resource.studio, resource)
+      year_studio_student_posts_path(@year, resource.studio, resource)
     end
   end
 
