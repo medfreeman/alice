@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
-gem 'rails', '4.1.6'
+ruby '2.2.5'
+gem 'rails', '4.2.3'
 
-gem 'sass-rails', '4.0.3'
-gem 'uglifier', '2.5.3'
-gem 'jquery-rails', '3.1.2'
+#gem "babel-schmooze-sprockets"
+gem 'sass-rails'#, '5.0.3'
+gem 'uglifier', '2.7.1'
+gem 'jquery-rails', '4.0.4'
 gem 'turbolinks', '2.3.0'
 gem 'jbuilder', '2.1.3'
 gem 'bcrypt', '3.1.7'
@@ -12,14 +13,14 @@ gem 'haml-rails'
 gem 'puma'
 gem 'rest-client'
 gem "paperclip-storage-ftp"
-gem 'devise', '3.3.0'
+gem 'devise', '~>4.1.0'
 gem 'friendly_id', '5.0.4'
 
 gem 'best_in_place'
 
-gem 'font-awesome-sass', '4.2.0'
+gem 'font-awesome-sass', '~> 4.6.2'
 gem "autoprefixer-rails"
-gem 'react-rails', '~> 1.0'
+gem 'react-rails', '1.4.0'
 gem 'acts-as-taggable-on', '~> 3.4'
 
 gem "paperclip"
@@ -50,7 +51,7 @@ end
 
 group :development, :test do
   gem 'pg'
-  gem 'fuubar'
+  gem 'fuubar', '~>2.0.0'
   gem 'fabrication'
   gem 'figaro', '0.7.0'     # env variables
   gem 'rspec-rails', '3.1.0'

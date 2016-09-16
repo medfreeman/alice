@@ -95,13 +95,13 @@ end
 
 Given(/^the following posts:$/) do |table|
   table.hashes.each do |row|
-    user = User.find(row['authors'])
+    user = User.find_by_name(row['authors'])
     user.posts << Fabricate(:post, body: row['post_body'], studio: user.studio, year: @year)
   end
 end
 
 When(/^I visit student (\w+)$/) do |student|
-  user = User.find(student)
+  user = User.find_by_name(student)
   visit year_student_posts_path(@year, user.studio, user)
 end
 

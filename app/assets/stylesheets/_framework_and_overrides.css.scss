@@ -89,10 +89,10 @@ input[type="checkbox"]{
   float: left;
   & + label:before{
     @extend .fa;
-    @extend .check-square-o;
+    @extend .fa-check-square-o;
   }
   &:checked + label:before{
     @extend .icon;
-    @extend .square-o;
+    @extend .fa-square-o;
   }
 }

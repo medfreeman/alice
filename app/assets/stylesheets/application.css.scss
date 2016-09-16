@@ -2,14 +2,15 @@
  * Overwritten by RailsBricks
  *
  *= require react-select/dist/default.css
- * require font-awesome
  *= require froala/css/froala_editor.min.css
  *= require froala/css/froala_style.min.css
  *= require semantic/dist/semantic.min.css
  *= require lightgallery/dist/css/lightgallery.min
  *= require_self
  */
-
+ @import "font-awesome-sprockets";
+ @import "font-awesome";
+ 
 @import "variables";
 @import "framework_and_overrides";
 @import "page_layout";
