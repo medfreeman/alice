@@ -1,1 +1,3 @@
 = render 'form', year: @year
+= form_for @year, action: year_archive_path(@year) do |f|
+  = f.submit "Archive year"

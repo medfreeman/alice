@@ -38,6 +38,7 @@ Alice::Application.routes.draw do
   root "posts#index"
   scope :admin do
     resources :years, only: [:new, :edit, :create, :update] do
+      post 'archive' => 'years#archive', as: :archive
       get "users/upload" => 'users#upload_form', as: :users_upload
       post "users/upload" => 'users#upload_post', as: :users_upload_post
       post "users/create" => 'users#create', as: :users_create

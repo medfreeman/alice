@@ -83,3 +83,23 @@ end
 Then(/^the studio should have the tag (\w+)$/) do |tag|
   expect(@studio.tag_list.join(', ')).to eq(tag)
 end
+
+Given(/^the year has a user$/) do
+  @user = Fabricate(:user, year: @year)
+  @used_email = @user.email
+end
+
+When(/^I archive the year$/) do
+  visit edit_year_path(@year)
+  click_on 'Archive year'
+end
+
+Then(/^I can create a user with the same email$/) do
+  @new_year = Fabricate :year
+  visit year_users_path @new_year
+  fill_in :name, with: @user.name
+  fill_in :email, with: @used_email
+  click_on 'Add User'
+  wait_for_ajax
+  expect(@year.users.map(&:email)).to include(@used_email)
+end
