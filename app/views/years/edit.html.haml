@@ -5,5 +5,8 @@
 		%i.warning.sign.icon
 		.content
 			.header Caution!
-			%p Archiving this year will prevent all existing users from logging in or making changes to their posts. This action cannot be undone.
+			%p
+				Archiving this year will prevent all existing users(students and studio directors) from
+				%em #{@year.name}
+				from logging in or making any changes to their posts. This action cannot be undone.
 	= link_to 'Archive year', year_archive_path(@year), method: :post, class: 'ui button', data: {:confirm=>'Are you sure? This action cannot be undone'}
