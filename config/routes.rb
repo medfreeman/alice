@@ -34,7 +34,7 @@ Alice::Application.routes.draw do
 
 
   end
-  root "posts#index"
+  root "years#show"
   scope :admin do
     resources :years, only: [:new, :edit, :create, :update] do
       post 'archive' => 'years#archive', as: :archive
