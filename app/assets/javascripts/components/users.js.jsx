@@ -9,6 +9,9 @@ var Users = React.createClass({
 		var currentStudio = this.props.current_user.studio;
 		function studioUsers(studio, users){
 			return _.filter(users, function(user){
+				if(!user.studio){
+					return true;
+				}
 				return user.studio.name == studio.name;
 			})
 		};
@@ -270,7 +273,7 @@ var Users = React.createClass({
 		var that = this;
 		return (
 			<div className="users-table">
-				<h2 className="title">Users</h2>
+				<h2 className="title">Manage {that.props.year}</h2>
 				<div className="ui tabular menu">
 					<div className="item active" data-tab="users-list">Users</div>
 					<div className="item" data-tab="studios-list">Studios</div>

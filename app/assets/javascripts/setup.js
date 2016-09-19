@@ -30,6 +30,8 @@ ALICE.attach(function(context, i){
       $(this).next().slideToggle();
     });
   }
+
+  $('.tabular.menu .item').tab();
 });
 $(document).on('ready page:load',function(){
   ALICE.apply();
