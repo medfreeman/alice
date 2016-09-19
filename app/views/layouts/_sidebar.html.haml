@@ -47,7 +47,7 @@
             %hr
         - archived = y.archived
         %li.item.configurable.actionable
-          = link_to "#{y.name} #{y.archived?}", year_path(y)
+          = link_to y.name, year_path(y)
           - if admin_signed_in?
             .item-actions
               = link_to year_users_path(y), class: 'action', "data-tooltip" => "Manage #{y.slug} users" do
