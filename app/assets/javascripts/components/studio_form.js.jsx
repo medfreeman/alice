@@ -10,6 +10,7 @@ var StudioForm = React.createClass({
 		return {
 			loading: true,
 			name:    '',
+			tag_list: 'maquette, cartes postales',
 			errors: {},
 			year: $('meta[description="alice-year"]').attr('content'),
 		}
@@ -30,6 +31,7 @@ var StudioForm = React.createClass({
 			data: {
 				studio: {
 					name: that.state.name,
+					tag_list: that.state.tag_list,
 				}
 			},
 			dataType: 'json',
@@ -43,9 +45,14 @@ var StudioForm = React.createClass({
 			}
 		});
 	},
-	handleChange: function(e){
+	handleStudioChange: function(e){
 		this.setState({
-			name: e.target.value
+			name: e.target.value,
+		})
+	},
+	handleTagsChange: function(e){
+		this.setState({
+			tag_list: e.target.value,
 		})
 	},
   render: function() {
@@ -53,7 +60,10 @@ var StudioForm = React.createClass({
 			<tr>
 	    	<td className="ui form fields">
 	    		<FormErrors errors={this.state.errors}/>
-		    	<input clasName="field" name="name" placeholder="studio name" onChange={this.handleChange} value={this.state.name} />
+		    	<input clasName="field" name="name" placeholder="studio name" onChange={this.handleStudioChange} value={this.state.name} />
+				</td>
+				<td className="ui form fields">
+					<input clasName="field" name="tag_list" placeholder="studio tags" onChange={this.handleTagsChange} value={this.state.tags} />
 				</td>
 				<td>
 		    	<button className="ui button" onClick={this.newStudio} disabled={this.loading}>

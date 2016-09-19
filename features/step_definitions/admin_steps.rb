@@ -21,9 +21,19 @@ When(/^I create a studio named (\w+)$/) do |studio|
   click_on 'Add Studio'
 end
 
+When(/^I create a studio named (\w+) with the tag (\w+)$/) do |studio, tags|
+  visit year_users_path @year
+  first('[data-tab="studios-list"]').click
+  expect(page).to have_content('Add Studio')
+  fill_in :name, with: studio
+  fill_in :tag_list, with: tags
+  click_on 'Add Studio'
+end
+
 Then(/^there is a studio named (\w+)$/) do |studio|
   wait_for_ajax
-  expect(Studio.find(studio)).not_to be_nil
+  @studio = Studio.find(studio)
+  expect(@studio).not_to be_nil
 end
 
 Then(/^the studio (\w+) has a director$/) do |studio|
@@ -48,6 +58,7 @@ Then(/^there should be all users from the csv$/) do
   CSV.foreach(@csv_path, headers: true) do |row|
     role = row['role'].nil? ? 'student' : row['role']
     user = User.find_by_email(row['email'])
+    expect(user).not_to be_nil
     expect(user.studio.name).to eq(row['studio']) unless user.studio.nil?
     expect(user.role).to eq(role)
   end
@@ -76,4 +87,31 @@ Then(/^the users should be the following:$/) do |table|
     expect(user.studio.name).to eq(row['studio'])
     expect(user.role).to eq(row['role'].to_sym)
   end
+end
+
+Then(/^the studio should have the tag (\w+)$/) do |tag|
+  expect(@studio.tag_list.join(', ')).to eq(tag)
+end
+
+Given(/^the year has a user$/) do
+  @user = Fabricate(:user, year: @year)
+  @used_email = @user.email
+end
+
+When(/^I archive the year$/) do
+  visit edit_year_path(@year)
+  click_on 'Archive year'
+  @user.reload
+end
+
+Then(/^I can create a user with the same email$/) do
+  @new_year = Fabricate :year
+  visit year_users_path @new_year
+  fill_in :name, with: @user.name
+  fill_in :email, with: @used_email
+  click_on 'Add User'
+  wait_for_ajax
+  new_users = @new_year.users.map(&:email)
+  expect(new_users).to include(@used_email)
+  expect(new_users).not_to include(@user.email)
 end

@@ -1,5 +1,7 @@
 class Year < ActiveRecord::Base
-	has_many :students, class_name: "User"
+	has_many :users
+	has_many :students, -> {where(role: User.roles[:student])}, class_name: "User"
+	has_many :directors, -> {where(role: User.roles[:director])}, class_name: "User"
 	has_many :posts
 	has_many :studios
 	has_many :featured_posts, ->{where(featured: true)}, class_name: 'Post'
@@ -15,5 +17,18 @@ class Year < ActiveRecord::Base
 
 	def to_param
 		slug
+	end
+
+	def archive!
+		if !archived
+			users.each do |u|
+				u.lock!
+				u.email += '.locked'
+				u.confirm!
+				u.save!
+			end
+			self.archived = true
+			self.save!
+		end
 	end
 end

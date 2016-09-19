@@ -21,7 +21,7 @@
 			studio
 			%i [may be left empty]
 = form_tag year_users_upload_post_path(@year), multipart: true do
-	= file_field_tag :users_csv
+	= file_field_tag :users_csv, required: true
 	-# = check_box_tag :notify_by_email
 	-# = label_tag :notify_by_email, 'Notify the users per email'
 	= hidden_field :year_id, value: @year.id

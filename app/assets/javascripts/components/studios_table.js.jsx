@@ -52,7 +52,8 @@ var StudiosTable = React.createClass({
 				}
 				else
 				{
-					studio.name = e.target.value;
+					studio[e.target.attributes.name.value] = e.target.value;
+					console.log(studio, e.target.name, e.target.value);
 				}
 			};
 
@@ -63,6 +64,7 @@ var StudiosTable = React.createClass({
 					data: {
 						studio:{
 							name: studio.name,
+							tag_list: studio.tag_list
 						}
 					},
 					success: function(data){
@@ -75,29 +77,37 @@ var StudiosTable = React.createClass({
 					}
 				})
 			};
-			var name, action;
+			var name, tag_list, action;
 			if(studio.editable)
 			{
-				name = <td><input className="field" type="text" defaultValue={studio.name} onKeyUp={handleKey}/></td>;
+				name = <td><input className="field" type="text" name="name" defaultValue={studio.name} onKeyUp={handleKey}/></td>;
+				tag_list = <td><input className="field" type="text" name="tag_list" defaultValue={studio.tag_list} onKeyUp={handleKey}/></td>;
 				action = <button className="ui button basic green mini" onClick={submitChange}> Save </button>
 			}
 			else
 			{
-				name = <td className="inline" onDoubleClick={toggleEditable}>{studio.name}</td>
+				name = <td onDoubleClick={toggleEditable}>{studio.name}</td>
+				tag_list = <td onDoubleClick={toggleEditable}>{studio.tag_list}</td>
 				action = <button className="ui button basic mini" onClick={toggleEditable}> Edit </button>
 			}
 
-			return <tr key={studio.name} className="ui fields form">
+			return (<tr key={studio.name} className="ui fields form">
 						{name}
+						{tag_list}
 						<td>
 							{action}
 							<button className="ui button red basic mini" onClick={destroyStudio}> Delete </button>
 						</td>
-					</tr>;
+					</tr>);
 		};
 		return <div>
 				<table className="ui table compact striped ">
 					<tbody>
+						<tr className="ui">
+							<td>Name</td>
+							<td>Tags</td>
+							<td></td>
+						</tr>
 						{this.props.studios.map(function(s){
 							return studioRow(s);
 						})}

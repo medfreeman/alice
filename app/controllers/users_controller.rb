@@ -39,9 +39,10 @@ class UsersController < ApplicationController
 
   def upload_post
   	require 'csv'
-  	file = params[:users_csv].open
+  	file = params.require(:users_csv).open
 		year = @year
 		user_count = 0
+
   	CSV.foreach(file, headers: true) do |row|
   		studio = Studio.find_or_create_by!(name: row['studio'], year: year) unless row['studio'].blank?
 			u = User.find_by(email: row['email'])
@@ -56,7 +57,7 @@ class UsersController < ApplicationController
       u.year = year
 			u.studio = studio unless studio.nil?
 			user_count += 1
-			u.save! if !u.persisted? || u.changed?
+			u.save! if (!u.persisted? || u.changed?)
   	end
   	redirect_to year_users_path(@year), notice: "#{user_count} successfully created/updated"
   end

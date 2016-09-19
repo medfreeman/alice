@@ -47,6 +47,11 @@ class YearsController < ApplicationController
 		redirect_to root_path, alert: "You have successfully deleted #{@year.name}"
 	end
 
+	def archive
+		@year.archive!
+		redirect_to edit_year_path(@year), notice: "You have succefully archived #{@year.name}. All existing students are now unabled to access the site."
+	end
+
 	private
 
 	def permitted_params

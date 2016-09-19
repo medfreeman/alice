@@ -33,7 +33,7 @@ When(/^I add a post with (\w+)$/) do |coauthor|
 	post = Post.new(body: "Some content", title: 'some title')
 	fill_in :post_title, with: post.title
 	fill_in :post_body, with: post.body
-	check coauthor
+	select coauthor, from: :post_authors
 	click_on "Save"
 	@post = Post.last
 end

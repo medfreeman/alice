@@ -1,7 +1,1 @@
- - turbolinks breaks switching btw years(meta tag doesn't update to manage users)
- - fix year edit page
- - fix year error page
- - fix edit year slug
- - same studio slug, same users
  - not assigned to a studio error
- - categories dropdown disappear when form has errors

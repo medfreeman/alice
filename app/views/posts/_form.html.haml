@@ -32,7 +32,7 @@
     .field.categories
       = label :category_list, 'Categories'
       - if can_edit_categories?
-        = f.text_field :category_list, value: @categories.nil? ? nil : @selected_categories.join(', '), label: "Do not include commas"
+        = f.text_field :category_list, value: @categories.nil? ? nil : @selected_categories.join(', '), placeholder: "Do not include commas"
       - elsif can_post_to_categories?
         = f.select(:category_list, options_from_collection_for_select(@categories, 'name', 'name', @selected_categories), {include_blank: true}, {class: 'ui fluid dropdown'})
   .field.tags
@@ -48,9 +48,9 @@
       Formes
   - if !@students.empty?
     .field
-      - checked = @post.authors.map(&:id) + [@post.persisted? ? nil : current_user.id]
+      - checked = (@post.authors + [@post.persisted? ? nil : current_user]).compact
       = f.label :authors
-      = f.collection_check_boxes :authors, @students, :id, :name, {checked: checked}
+      = f.select :authors, options_from_collection_for_select(@students, 'id', 'name', checked.map(&:id)), {},{class: 'ui flui dropdown', multiple: true}
 
   .actions
     = f.submit 'Save', class: "ui button green"

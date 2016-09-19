@@ -16,7 +16,7 @@
         - active = studio == @studio ? 'active' : nil
         %li.item.studio
           = link_to "studio #{studio.name}", year_studio_posts_path(@year, studio ), class: active
-          .ui.title{class: active}
+          .ui.title.item-actions{class: active}
             %i.dropdown.icon
           %ul.ui.list.content{class: studio == @studio ? 'active' : nil}
             %li.item= link_to 'MOST RECENT', year_studio_most_recent_path(@year, studio), class: (studio == @studio && @most_recent ? 'active' : nil)
@@ -41,10 +41,11 @@
     %li.item.configurable
       = link_to "BLOG #{y.slug}", year_path(y)
       - if admin_signed_in?
-        = link_to year_users_path(y), class: 'action', "data-tooltip" => "Manage #{y.slug} users" do
-          %i.fa.list.icon{style: 'padding: 0;'}
-        = link_to edit_year_path(y, current_year: nil), class: 'action', "data-tooltip" => "Edit #{y.name}" do
-          %i.fa.write.icon
+        .item-actions
+          = link_to year_users_path(y), class: 'action', "data-tooltip" => "Manage #{y.slug} users" do
+            %i.fa.list.icon{style: 'padding: 0;'}
+          = link_to edit_year_path(y, current_year: nil), class: 'action', "data-tooltip" => "Edit #{y.name}" do
+            %i.fa.write.icon
   %li.item= link_to "BLOG archives", "http://alice.epfl.ch/teaching/archives", target: '_blank'
   %li.item= link_to "ALICE online", "http://alice.epfl.ch/", target: '_blank'
   %li.item= link_to "EPFL online", "http://epfl.ch/", target: '_blank'

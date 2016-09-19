@@ -84,7 +84,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_years
-    @years = Year.all
+    @years = Year.all.order(%{archived DESC, created_at DESC})
   end
 
   def load_current_year
