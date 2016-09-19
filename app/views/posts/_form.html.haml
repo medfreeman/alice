@@ -31,10 +31,7 @@
   - if @categories && can_post_to_categories?
     .field.categories
       = label :category_list, 'Categories'
-      - if can_edit_categories?
-        = f.text_field :category_list, value: @categories.nil? ? nil : @selected_categories.join(', '), placeholder: "Do not include commas"
-      - elsif can_post_to_categories?
-        = f.select(:category_list, options_from_collection_for_select(@categories, 'name', 'name', @selected_categories), {include_blank: true}, {class: 'ui fluid dropdown'})
+      = f.select(:category_list, options_from_collection_for_select(@all_categories, 'name', 'name', @selected_categories), {include_blank: true}, {class: 'ui fluid dropdown'})
   .field.tags
     = label :tag_list, 'Tags'
     = f.select(:tag_list, options_from_collection_for_select(@tags, 'name', 'name', @selected_tags), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})

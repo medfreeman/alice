@@ -59,7 +59,7 @@ class UsersController < ApplicationController
 			user_count += 1
 			u.save! if (!u.persisted? || u.changed?)
   	end
-  	redirect_to year_users_path(@year), notice: "#{user_count} successfully created/updated"
+  	redirect_to year_users_path(@year), notice: "#{user_count} successfully created/updated."
   end
 
   private

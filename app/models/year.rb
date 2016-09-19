@@ -6,7 +6,7 @@ class Year < ActiveRecord::Base
 	has_many :studios
 	has_many :featured_posts, ->{where(featured: true)}, class_name: 'Post'
 	validates :slug, presence: true, uniqueness: true, format: { without: /[! #?]/}
-
+	acts_as_taggable_on :categories
 
 	has_attached_file :logo,
 		:styles => {

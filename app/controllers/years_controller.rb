@@ -59,6 +59,6 @@ class YearsController < ApplicationController
 	private
 
 	def permitted_params
-		params.require(:year).permit(:name, :slug, :logo, :link, :display_by_users)
+		params.require(:year).permit(:name, :slug, :logo, :link, :display_by_users, :category_list)
 	end
 end

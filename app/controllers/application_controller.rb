@@ -97,7 +97,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_categories
-    @all_categories = Post.year(@year).tags_on :categories
+    @all_categories = @year.tags_on :categories
   end
 
   before_filter :disable_xss_protection
