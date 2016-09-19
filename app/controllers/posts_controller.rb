@@ -61,8 +61,6 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @categories = Post.tags_on(:categories)
-    @tags = current_user.studio.tags
     prepare_form
     @page_title = 'Edit'
     @title = "Edit Post"
@@ -160,6 +158,7 @@ class PostsController < ApplicationController
   private
     def set_post
       @post = params[:slug].present? || params[:id].present? ? Post.includes(:studio).find(params[:id] || params[:slug]) : Post.new
+
     end
 
     def check_permission
@@ -199,6 +198,8 @@ class PostsController < ApplicationController
       @students = current_user.studio.users.order(:name)
       @selected_categories = @post.tags_on(:categories)
       @selected_tags = @post.tags_on(:tags)
+      @categories = Post.tags_on(:categories)
+      @tags = current_user.studio.tags
     end
 
     def check_studio
