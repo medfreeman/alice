@@ -58,6 +58,7 @@ Then(/^there should be all users from the csv$/) do
   CSV.foreach(@csv_path, headers: true) do |row|
     role = row['role'].nil? ? 'student' : row['role']
     user = User.find_by_email(row['email'])
+    expect(user).not_to be_nil
     expect(user.studio.name).to eq(row['studio']) unless user.studio.nil?
     expect(user.role).to eq(role)
   end
