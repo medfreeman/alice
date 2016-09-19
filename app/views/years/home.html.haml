@@ -3,12 +3,17 @@
 	- if !@year.display_by_users?
 		- @posts.each do |post|
 			%li.item.four.wide.column
-				= link_to year_studio_posts_path(@year, post.studio) do
-					.studio-thumb= image_tag(post.thumbnail.url(:thumb))
-					.studio-name= "studio #{post.studio.name}"
+				- if post.is_a? Post
+					= link_to year_studio_posts_path(@year, post.studio) do
+						.studio-thumb= image_tag(post.thumbnail.url(:thumb))
+						.studio-name= "studio #{post.studio.name}"
+				- else
+					= link_to year_studio_posts_path(@year, post), class: 'empty-studio' do
+						.studio-thumb= image_tag(image_path('empty_studio.jpg'))
+						.studio-name= "studio #{post.name}"
 	- else
 		- @posts.each do |post|
 			%li.item.four.wide.column
-				= link_to year_student_path(@year, post.first_author) do
+				= link_to _student_path(post.first_author) do
 					.studio-thumb= image_tag(post.thumbnail.url(:thumb))
 					.studio-name= "#{post.first_author.name}"

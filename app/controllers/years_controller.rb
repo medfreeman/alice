@@ -12,7 +12,8 @@ class YearsController < ApplicationController
 	def show
     @title = "Home"
     @page_title = "Blog Homepage"
-		@posts = Studio.year(@year).map{|s| s.featured_posts.limit(1).order("created_at DESC").first}.compact
+		@posts = Studio.year(@year).map{|s| s.featured_posts.limit(1).order("created_at DESC").first || s}.compact
+
 		render :home
 	end
 
