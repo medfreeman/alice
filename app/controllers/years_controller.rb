@@ -48,8 +48,12 @@ class YearsController < ApplicationController
 	end
 
 	def archive
-		@year.archive!
-		redirect_to edit_year_path(@year), notice: "You have succefully archived #{@year.name}. All existing students are now unabled to access the site."
+		begin
+			@year.archive!
+			redirect_to edit_year_path(@year), notice: "You have succefully archived #{@year.name}. All existing students are now unabled to access the site."
+		rescue => e
+			redirect_to edit_year_path(@year), alert: "There was an error: #{e}"
+		end
 	end
 
 	private

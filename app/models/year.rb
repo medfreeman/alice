@@ -21,7 +21,7 @@ class Year < ActiveRecord::Base
 
 	def archive!
 		if !archived
-			users.each do |u|
+			users.where.not(admin: true).each do |u|
 				u.lock!
 				u.email += '.locked'
 				u.confirm!
