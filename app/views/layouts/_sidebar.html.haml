@@ -14,7 +14,7 @@
     - else
       - @studios.each do |studio|
         - active = studio == @studio ? 'active' : nil
-        %li.item.studio
+        %li.item.studio.actionable
           = link_to "studio #{studio.name}", year_studio_posts_path(@year, studio ), class: active
           .ui.title.item-actions{class: active}
             %i.dropdown.icon
@@ -32,20 +32,29 @@
 .list-header +
 %ul.ui.list.content.menus
   %li.item= link_to "Home", root_path
-  - if admin_signed_in?
-    %li.item
-      = link_to new_year_path, class: 'action' do
-        Add new year
-        %i.fa.plus.icon
-  - @years.each do |y|
-    %li.item.configurable
-      = link_to "BLOG #{y.slug}", year_path(y)
+  %li.item
+    BLOGS
+    %ul.ui.list
       - if admin_signed_in?
-        .item-actions
-          = link_to year_users_path(y), class: 'action', "data-tooltip" => "Manage #{y.slug} users" do
-            %i.fa.list.icon{style: 'padding: 0;'}
-          = link_to edit_year_path(y, current_year: nil), class: 'action', "data-tooltip" => "Edit #{y.name}" do
-            %i.fa.write.icon
+        %li.item
+          = link_to new_year_path, class: 'action' do
+            Add new year
+            %i.fa.plus.icon
+      - archived = false
+      - @years.each do |y|
+        - if !archived && y.archived?
+          %li.item
+            %hr
+        - archived = y.archived
+        %li.item.configurable.actionable
+          = link_to "#{y.name} #{y.archived?}", year_path(y)
+          - if admin_signed_in?
+            .item-actions
+              = link_to year_users_path(y), class: 'action', "data-tooltip" => "Manage #{y.slug} users" do
+                %i.fa.list.icon{style: 'padding: 0;'}
+              = link_to edit_year_path(y, current_year: nil), class: 'action', "data-tooltip" => "Edit #{y.name}" do
+                %i.fa.write.icon
+      = render 'layouts/old_years'
   %li.item= link_to "BLOG archives", "http://alice.epfl.ch/teaching/archives", target: '_blank'
   %li.item= link_to "ALICE online", "http://alice.epfl.ch/", target: '_blank'
   %li.item= link_to "EPFL online", "http://epfl.ch/", target: '_blank'
