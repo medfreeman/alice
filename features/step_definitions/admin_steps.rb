@@ -13,6 +13,14 @@ Given(/^I am logged in as (?:a|an) (\w+)$/) do |role|
   end
 end
 
+When(/^I create a studio named (\w+)$/) do |studio|
+  visit year_users_path @year
+  first('[data-tab="studios-list"]').click
+  expect(page).to have_content('Add Studio')
+  fill_in :name, with: studio
+  click_on 'Add Studio'
+end
+
 When(/^I create a studio named (\w+) with the tag (\w+)$/) do |studio, tags|
   visit year_users_path @year
   first('[data-tab="studios-list"]').click
@@ -92,6 +100,7 @@ end
 When(/^I archive the year$/) do
   visit edit_year_path(@year)
   click_on 'Archive year'
+  @user.reload
 end
 
 Then(/^I can create a user with the same email$/) do
@@ -101,5 +110,7 @@ Then(/^I can create a user with the same email$/) do
   fill_in :email, with: @used_email
   click_on 'Add User'
   wait_for_ajax
-  expect(@year.users.map(&:email)).to include(@used_email)
+  new_users = @new_year.users.map(&:email)
+  expect(new_users).to include(@used_email)
+  expect(new_users).not_to include(@user.email)
 end

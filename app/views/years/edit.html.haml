@@ -1,3 +1,8 @@
 = render 'form', year: @year
-= form_for @year, action: year_archive_path(@year) do |f|
-  = f.submit "Archive year"
+.ui.divider
+.ui.icon.message.warning
+	%i.warning.sign.icon
+	.content
+		.header Caution!
+		%p Archiving this year will prevent all existing users from logging in or making changes to their posts. This action cannot be undone.
+= link_to 'Archive year', year_archive_path(@year), method: :post, class: 'ui button', data: {:confirm=>'Are you sure? This action cannot be undone'}
