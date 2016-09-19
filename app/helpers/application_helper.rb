@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def _student_path(student)
-  	student_path(student )
+  	year_student_path(@year, student)
   end
 
   def _student_posts_path(student, options = {})

@@ -12,8 +12,11 @@ class YearsController < ApplicationController
 	def show
     @title = "Home"
     @page_title = "Blog Homepage"
-		@posts = Studio.year(@year).map{|s| s.featured_posts.limit(1).order("created_at DESC").first || s}.compact
-
+		if @year.display_by_users?
+			  @posts = User.year(@year).map{|u| u.posts.year(@year).where(featured:true).limit(1).first}.compact
+		else
+			@posts = Studio.year(@year).map{|s| s.featured_posts.limit(1).order("created_at DESC").first || s}.compact
+		end
 		render :home
 	end
 
