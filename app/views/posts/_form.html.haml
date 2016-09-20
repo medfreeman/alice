@@ -35,14 +35,14 @@
   .field.tags
     = label :tag_list, 'Tags'
     = f.select(:tag_list, options_from_collection_for_select(@tags, 'name', 'name', @selected_tags), {include_blank: true}, {class: 'ui fluid dropdown', multiple: true})
-  .ui.checkbox.toggle.two-labels
-    %span
-      Processus
-      %i.icon.post-status.wrench
-    = f.check_box :status, checked: @post.status?
-    %label{:for => "post_status"}
-      %i.icon.post-status.checkmark
-      Formes
+  -# .ui.checkbox.toggle.two-labels
+  -#   %span
+  -#     Processus
+  -#     %i.icon.post-status.wrench
+  -#   = f.check_box :status, checked: @post.status?
+  -#   %label{:for => "post_status"}
+  -#     %i.icon.post-status.checkmark
+  -#     Formes
   - if !@students.empty?
     .field
       - checked = (@post.authors + [@post.persisted? ? nil : current_user]).compact

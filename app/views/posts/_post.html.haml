@@ -20,4 +20,4 @@
           .menu.dropdown
             = link_to 'Edit', edit_year_post_path(@year, post), class: 'item'
             = link_to 'Destroy', year_post_path(@year, post), :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "item"
-    %i.icon.post-status{class: post.status == 'processus' ? 'wrench' : 'checkmark'}
+    -# %i.icon.post-status{class: post.status == 'processus' ? 'wrench' : 'checkmark'}
