@@ -16,17 +16,29 @@
       #logout-link.right.item.ui.dropdown
         .text My Account
         %i.dropdown.icon
-        .menu
-          = link_to "New Post", new_year_post_path(@year), class: "item"
+        .menu.ui.vertical
+          = link_to new_year_post_path(@year), class: "item" do
+            New Post
+            %i.icon.float-right.plus
           - if !current_user.studio.nil? && @year.nil?
-            = link_to "My Posts", _student_posts_path(current_user, studio: current_user.studio), class: "item"
+            = link_to _student_posts_path(current_user, studio: current_user.studio), class: "item" do
+              My Posts
+              %i.icon.float-right.child
           - if current_user.director? && !current_user.studio.nil?
-            = link_to "Send email", "mailto:#{current_user.studio.students_emails}", class: 'item'
+            = link_to "mailto:#{current_user.studio.students_emails}", class: 'item' do
+              Send email
+              %i.icon.float-right.send.outline
           - if (current_user.admin? || current_user.director?)
-            = link_to "Admin", year_users_path(@year), class: "item"
+            = link_to year_users_path(@year), class: "item" do
+              Admin
+              %i.icon.float-right.browser
           - if current_user.admin?
-            = link_to "Add new year", new_year_path, class: "item"
-          = link_to "LOG OUT", destroy_user_session_path, method: 'DELETE', class: "item"
+            = link_to new_year_path, class: "item" do
+              New Year
+              %i.icon.float-right.plus
+          = link_to destroy_user_session_path, method: 'DELETE', class: "item" do
+            Log out
+            %i.icon.float-right.sign.out
     - else
       #login-link.right.item
         = link_to 'LOGIN', '#'
