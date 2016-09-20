@@ -4,8 +4,12 @@
 .post-details{
 	color: $grey;
 	text-transform: uppercase;
-	margin-bottom: 15px;
+	margin-bottom: .5rem;
 	font-size: $smaller;
+}
+
+.post-body{
+	margin-top: 1rem;
 }
 
 .caption{
@@ -34,8 +38,8 @@
 	}
 }
 .post-tags{
-	text-align: right;
 	color: #ACACAC;
+	font-weight: bold;
 }
 .post, .post-form{
 	counter-reset: caption;

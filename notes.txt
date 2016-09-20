@@ -1,5 +1,5 @@
- - not assigned to a studio error
  - delete user
+
  - keep same order in studio tags
  - lower/uppercase for tags
  - move tags underneath title -

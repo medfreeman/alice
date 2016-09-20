@@ -2,14 +2,14 @@
   %h2.post-title= link_to post.title, _post_path(post)
   .post-details
     Par #{post.authors.map{|u| u.studio.nil? ? u.name : link_to(u.name, _student_posts_path(u, studio: u.studio))}.compact.join(', ').html_safe}, #{post.created_at.strftime("%d/%m/%y")}
-  .post-body= post.body.html_safe
   .post-tags
     - if !post.studio.nil?
       - post.tags.each do |tag|
-        .ui.tag.label= link_to tag.name, year_studio_tag_path(@year, post.studio, tag)
+        %span.tag= link_to tag.name, year_studio_tag_path(@year, post.studio, tag)
     - else
       - post.tags_on(:category) do |cat|
-        .ui.tag.label= link_to cat.name, year_category_path(@year, cat)
+        %span.tag= link_to cat.name, year_category_path(@year, cat)
+  .post-body= post.body.html_safe
   .post-icons
     .post-actions
       - if can_feature_post? post
