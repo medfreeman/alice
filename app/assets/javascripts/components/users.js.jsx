@@ -2,6 +2,9 @@ var Table = Reactable.Table;
 
 
 var Users = React.createClass({
+	getChildContext() {
+		return {currentUser: this.props.current_user};
+	},
 	componentDidMount: function(){
 		$('.tabular.menu .item').tab();
 	},
@@ -340,3 +343,6 @@ var Users = React.createClass({
 		);
 	},
 });
+Users.childContextTypes = {
+  currentUser: React.PropTypes.any
+};
