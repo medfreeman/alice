@@ -11,7 +11,7 @@ Alice::Application.routes.draw do
 
   resources :years, only: [:show, :update] do
     resources :posts, except: [:show, :index]
-    resources :studios, only: [:new, :create, :update, :edit, :destroy] do
+    resources :studios, only: [:create, :update, :destroy] do
       resources :students, only: [:index] do
         resources :posts, only: [:index]
       end

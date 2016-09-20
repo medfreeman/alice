@@ -67,7 +67,8 @@ class User < ActiveRecord::Base
       sciper: self.sciper,
       role:   self.role,
       studio: self.studio.nil? ? nil : self.studio,
-      super_student: self.super_student
+      super_student: self.super_student,
+      admin: self.admin?,
     }
   end
   ################ Permissions #################

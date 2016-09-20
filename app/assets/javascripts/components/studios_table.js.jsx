@@ -12,7 +12,8 @@ var StudiosTable = React.createClass({
 	render: function() {
 		var that = this;
 		var studioRow = function(studio){
-			var canEdit = !(that.context.currentUser.studio && studio.id == that.context.currentUser.studio.id);
+			var currentUser = that.context.currentUser;
+			var canEdit = (currentUser.admin || currentUser.studio && studio.id == currentUser.studio.id);
 			var name, tag_list, action;
 
 			if(!canEdit){
@@ -108,6 +109,7 @@ var StudiosTable = React.createClass({
 						</td>
 					</tr>);
 		};
+		var form = that.context.currentUser.admin ? <StudioForm handleNewStudio={this.props.handleNewStudio} /> : null
 		return <div>
 				<table className="ui table compact striped ">
 					<tbody>
@@ -119,7 +121,7 @@ var StudiosTable = React.createClass({
 						{this.props.studios.map(function(s){
 							return studioRow(s);
 						})}
-						<StudioForm handleNewStudio={this.props.handleNewStudio} />
+						{form}
 					</tbody>
 				</table>
 			</div>;
