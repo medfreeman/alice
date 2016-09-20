@@ -22,8 +22,13 @@ class Studio < ActiveRecord::Base
 			tag_list: tag_list.join(', '),
 		}
 	end
+
 	def deletable?
 		self.posts.empty? && self.students.empty?
+	end
+
+	def students_emails
+		students.map(&:email).join(', ')
 	end
 
 	#old taggings must be erased for the tags to be sorted by taggings.id

@@ -22,6 +22,7 @@
             = link_to "My Posts", _student_posts_path(current_user, studio: current_user.studio), class: "item"
           - if current_user.director? && !current_user.studio.nil?
             = link_to "Edit my Studio", edit_year_studio_path(@year, current_user.studio ), class: 'item'
+            = link_to "Send email", "mailto:#{current_user.studio.students_emails}", class: 'item'
           - if (current_user.admin? || current_user.director?)
             = link_to "Manage #{@year.slug}", year_users_path(@year), class: "item"
           - if current_user.admin?
