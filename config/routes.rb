@@ -40,7 +40,6 @@ Alice::Application.routes.draw do
       post 'archive' => 'years#archive', as: :archive
       get "users/upload" => 'users#upload_form', as: :users_upload
       post "users/upload" => 'users#upload_post', as: :users_upload_post
-      post "users/create" => 'users#create', as: :users_create
       resources :users, controller: 'users'
     end
   end

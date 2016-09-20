@@ -89,7 +89,7 @@ var Users = React.createClass({
 	deleteUser: function(user){
 		var that = this;
 		$.ajax({
-			url: "/"+that.state.year+"/admin/users/"+user.id,
+			url: "/admin/years/"+that.state.year+"/users/"+user.id,
 			method: 'delete',
 			success: function(res){
 		    var index = that.state.users.indexOf(user);
