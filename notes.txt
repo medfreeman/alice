@@ -1,9 +1,9 @@
  - delete user
  - move tags underneath title -
+ - get rid form/process
 
  - keep same order in studio tags
  - lower/uppercase for tags
- - get rid form/process
  - locked directors - raffael baur only has access to last year
  - when a studio director (or me) creates a new tag and saves, it gives an error but the tag got created
  - send emails to studio's students

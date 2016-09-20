@@ -25,4 +25,15 @@ class Studio < ActiveRecord::Base
 	def deletable?
 		self.posts.empty? && self.students.empty?
 	end
+
+	#old taggings must be erased for the tags to be sorted by taggings.id
+	def update! attrs = {}
+		new_tags = attrs['tag_list'].split(',').map(&:squish)
+		if attrs['tag_list'] != new_tags
+			self.taggings.delete_all
+		end
+		super attrs
+	end
+
+	private
 end

@@ -6,6 +6,7 @@ class Post < ActiveRecord::Base
   belongs_to :year
   scope :year, -> (year) { where(year: year).order('created_at DESC') }
   validates_presence_of :year
+	before_validation :save_taggings_order
 
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
@@ -50,6 +51,15 @@ class Post < ActiveRecord::Base
 	  if dimensions.width > 3000 || dimensions.height > 3000
 	    errors.add(:file,'Width or height cannot be wider or higher than 3000px')
 	  end
+	end
+
+	#old taggings must be erased for the tags to be sorted by taggings.id
+	def update! attrs = {}
+		new_tags = attrs['tag_list'].split(',').map(&:squish)
+		if attrs['tag_list'] != new_tags
+			self.taggings.delete_all
+		end
+		super attrs
 	end
 
 	private
