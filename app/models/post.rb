@@ -6,7 +6,6 @@ class Post < ActiveRecord::Base
   belongs_to :year
   scope :year, -> (year) { where(year: year).order('created_at DESC') }
   validates_presence_of :year
-	before_validation :save_taggings_order
 
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]

@@ -170,7 +170,11 @@ class PostsController < ApplicationController
 
     def set_studio
       if params[:studio_id].present?
-        @studio = Studio.find(params[:studio_id])
+begin
+        @studio = Studio.year(@year).find(params[:studio_id])
+rescue => e
+	redirect_to year_path(@year)
+end
       end
     end
 
@@ -191,7 +195,8 @@ class PostsController < ApplicationController
       end
       _params.delete(:tag_list) if !_params[:category_list].blank?
       _params.merge!(studio_id: current_user.studio.id) if _params[:category_list].blank? && _params[:studio_id].blank?
-      _params
+p       _params
+_params
     end
 
     def prepare_form
@@ -210,6 +215,7 @@ class PostsController < ApplicationController
       @year.display_by_users? ?
         year_student_post_path(post.year, post.first_author, post) :
         post.studio.nil? ?
+
           year_category_post_path(year, post.tags_on(:categories).first.slug, post) :
           year_studio_post_path(post.year, post.studio, post)
     end
