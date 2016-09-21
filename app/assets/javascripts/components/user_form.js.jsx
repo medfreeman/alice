@@ -54,7 +54,7 @@ var UserForm = React.createClass({
       console.log("data:", that.state.errors);
 
     };
-    $.post('users/create', {
+    $.post('users', {
       user: {
         email: this.state.email,
         name: this.state.name,
