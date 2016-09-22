@@ -170,20 +170,20 @@ class PostsController < ApplicationController
 
     def set_studio
       if params[:studio_id].present?
-begin
-        @studio = Studio.year(@year).find(params[:studio_id])
-rescue => e
-	redirect_to year_path(@year)
-end
+        begin
+          @studio = Studio.year(@year).find(params[:studio_id])
+        rescue => e
+        	redirect_to year_path(@year)
+        end
       end
     end
 
     def post_params
       _params = params
       if current_user.can_edit_categories?
-        _params = params.require(:post).permit(:id, :year_id, :studio_id, :thumbnail, :status, :body, :title, :category_list, category_list: [], tag_list: [], authors: [])
+        _params = params.require(:post).permit(:id, :year_id, :studio_id, :thumbnail, :status, :body, :title, :category_list, :tag_list, category_list: [], tag_list: [], authors: [])
       else
-        _params = params.require(:post).permit(:id, :year_id, :studio_id, :thumbnail, :status, :body, :title, tag_list: [], authors: [])
+        _params = params.require(:post).permit(:id, :year_id, :studio_id, :thumbnail, :status, :body, :title, :tag_list, tag_list: [], authors: [])
       end
       if !_params[:authors].blank?
         _params[:authors].delete("")
