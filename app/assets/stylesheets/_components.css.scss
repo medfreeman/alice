@@ -12,3 +12,9 @@
 		opacity: 1;
 	}
 }
+
+.role-field .Select-input{
+	opacity: 0;
+	height: 0;
+	pointer-events: none;
+}

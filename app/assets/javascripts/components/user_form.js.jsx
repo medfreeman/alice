@@ -32,12 +32,12 @@ var UserForm = React.createClass({
   },
   handleRoleChange: function(value){
     this.setState({
-      role: value
+      role: value.value
     });
   },
   handleStudioChange: function(value){
     this.setState({
-      studio: value
+      studio: value.value
     });
   },
   handleSubmit: function(e){
@@ -86,14 +86,14 @@ var UserForm = React.createClass({
               </td>
               <td>
                 <Select
-                  className="not-field"
+                  className="not-field role-field"
                   name="role"
                   value={this.state.role}
                   options={this.props.roles.map(function(r){
                     return {value: r, label: r};
                   })}
                   clearable={false}
-                  searchable={false}
+                  seaarchable={false}
                   onChange={this.handleRoleChange}
                 />
               </td>
@@ -107,7 +107,7 @@ var UserForm = React.createClass({
                   name="studio"
                   value={this.state.studio}
                   options={this.props.studios.map(function(s){
-                    return {value: s.name, label: s.name};
+                    return {value: s.id, label: s.name};
                   })}
                   clearable={false}
                   onChange={this.handleStudioChange}

@@ -15,13 +15,13 @@ var Users = React.createClass({
 				if(!user.studio){
 					return true;
 				}
-				return user.studio.name == studio.name;
+				return user.studio.id == studio.id;
 			})
 		};
 		var users_, currentFilterStudio;
 		if(currentStudio){
 			users_ = studioUsers(currentStudio, this.props.users);
-			currentFilterStudio = currentStudio.name;
+			currentFilterStudio = currentStudio;
 		}
 		else{
 			users_ = this.props.users;
@@ -55,7 +55,7 @@ var Users = React.createClass({
 				currentFilterStudio: undefined
 			});
 		}
-		else if(value == 'unassigned')
+		else if(value.value == 'unassigned')
 		{
 			var users_ = _.filter(this.state.users, function(user){
 				return !user.studio;
@@ -69,7 +69,7 @@ var Users = React.createClass({
 		else
 		{
 			var users_ = _.filter(this.state.users, function(user){
-				return user.studio && user.studio.name == value;
+				return user.studio && user.studio.id == value.value;
 			});
 			this.setState({
 				filteredByStudio: true,
@@ -147,10 +147,16 @@ var Users = React.createClass({
 				error: error
 			});
 		};
-		var updateUser = function(property){
+		var updateUser = function(property, checkbox){
 			var userId = user.id;
 			return function(value){
-				value = typeof value != 'string' ? value.currentTarget.checked : value
+				if(checkbox){
+					value = value.currentTarget.checked
+				}
+				else if(value){
+
+					value = typeof value == 'string' ? value : value.value
+				}
 				var user = _.find(that.state.users, function(user_){
 					return user_.id == userId;
 				});
@@ -226,13 +232,14 @@ var Users = React.createClass({
 				</Reactable.Td>
 				<Reactable.Td column="role_">
 					<Select
+						className='role-field'
 						name='role'
 						value={user.role}
-						options={that.state.roles.map(function(role){
+						options={that.props.roles.map(function(role){
 							return {value: role, label: role};
 						})}
 						onChange={updateUser('role')}
-						searchable={false}
+						seaarchable={false}
 						clearable={false}
 					/>
 				</Reactable.Td>
@@ -244,7 +251,7 @@ var Users = React.createClass({
 							type="checkbox"
 							name="user[super_student]"
 							checked={user.super_student}
-							onChange={updateUser('super_student')}/>
+							onChange={updateUser('super_student', 'checkbox')}/>
           	<label htmlFor={user.id + '-super_student'}>&nbsp;</label>
           </div>
 				</Reactable.Td>
@@ -253,7 +260,7 @@ var Users = React.createClass({
 						className="not-field"
 						clearable={true}
 						name='studio'
-						value={user.studio != undefined ? user.studio.name : null}
+						value={user.studio != undefined ? user.studio.id : null}
 						options={that.state.studios.map(function(s){
 							return {value:s.id, label:s.name};
 						})}
@@ -301,8 +308,8 @@ var Users = React.createClass({
 					<FormErrors errors={this.state.errors}/>
 					<Select
 						name='filterStudio'
-						value={this.state.currentFilterStudio}
-						options={[{value: 'unassigned', label: 'unassigned'}].concat(that.state.studios.map(function(s){return {value:s.name, label:s.name};}))}
+						value={this.state.currentFilterStudio && this.state.currentFilterStudio.value}
+						options={[{value: 'unassigned', label: 'unassigned'}].concat(that.state.studios.map(function(s){return {value:s.id, label:s.name};}))}
 						onChange={this.filterByStudio}
 						placeholder="Filter by studio..."
 					/>
