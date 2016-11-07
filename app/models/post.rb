@@ -9,7 +9,7 @@ class Post < ActiveRecord::Base
   validates_presence_of :year
 
   extend FriendlyId
-  friendly_id :title, use: [:slugged, :finders]
+  friendly_id :slug_candidates, use: [:slugged, :finders]
 
 	default_scope {order('created_at DESC')}
 
@@ -82,4 +82,19 @@ class Post < ActiveRecord::Base
   		'!' => ''
   		)
   end
+
+	def slug_candidates
+		[ :title,
+			[:title, :owner_name],
+			[:title, :owner_name, :year_slug],
+		]
+	end
+
+	def year_slug
+		self.year.try(:slug)
+	end
+
+	def owner_name
+		self.owner.try(:name)
+	end
 end

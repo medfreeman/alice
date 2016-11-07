@@ -172,9 +172,9 @@ class PostsController < ApplicationController
     end
 
     def set_studio
-      if params[:studio_id].present?
+      if params[:id].present?
         begin
-          @studio = Studio.year(@year).find(params[:studio_id])
+          @studio = Studio.year(@year).find_by_slug(params[:id])
         rescue => e
         	redirect_to year_path(@year)
         end

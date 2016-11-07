@@ -1,6 +1,5 @@
 class Studio < ActiveRecord::Base
-	extend FriendlyId
-	friendly_id :slug_candidates, use: [:slugged, :finders]
+	before_validation :set_slug
 	validates :name, presence: true
 	default_scope {order('name ASC')}
 
@@ -14,6 +13,10 @@ class Studio < ActiveRecord::Base
 	has_many :posts
 	has_many :featured_posts, ->{where(featured: true).order('created_at')}, class_name: 'Post'
 	acts_as_taggable
+
+	def to_param
+		slug
+	end
 
 	def as_json options = nil
 		{
@@ -40,14 +43,11 @@ class Studio < ActiveRecord::Base
 		super attrs
 	end
 
-	def slug_candidates
-	    [
-	      :name,
-	      [:name, :year_slug],
-	    ]
-	end
 	private
-	def year_slug
-		year.slug
+	def set_slug
+		if self.slug.nil?
+			self.slug = self.name.try(:parameterize)
+			self.errors[:slug] << "has already been taken for year #{self.year.name}" unless self.year.studios.where(slug: self.slug).empty?
+		end
 	end
 end

@@ -20,12 +20,12 @@ Alice::Application.routes.draw do
     get "category/:slug/"              => "posts#tagged_posts", as: :category
     get "category/:slug/:id"           => "posts#show", as: :category_post
 
-    get "studios/(:studio_id)"         => "posts#index", as: :studio_posts
-    get "studios/:studio_id/recent"    => "posts#index", as: :studio_most_recent, filter: :most_recent
+    get "studios/(:id)"         => "posts#index", as: :studio_posts
+    get "studios/:id/recent"    => "posts#index", as: :studio_most_recent, filter: :most_recent
     get "studios/:studio_id/posts/:id" => "posts#show", as: :studio_post
 
-    get "studios/:studio_id/tag/:slug" => "posts#tagged_posts", as: :studio_tag
-    get "studios/:studio_id/:id"       => "posts#student_posts", as: :student_posts
+    get "studios/:id/tag/:slug" => "posts#tagged_posts", as: :studio_tag
+    get "studios/:id/:post_id"       => "posts#student_posts", as: :student_posts
 
     get 'tags'   => 'posts#tagged_posts', as: :tag_path
     get 'recent' => 'posts#index', filter: :most_recent, as: :most_recent
