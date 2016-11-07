@@ -9,7 +9,7 @@
           - if i == (studio.tag_list.count-1)
             %li
               %hr/
-        - studio.students.each do |student|
+        - studio.students.order('name ASC').each do |student|
           %li.item.student= link_to(student.name, year_student_path(@year, student), class: student == @student ? 'active' : nil)
     - else
       - p '---------------'
@@ -27,7 +27,7 @@
               - if i == (studio.tag_list.count-1)
                 %li
                   %hr/
-            - studio.students.each do |student|
+            - studio.students.order('name ASC').each do |student|
               %li.item.student= link_to(student.name, _student_posts_path(student, studio: studio), class: student == @student ? 'active' : nil)
       - @all_categories.each do |cat|
         %li.item.category= link_to cat.name, year_category_path(@year, cat), class: cat == @category ? 'active' : nil

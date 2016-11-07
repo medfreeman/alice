@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
   def _student_posts_path(student, options = {})
-  	@year.display_by_users? ? year_student_path(@year, student) : year_student_posts_path(@year, options[:studio], student)
+  	student.year.display_by_users? ? year_student_path(student.year, student) : year_student_posts_path(student.year, options[:studio], student)
   end
 
   def _year_studio_most_recent_path(year, studio)

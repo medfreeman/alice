@@ -15,7 +15,7 @@ class PostsController < ApplicationController
         if params[:filter] == :most_recent
           @posts = Post.year(@year).page(params[:page]).per(5)
         elsif params[:slug].blank?
-          @posts = User.year(@year).map{|u| u.posts.year(@year).where(featured:true).limit(1).first}.compact
+          @posts = User.order(:name).year(@year).map{|u| u.posts.year(@year).limit(1).first}.compact
           render :home
         else
           @student = User.includes(:posts).find(params[:slug])
@@ -109,7 +109,7 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
+    @post = Post.new(post_params.merge(owner_id: current_user.id))
     respond_to do |format|
       if @post.save
         format.html {
@@ -139,7 +139,10 @@ class PostsController < ApplicationController
           redirect_to path, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
-        format.html { render :edit }
+        format.html {
+          prepare_form
+          render :edit
+        }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end

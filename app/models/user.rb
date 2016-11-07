@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
 
   has_many   :participations, foreign_key: :author_id
   has_many   :posts, through: :participations
+  has_many   :owned_posts, foreign_key: :owner_id, class_name: 'Post'
 
   scope :unassigned, ->{ where(studio_id: nil)}
 

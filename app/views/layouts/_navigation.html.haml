@@ -17,10 +17,10 @@
         .text My Account
         %i.dropdown.icon
         .menu.ui.vertical
-          = link_to new_year_post_path(@year), class: "item" do
+          = link_to new_year_post_path(current_user.year), class: "item" do
             New Post
             %i.icon.float-right.plus
-          - if !current_user.studio.nil? && @year.nil?
+          - if !current_user.studio.nil? && !@year.nil?
             = link_to _student_posts_path(current_user, studio: current_user.studio), class: "item" do
               My Posts
               %i.icon.float-right.child
