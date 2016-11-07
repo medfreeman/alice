@@ -1,6 +1,6 @@
 class Studio < ActiveRecord::Base
 	extend FriendlyId
-	friendly_id :name, use: [:slugged, :finders]
+	friendly_id :slug_candidates, use: [:slugged, :finders]
 	validates :name, presence: true
 	default_scope {order('name ASC')}
 
@@ -40,5 +40,14 @@ class Studio < ActiveRecord::Base
 		super attrs
 	end
 
+	def slug_candidates
+	    [
+	      :name,
+	      [:name, :year_slug],
+	    ]
+	end
 	private
+	def year_slug
+		year.slug
+	end
 end
