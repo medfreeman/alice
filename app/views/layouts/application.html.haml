@@ -3,7 +3,7 @@
   %head
     %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", :name => "viewport"}/
     %title= content_for?(:title) ? "#{yield(:title)} | Alice" : "Alice"
-    = favicon_link_tag 'favicon.ico'
+    = favicon_link_tag image_path('favicon.ico')
     %link{:rel => "stylesheet", :href => "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"}/
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
