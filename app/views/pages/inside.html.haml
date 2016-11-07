@@ -1,6 +1,25 @@
 %h5
   Drag these buttons to your bookmarks bar! ⬆️
-%a.button.ui{:href => "javascript:(function()%7Bfunction%20saveImageAsJpg(name%2C%20address)%20%7Bvar%20link%20%3D%20document.createElement('a')%3Blink.style%20%3D%20'position%3A%20fixed%3B%20left%20-10000px%3B'%3B%20%2F%2F%20making%20it%20invisiblelink.href%20%3D%20address%3B%20%2F%2F%20forcing%20content%20typelink.download%20%3D%20name%3B%2F*%20file%20extension%20is%20very%20important!%20*%2Fdocument.body.appendChild(link)%3Blink.click()%3Bdocument.body.removeChild(link)%3B%7D%24('.post-body%20img').each(function()%7Bvar%20name%20%3D%20this.src.split(%22%2F%22)%5Bthis.src.split(%22%2F%22).length-1%5D%3B%20saveImageAsJpg(name%2C%20this.src)%7D)%7D)()"} Download all images on this page
+%a.button.ui{:href => "javascript:(function()%7Bfunction%20saveImageAsJpg(name%2C%20address)%20%7Bvar%20link%20%3D%20document.createElement('a')%3Blink.style%20%3D%20'position%3A%20fixed%3B%20left%20-10000px%3B'%3Blink.href%20%3D%20address%3Blink.download%20%3D%20name%3Bdocument.body.appendChild(link)%3Blink.click()%3Bdocument.body.removeChild(link)%3B%7D%3B%24('.post-body%20img').each(function()%7Bvar%20name%20%3D%20this.src.split(%22%2F%22)%5Bthis.src.split(%22%2F%22).length-1%5D%3B%20saveImageAsJpg(name%2C%20this.src)%7D)%7D)()"} Download all images on this page
+-# function saveImageAsJpg(name, address) {
+-#     var link = document.createElement('a');
+-#     link.style = 'position: fixed; left -10000px;';
+-#     link.href = address;
+-#     link.download = name;
+-#     document.body.appendChild(link);
+-#     link.click();
+-#     document.body.removeChild(link);
+-# };
+-# $('.post-body img').each(function(){var name = this.src.split("/")[this.src.split("/").length-1]; saveImageAsJpg(name, this.src)});
 %br/
 %br/
-%a.button.ui{:href => "javascript:(function()%7Bvar%20tag%20%3D%20prompt('Please%20enter%20a%20tag'%2C%20%24('.tag%20a').first().text())%3Btag%20%3D%20tag.toLowerCase().replace(%2F%5B%5Ea-z0-9%5D%2B%2Fg%2C'-').replace(%2F(%5E-%7C-%24)%2Fg%2C'')%3B%24('.post%3Anot(.'%2Btag%2B')').slideUp()%7D)()"} Filter displayed posts by tag
+%a.button.ui{:href => "javascript:(function()%7Bvar%20tag%20%3D%20prompt('Please%20enter%20a%20tag'%2C%20%24('.tag').first().text())%3Bif(tag)%7Btag%20%3D%20tag.toLowerCase().replace(%2F%5B%5Ea-z0-9%5D%2B%2Fg%2C'-').replace(%2F(%5E-%7C-%24)%2Fg%2C'')%3B%24('.configurable%3Anot(.'%2Btag%2B')').slideUp()%3B%7Delse%7B%24('.configurable.post').slideDown()%3B%7D%7D)()"} Filter displayed posts by tag
+
+-# var tag = prompt('Please enter a tag', $('.tag').first().text());
+-# if(tag){
+-# tag = tag.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+-# $('.configurable:not(.'+tag+')').slideUp();
+-# }
+-# else{
+-# $('.configurable.post').slideDown();
+-# }
