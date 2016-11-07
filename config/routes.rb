@@ -7,7 +7,7 @@ Alice::Application.routes.draw do
   end
 
   post 'posts/:id/feature'           => 'posts#feature', as: :post_feature
-
+  get 'tools' => 'pages#inside'
 
   resources :years, only: [:show, :update] do
     resources :posts, except: [:show, :index]
