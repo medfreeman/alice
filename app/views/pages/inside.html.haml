@@ -1,6 +1,6 @@
 %h5
   Drag these buttons to your bookmarks bar! ⬆️
-%a.button.ui{:href => "javascript:(function()%7Bfunction%20saveImageAsJpg(name%2C%20address)%20%7Bvar%20link%20%3D%20document.createElement('a')%3Blink.style%20%3D%20'position%3A%20fixed%3B%20left%20-10000px%3B'%3Blink.href%20%3D%20address%3Blink.download%20%3D%20name%3Bdocument.body.appendChild(link)%3Blink.click()%3Bdocument.body.removeChild(link)%3B%7D%3B%24('.post-body%20img').each(function()%7Bvar%20name%20%3D%20this.src.split(%22%2F%22)%5Bthis.src.split(%22%2F%22).length-1%5D%3B%20saveImageAsJpg(name%2C%20this.src)%7D)%7D)()"} Download all images on this page
+%a.button.ui{:href => "javascript:(function()%7Bfunction%20saveImageAsJpg(name%2C%20address)%20%7Bvar%20link%20%3D%20document.createElement('a')%3Blink.style%20%3D%20'position%3A%20fixed%3B%20left%20-10000px%3B'%3Blink.href%20%3D%20address%3Blink.download%20%3D%20name%3Bdocument.body.appendChild(link)%3Blink.click()%3Bdocument.body.removeChild(link)%3B%7D%3B%24('.post-body%20img').each(function()%7Bvar%20name%20%3D%20this.src.split(%22%2F%22)%5Bthis.src.split(%22%2F%22).length-1%5D%3B%20saveImageAsJpg(name%2C%20this.src)%7D)%7D)()"} Download all images of displayed posts
 -# function saveImageAsJpg(name, address) {
 -#     var link = document.createElement('a');
 -#     link.style = 'position: fixed; left -10000px;';
