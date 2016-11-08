@@ -81,7 +81,7 @@ class PostsController < ApplicationController
   end
 
   def student_posts
-    @student = User.includes(:posts).find(params[:id])
+    @student = User.includes(:posts).find(params[:student_id])
     @title = @student.name
     @students = @studio.students
     @posts   = @student.posts.year(@year).page(params[:page]).per(5)
