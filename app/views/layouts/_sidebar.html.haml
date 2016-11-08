@@ -20,7 +20,6 @@
             %i.dropdown.icon
           %ul.ui.list.content{class: studio == @studio ? 'active' : nil}
             %li.item= link_to 'MOST RECENT', year_studio_most_recent_path(@year, studio), class: (studio == @studio && @most_recent ? 'active' : nil)
-            - p "#{studio.id} | #{studio.tags.map{|tt| tt.id.to_s + ':' + tt.name}.join(',')} | #{studio.tag_list} | #{studio.tags.to_sql}"
             - studio.taggings.includes(:tag).map(&:tag).each_with_index do |tag, i|
               %li= link_to tag.name, year_studio_tag_path(@year, studio, tag), class: tag == @tag ? 'active' : nil
               - if i == (studio.tag_list.count-1)
