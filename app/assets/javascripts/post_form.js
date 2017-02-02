@@ -5,7 +5,9 @@
 //= require froala/js/plugins/lists.min.js
 //= require froala/js/plugins/tables.min.js
 //= require froala/js/plugins/video.min.js
-
+//= require froala/js/plugins/font_family.min.js
+//= require froala/js/plugins/colors.min.js
+//
 $.Editable.prototype.insertLoadedImage = function(b, response) {
     this.triggerEvent("imageLoaded", [b], !1), this.processInsertImage(b, $.parseJSON(response), !1), this.browser.msie && this.$element.find("img").each(function(a, b) {
         b.oncontrolselect = function() {
@@ -38,7 +40,7 @@ $.Editable.prototype.processInsertImage = function(b, response, c) {
 
 $(document).on('ready page:load',function(){
 	var csrf_token = $('meta[name="csrf-token"]').attr('content');
-	var buttons = ['undo', 'redo' , 'sep', 'bold', 'italic', 'underline', 'sep', 'createLink', 'sep', 'formatBlock', 'blockStyle', 'sep',  'insertUnorderedList', 'sep', 'insertImage', 'insertVideo', 'uploadFile', 'sep', 'html']
+	var buttons = ['bold', 'italic', 'underline', 'sep', 'createLink', 'sep', 'fontFamily', 'fontSize', 'color', 'formatBlock', 'blockStyle', 'sep', 'align',  'insertUnorderedList', 'insertTable', 'sep', 'insertImage', 'insertVideo', 'uploadFile', 'sep', 'undo', 'redo' , 'sep',  'html']
 	$('.froala').editable({
 		inlineMode: false,
 		plainPaste: true,
@@ -70,7 +72,13 @@ $(document).on('ready page:load',function(){
 			'X-CSRF-Token': csrf_token
 		},
 		buttons: buttons,
-		height: 300,
+    toolbarButtons: buttons,
+    toolbarButtonsXS: buttons,
+    toolbarButtonsSM: buttons,
+    toolbarButtonsMD: buttons,
+		height: 700,
+    fontFamilySelection: true,
+
 	})
 	.on('editable.fileError editable.imageError', function (e, editor, error) {
 		console.log(error);
