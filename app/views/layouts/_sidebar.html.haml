@@ -34,7 +34,7 @@
   %li.item= link_to "Home", root_path
   %li.item
     BLOGS
-    %ul.ui.list
+    %ul#blogs-list.ui.list
       - if admin_signed_in?
         %li.item
           = link_to new_year_path, class: 'action' do
@@ -68,7 +68,21 @@
                 %i.fa.list.icon{style: 'padding: 0;'}
               = link_to edit_year_path(y, current_year: nil), class: 'action', "data-tooltip" => "Edit #{y.name}" do
                 %i.fa.write.icon
-      =# render 'layouts/old_years'
+        -# %li.item.configurable.actionable
+        -#   %a.active{:href => "years/y1_2017-2018"} y1 inside Brussels 2017/18
+        -# %li.item.configurable.actionable
+        -#   %a{:href => "years/y5_2017-2018/"} y5 projet de master 2017/18
+        -# %li.item.configurable.actionable
+        -#   %a{:href => "years/atlas_2016-2017/"} ATLAS 2016-2017
+        -# %li.item.configurable.actionable
+        -#   %a{:href => "years/y1_2016-17/"} y1 inside Zurich 2016/17
+        -# %li.item.configurable.actionable
+        -#   %a{:href => "years/y5_2016-17/"} y5 projet de master 2016/17
+        -# %li.item.configurable.actionable
+        -#   %a{:href => "years/y1_2015-16/"} y1 inside Paris 2015/16
+        -# %li.item.configurable.actionable
+        -#   %a{:href => "years/y5_2015-16/"} y5 projet de master 2015/16
+      = render 'layouts/old_years'
   %li.item= link_to "BLOG archives", " http://alice.epfl.ch/page-134469-fr.html", target: '_blank'
   %li.item= link_to "ALICE online", "http://alice.epfl.ch/", target: '_blank'
   %li.item= link_to "EPFL online", "http://epfl.ch/", target: '_blank'

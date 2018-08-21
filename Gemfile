@@ -75,5 +75,5 @@ group :production do
   gem 'newrelic_rpm'
   gem 'dalli'
   gem 'memcachier'
-  gem 'mysql2', '~> 0.3.18'
+  gem 'mysql2' # , '~> 0.3.20'
 end
