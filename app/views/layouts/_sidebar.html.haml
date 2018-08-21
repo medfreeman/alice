@@ -46,9 +46,10 @@
           %li.item
             %hr
         - archived = y.archived
+        - year_path = y.url.nil? ? year_path(y) : y.url
         %li
-          = link_to y.name, year_path(y), class: @year == y ? 'active' : nil
-          - if admin_signed_in?
+          = link_to y.name, year_path, class: @year == y ? 'active' : nil
+          - if admin_signed_in? && y.url.nil?
             .item-actions
               = link_to year_users_path(y), class: 'action', "data-tooltip" => "Manage #{y.slug} users" do
                 %i.fa.list.icon{style: 'padding: 0;'}
