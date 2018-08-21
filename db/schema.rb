@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20161107213223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "assets", force: true do |t|
     t.string   "file_file_name"
@@ -50,13 +51,6 @@ ActiveRecord::Schema.define(version: 20161107213223) do
   end
 
   add_index "posts", ["slug"], name: "index_posts_on_slug", using: :btree
-
-  create_table "studio_assignments", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "studio_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "studios", force: true do |t|
     t.string   "name"
@@ -136,8 +130,8 @@ ActiveRecord::Schema.define(version: 20161107213223) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
-    t.boolean  "archived"
-    t.boolean  "default"
+    t.boolean  "archived",          default: false
+    t.boolean  "default",           default: false
   end
 
 end
