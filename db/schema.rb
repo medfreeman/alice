@@ -13,6 +13,10 @@
 
 ActiveRecord::Schema.define(version: 20161107213223) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "hstore"
+
   create_table "assets", force: true do |t|
     t.string   "file_file_name"
     t.string   "file_content_type"
