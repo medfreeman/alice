@@ -73,7 +73,7 @@ class PostsController < ApplicationController
       @posts = @studio.posts.page(params[:page]).per(5).tagged_with(@tag)
       @page_title = "Studio #{@studio.name}"
     else
-      @posts = Post.year(@year).page(params[:page]).per(5).tagged_with(@tag.name, on: :categories)
+      @posts = Post.year(@year).page(params[:page]).per(5).tagged_with(@tag.name)
       @title = @tag.name.titleize
       @page_title = @tag.name.titleize
     end
