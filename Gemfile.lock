@@ -317,7 +317,7 @@ GEM
     minitest (5.8.1)
     multi_json (1.11.2)
     multi_test (0.1.2)
-    mysql2 (0.3.20)
+    mysql2 (0.5.2)
     nenv (0.2.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -521,7 +521,7 @@ DEPENDENCIES
   launchy
   letter_opener
   memcachier
-  mysql2 (~> 0.3.18)
+  mysql2
   newrelic_rpm
   paperclip
   paperclip-storage-ftp
@@ -546,3 +546,9 @@ DEPENDENCIES
   terminal-notifier-guard
   turbolinks (= 2.3.0)
   uglifier (= 2.5.3)
+
+RUBY VERSION
+   ruby 2.1.5p273
+
+BUNDLED WITH
+   1.16.1
