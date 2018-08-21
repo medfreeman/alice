@@ -114,11 +114,11 @@ GEM
     dalli (2.7.4)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
-    devise (3.3.0)
+    devise (4.5.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
-      thread_safe (~> 0.1)
+      railties (>= 4.1.0, < 6.0)
+      responders
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     domain_name (0.5.24)
@@ -330,19 +330,19 @@ GEM
     mime-types (2.99.3)
     mimemagic (0.3.0)
     mini_mime (1.0.1)
-    mini_portile (0.6.2)
+    mini_portile2 (2.1.0)
     minitest (5.11.3)
     multi_json (1.13.1)
     multi_test (0.1.2)
-    mysql2 (0.5.2)
+    mysql2 (0.3.20)
     nenv (0.2.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.0.1)
     netrc (0.10.3)
     newrelic_rpm (3.13.2.302)
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
+    nokogiri (1.6.8.1)
+      mini_portile2 (~> 2.1.0)
     notiffany (0.0.8)
       nenv (~> 0.1)
       shellany (~> 0.0)
@@ -428,6 +428,9 @@ GEM
       execjs
       rails (>= 3.2)
       tilt
+    responders (2.4.0)
+      actionpack (>= 4.2.0, < 5.3)
+      railties (>= 4.2.0, < 5.3)
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
@@ -498,7 +501,7 @@ GEM
     unf_ext (0.0.7.1)
     unicode_utils (1.4.0)
     uniform_notifier (1.9.0)
-    warden (1.2.3)
+    warden (1.2.7)
       rack (>= 1.0)
     websocket (1.2.2)
     websocket-driver (0.6.2)
@@ -526,7 +529,7 @@ DEPENDENCIES
   cucumber-rails
   dalli
   database_cleaner (= 1.0.1)
-  devise (= 3.3.0)
+  devise
   email_spec
   fabrication
   figaro (= 0.7.0)
@@ -547,7 +550,7 @@ DEPENDENCIES
   launchy
   letter_opener
   memcachier
-  mysql2
+  mysql2 (~> 0.3.20)
   newrelic_rpm
   paperclip
   paperclip-storage-ftp
@@ -572,9 +575,6 @@ DEPENDENCIES
   terminal-notifier-guard
   turbolinks (= 2.3.0)
   uglifier (= 2.5.3)
-
-RUBY VERSION
-   ruby 2.1.5p273
 
 BUNDLED WITH
    1.16.1

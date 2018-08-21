@@ -12,7 +12,7 @@ gem 'haml-rails'
 gem 'puma'
 gem 'rest-client'
 gem "paperclip-storage-ftp"
-gem 'devise', '3.3.0'
+gem 'devise'
 gem 'friendly_id', '5.0.4'
 
 gem 'best_in_place'
@@ -75,5 +75,5 @@ group :production do
   gem 'newrelic_rpm'
   gem 'dalli'
   gem 'memcachier'
-  gem 'mysql2' # , '~> 0.3.20'
+  gem 'mysql2' , '~> 0.3.20'
 end
