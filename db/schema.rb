@@ -13,41 +13,37 @@
 
 ActiveRecord::Schema.define(version: 20180821143632) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-  enable_extension "hstore"
-
   create_table "assets", force: :cascade do |t|
     t.string   "file_file_name",    limit: 255
     t.string   "file_content_type", limit: 255
-    t.integer  "file_file_size"
+    t.integer  "file_file_size",    limit: 4
     t.datetime "file_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "participations", force: :cascade do |t|
-    t.integer  "author_id"
-    t.integer  "post_id"
+    t.integer  "author_id",  limit: 4
+    t.integer  "post_id",    limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "posts", force: :cascade do |t|
-    t.text     "body"
+    t.text     "body",                   limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "featured",                           default: false
-    t.integer  "studio_id"
+    t.boolean  "featured",                             default: false
+    t.integer  "studio_id",              limit: 4
     t.string   "title",                  limit: 255
     t.string   "thumbnail_file_name",    limit: 255
     t.string   "thumbnail_content_type", limit: 255
-    t.integer  "thumbnail_file_size"
+    t.integer  "thumbnail_file_size",    limit: 4
     t.datetime "thumbnail_updated_at"
-    t.boolean  "status",                             default: false
+    t.boolean  "status",                               default: false
     t.string   "slug",                   limit: 255
-    t.integer  "year_id"
-    t.integer  "owner_id"
+    t.integer  "year_id",                limit: 4
+    t.integer  "owner_id",               limit: 4
   end
 
   add_index "posts", ["slug"], name: "index_posts_on_slug", using: :btree
@@ -57,16 +53,16 @@ ActiveRecord::Schema.define(version: 20180821143632) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug",       limit: 255
-    t.integer  "year_id"
+    t.integer  "year_id",    limit: 4
   end
 
   add_index "studios", ["slug"], name: "index_studios_on_slug", using: :btree
 
   create_table "taggings", force: :cascade do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
+    t.integer  "tag_id",        limit: 4
+    t.integer  "taggable_id",   limit: 4
     t.string   "taggable_type", limit: 255
-    t.integer  "tagger_id"
+    t.integer  "tagger_id",     limit: 4
     t.string   "tagger_type",   limit: 255
     t.string   "context",       limit: 128
     t.datetime "created_at"
@@ -77,7 +73,7 @@ ActiveRecord::Schema.define(version: 20180821143632) do
 
   create_table "tags", force: :cascade do |t|
     t.string  "name",           limit: 255
-    t.integer "taggings_count",             default: 0
+    t.integer "taggings_count", limit: 4,   default: 0
     t.string  "slug",           limit: 255
   end
 
@@ -92,7 +88,7 @@ ActiveRecord::Schema.define(version: 20180821143632) do
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,     null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
@@ -104,12 +100,12 @@ ActiveRecord::Schema.define(version: 20180821143632) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "studio_id",              limit: 255
-    t.integer  "role",                               default: 0
+    t.integer  "role",                   limit: 4,   default: 0
     t.string   "name",                   limit: 255
     t.string   "slug",                   limit: 255
-    t.integer  "sciper"
+    t.integer  "sciper",                 limit: 4
     t.boolean  "super_student",                      default: false
-    t.integer  "year_id"
+    t.integer  "year_id",                limit: 4
     t.boolean  "super_director",                     default: false
   end
 
@@ -128,11 +124,11 @@ ActiveRecord::Schema.define(version: 20180821143632) do
     t.string   "link",              limit: 255
     t.string   "logo_file_name",    limit: 255
     t.string   "logo_content_type", limit: 255
-    t.integer  "logo_file_size"
+    t.integer  "logo_file_size",    limit: 4
     t.datetime "logo_updated_at"
     t.boolean  "archived",                      default: false
     t.boolean  "default",                       default: false
-    t.string   "url"
+    t.string   "url",               limit: 255
   end
 
 end

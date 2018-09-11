@@ -6,7 +6,7 @@
 	}
 	transition: all 0.3s 0.2s ease-out;
 }
-.configurable:hover{
+.configurable:hover, .actionable:hover{
 	.action{
 		transition: all 0.2s ease-in-out;
 		opacity: 1;
